@@ -36,9 +36,7 @@ import { Waline } from './Comment'
 const Code = dynamic(() =>
   import('react-notion-x/build/third-party/code').then(async (m) => {
     // add / remove any prism syntaxes here
-    // TODO: temporary fix
-    // Refer: https://github.com/transitive-bullshit/nextjs-notion-starter-kit/issues/477
-    await Promise.allSettled([
+    await Promise.all([
       import('prismjs/components/prism-markup-templating.js'),
       import('prismjs/components/prism-markup.js'),
       import('prismjs/components/prism-bash.js'),

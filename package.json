@@ -7,7 +7,7 @@
   "repository": "",
   "license": "MIT",
   "engines": {
-    "node": ">=18"
+    "node": ">=16"
   },
   "scripts": {
     "dev": "next dev",
@@ -26,8 +26,9 @@
   },
   "dependencies": {
     "@fisch0920/use-dark-mode": "^2.4.0",
+    "@keyvhq/core": "^1.6.9",
+    "@keyvhq/redis": "^1.6.10",
     "@react-icons/all-files": "^4.1.0",
-    "@vercel/kv": "^0.2.3",
     "@vercel/og": "^0.0.19",
     "@waline/client": "^2.14.9",
     "caniuse-lite": "^1.0.30001551",
@@ -38,7 +39,7 @@
     "got": "^12.0.3",
     "isomorphic-unfetch": "^3.1.0",
     "lqip-modern": "^2.0.0",
-    "next": "^13.5.6",
+    "next": "12",
     "notion-client": "^6.15.6",
     "notion-types": "^6.15.6",
     "notion-utils": "^6.15.6",
@@ -51,13 +52,13 @@
     "react-ga4": "^2.1.0",
     "react-notion-x": "^6.15.6",
     "react-tweet-embed": "^2.0.0",
-    "react-use": "^17.3.2",
+    "react-use": "^17.4.2",
     "rss": "^1.2.2",
     "sass": "^1.60.0"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^12.3.1",
-    "@trivago/prettier-plugin-sort-imports": "^1.4.4",
+    "@trivago/prettier-plugin-sort-imports": "^3.3.1",
     "@types/node": "^18.8.5",
     "@types/react": "^18.0.21",
     "@typescript-eslint/eslint-plugin": "^5.40.0",
@@ -70,5 +71,10 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^2.7.1",
     "typescript": "^4.8.4"
+  },
+  "overrides": {
+    "cacheable-request": {
+      "keyv": "npm:@keyvhq/core@~1.6.6"
+    }
   }
 }
