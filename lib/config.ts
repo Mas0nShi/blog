@@ -123,6 +123,24 @@ export const navigationLinks: Array<NavigationLink | null> = getSiteConfig(
 // Optional site search
 export const isSearchEnabled: boolean = getSiteConfig('isSearchEnabled', true)
 
+// ----------------------------------------------------------------------------
+
+// Optional redis instance for persisting preview images
+export const isRedisEnabled: boolean =
+  getSiteConfig('isRedisEnabled', false) || !!getEnv('KV_URL', null)
+
+// use vercel kv redis
+export const redisUrl = getEnv(
+  'KV_URL',
+  ''
+)
+export const redisNamespace: string | null = getEnv(
+  'REDIS_NAMESPACE',
+  'preview-images'
+)
+
+// ----------------------------------------------------------------------------
+
 export const isServer = typeof window === 'undefined'
 
 export const port = getEnv('PORT', '3000')

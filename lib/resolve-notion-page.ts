@@ -3,7 +3,7 @@ import { parsePageId } from 'notion-utils'
 
 import * as acl from './acl'
 import { environment, pageUrlAdditions, pageUrlOverrides, site } from './config'
-import { kv } from './db'
+import { db } from './db'
 import { getSiteMap } from './get-site-map'
 import { getPage } from './notion'
 
@@ -34,7 +34,7 @@ export async function resolveNotionPage(domain: string, rawPageId?: string) {
     if (!pageId && useUriToPageIdCache) {
       try {
         // check if the database has a cached mapping of this URI to page ID
-        pageId = await kv.get(cacheKey)
+        pageId = await db.get(cacheKey)
 
         // console.log(`redis get "${cacheKey}"`, pageId)
       } catch (err) {
@@ -62,9 +62,7 @@ export async function resolveNotionPage(domain: string, rawPageId?: string) {
           try {
             // update the database mapping of URI to pageId
             // * fix notion image cache expried issues.
-            await kv.set(cacheKey, pageId, {
-              ex: cacheTTL
-            })
+            await db.set(cacheKey, pageId, cacheTTL)
 
             // console.log(`redis set "${cacheKey}"`, pageId, { cacheTTL })
           } catch (err) {
