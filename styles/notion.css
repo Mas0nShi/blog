@@ -408,14 +408,6 @@
   border-image-slice: 1;
 }
 
-.notion-block-ab9a258d6cf444f3bb40dc2600feae91 .notion-column {
-  padding: 0;
-}
-
-.notion-block-260baa77f1e1428b97fb14ac99c7c385 {
-  display: none;
-}
-
 .notion-search .searchBar {
   box-shadow: var(--fg-color-0) 0px 1px 0px;
 }
@@ -434,4 +426,16 @@
 
 .notion-property-created_time {
   display: flex !important;
+}
+
+/**
+ * Custom define
+ */
+.notion-block-2821c99258f248b5b8803826701b079b .notion-column {
+  padding: 0;
+}
+
+/* notion-hr */
+.notion-block-394c10322f9347aab64dd78b3486653b {
+  margin: .5em 0
 }
