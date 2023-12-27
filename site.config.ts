@@ -25,12 +25,12 @@ export default siteConfig({
   // youtube: '#', // optional youtube channel name or `channel/UCGbXXXXXXXXXXXXXXXXXXXXXX`
 
   // ICP & Public Security Record Number 
-  icp: '浙ICP备2021002476号-2',
-  recordName: '浙公网安备 33028102000963号',
-  recordNumber: '33028102000963',
+  // icp: '',
+  // recordName: '',
+  // recordNumber: '',
 
   // comment system
-  walineHost: 'https://line.mas0n.cn',
+  walineHost: 'https://line.mas0n.org',
 
   // google analytics ID
   googleAnalyticsId: 'G-PR1E4LD9CZ',
