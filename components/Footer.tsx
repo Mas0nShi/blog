@@ -40,7 +40,8 @@ export const FooterImpl: React.FC = () => {
         )}
       </div> */}
 
-      <div>
+      {(config.icp || (config.recordName && config.recordNumber)) && (
+        <div>
         {config.icp && (
           <a
           className={styles.icp}
@@ -64,9 +65,7 @@ export const FooterImpl: React.FC = () => {
         )}
 
       </div>
-      
-
-
+      )}
     </footer>
   )
 }
