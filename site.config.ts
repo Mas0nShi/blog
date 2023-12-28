@@ -10,7 +10,7 @@ export default siteConfig({
 
   // basic site info (required)
   name: 'Mas0n\'s blog',
-  domain: 'mas0n.cn',
+  domain: 'mas0n.org',
   author: 'Mas0n',
 
   // open graph metadata (optional)
