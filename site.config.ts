@@ -2,7 +2,7 @@ import { siteConfig } from './lib/site-config'
 
 export default siteConfig({
   // the site's root Notion page (required)
-  rootNotionPageId: '6ad1588dfd2b4479a14fa14356d174c4',
+  rootNotionPageId: 'e5f91facc6ed44d99810451958362259',
 
   // if you want to restrict pages to a single notion workspace (optional)
   // (this should be a Notion ID; see the docs for how to extract this)
@@ -55,9 +55,9 @@ export default siteConfig({
   // example:
   //
   pageUrlOverrides: {
-    '/about': '8ffe26f578a84d6ea3ded535e4729b6e',
-    '/links': 'e4733f1b091b458fa9d25aa5d14efce8',
-    '/think': '13ed7711c2f64d53b24f9e467539668b'
+    '/about': '15cb182beebe432f829e69f1171c5922',
+    '/links': '3fa438474af645fa859f28bb58f641be',
+    '/think': '62658339b8f048b19b549696f56fb6fb'
   },
   // pageUrlOverrides: null,
 
@@ -68,15 +68,15 @@ export default siteConfig({
   navigationLinks: [
     {
       title: 'About',
-      pageId: '8ffe26f578a84d6ea3ded535e4729b6e'
+      pageId: '15cb182beebe432f829e69f1171c5922'
     },
     {
       title: 'Links',
-      pageId: 'e4733f1b091b458fa9d25aa5d14efce8'
+      pageId: '3fa438474af645fa859f28bb58f641be'
     },
     {
       title: 'Think',
-      pageId: '13ed7711c2f64d53b24f9e467539668b'
+      pageId: '62658339b8f048b19b549696f56fb6fb'
     }
   ]
 })
