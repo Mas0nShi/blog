@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 
 import cs from 'classnames'
 import { PageBlock } from 'notion-types'
-import { formatDate, getBlockTitle, getPageProperty, getPageTitle, parsePageId } from 'notion-utils'
+import { formatDate, getBlockTitle, getPageProperty } from 'notion-utils'
 import BodyClassName from 'react-body-classname'
 import { NotionRenderer } from 'react-notion-x'
 import TweetEmbed from 'react-tweet-embed'
