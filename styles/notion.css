@@ -427,15 +427,34 @@
 .notion-property-created_time {
   display: flex !important;
 }
-
-/**
- * Custom define
- */
-.notion-block-2821c99258f248b5b8803826701b079b .notion-column {
-  padding: 0;
+/* fixes inline page table rendering date block */
+.notion-list-item-property .notion-property-date {
+  vertical-align: middle;
 }
 
-/* notion-hr */
-.notion-block-394c10322f9347aab64dd78b3486653b {
-  margin: .5em 0
+
+/* fixes inline page table re-rendering title */
+.notion-list-item-property .notion-property-title {
+  display: none;
+}
+
+/* fixes simple table rendering block exceeding container */
+.notion-simple-table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.notion-simple-table td {
+  white-space: pre-wrap; /* 允许自动换行 */
+}
+
+@media only screen and (max-width: 600px) {
+  .notion-header .notion-nav-header {
+    justify-content: space-around;
+  }
+
+  .notion-header .notion-nav-header .title {
+    display: none;
+  }
 }

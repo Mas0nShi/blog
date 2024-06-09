@@ -322,7 +322,7 @@ export const NotionPage: React.FC<types.PageProps> = ({
           texRenderer={true}
           login={'disable'}
           wordLimit={10000}
-          
+
         /> : null)}
       />
 
