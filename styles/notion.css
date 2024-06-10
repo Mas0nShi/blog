@@ -481,3 +481,19 @@
     display: none;
   }
 }
+
+
+.notion-collection-card {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s ease;
+}
+
+.notion-collection-card:hover {
+  background: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+.notion-collection-card:hover .notion-collection-card-cover {
+  filter: brightness(100%);
+}
