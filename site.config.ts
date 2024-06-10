@@ -14,7 +14,7 @@ export default siteConfig({
   author: 'Mas0n',
 
   // open graph metadata (optional)
-  description: 'New blog for Mas0n | CTF | 逆向 | Reverse',
+  description: '資訊安全從業者、二進制安全菜鳥、專業醬油 CTFer；思考 everything',
 
   // social usernames (optional)
   twitter: 'Mas0nShi',
@@ -24,7 +24,7 @@ export default siteConfig({
   // newsletter: '#', // optional newsletter URL
   // youtube: '#', // optional youtube channel name or `channel/UCGbXXXXXXXXXXXXXXXXXXXXXX`
 
-  // ICP & Public Security Record Number 
+  // ICP & Public Security Record Number
   // icp: '',
   // recordName: '',
   // recordNumber: '',

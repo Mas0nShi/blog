@@ -29,6 +29,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 
   const feed = new RSS({
     title: config.name,
+    description: config.description,
     site_url: config.host,
     feed_url: `${config.host}/feed.xml`,
     language: config.language,
