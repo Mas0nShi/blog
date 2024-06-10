@@ -50,10 +50,14 @@
   margin: auto auto 0;
   padding: 8px;
 
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  gap: 16px;
   align-items: center;
+}
+
+.footer > div {
+  text-align: center;
 }
 
 .copyright {
@@ -130,8 +134,8 @@
 
 .comments {
   width: 100%;
-  margin-top: 2em;
-  border-top: 1px solid var(--fg-color-0);
+  /*margin-top: 2em;*/
+  /*border-top: 1px solid var(--fg-color-0);*/
 }
 
 @media only screen and (max-width: 566px) {

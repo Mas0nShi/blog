@@ -122,9 +122,8 @@
 .notion-quote {
   padding: 0.2em 0.75em;
   line-height: 1.5;
-  font-style: italic;
-  font-size: 1.2em;
-  border-left: 4px solid #67bdfc;
+  font-size: 1em;
+  border-left: 4px solid var(--notion-blue);
 }
 
 .notion-h1,
@@ -138,7 +137,8 @@
 }
 
 .notion-hr {
-  margin: 2em 0;
+  margin: 6px 0;
+  border-radius: 0.25em;
 }
 
 @media only screen and (max-width: 920px) {
@@ -255,10 +255,10 @@
 .notion-orange_background,
 .notion-brown_background,
 .notion-gray_background {
-  padding: 0 0.5rem;
-  margin: 0 -0.5rem 0 -0.25rem;
-  border-radius: 0.5rem;
-  border-bottom-left-radius: 0.125rem;
+  padding: 0 0.5rem 0 0.25rem;
+  /* fix highlight will covered others */
+  /*margin: 0 -0.5rem 0 -0.25rem;*/
+  border-radius: 0.5rem 0.5rem 0.5rem 0.125rem;
   box-decoration-break: clone;
 
   background-color: none;
@@ -369,10 +369,11 @@
 .dark-mode .notion-orange_background,
 .dark-mode .notion-brown_background,
 .dark-mode .notion-gray_background {
-  padding: 0;
   margin: 0;
-  border-radius: 0;
-  background: none !important;
+  padding: 0 0.5rem 0 0.25rem;
+  border-radius: 0.5rem 0.5rem 0.5rem 0.125rem;
+  box-decoration-break: clone;
+  background-image: none !important;
 }
 
 /* if you don't want rounded page icon images, remove this */
@@ -421,6 +422,7 @@
 }
 
 .notion-equation.notion-equation-block {
+  overflow: visible; /* todo: not checked, fixes overflow */
   align-items: center;
 }
 
@@ -436,6 +438,11 @@
 /* fixes inline page table re-rendering title */
 .notion-list-item-property .notion-property-title {
   display: none;
+}
+
+/* custom define notion list item rendering */
+.notion-list-item {
+  border-radius: 0.5rem;
 }
 
 /* fixes simple table rendering block exceeding container */
@@ -482,7 +489,7 @@
   }
 }
 
-
+/* custom define notion collection card hover effect */
 .notion-collection-card {
   transition: box-shadow 0.2s ease;
 }
@@ -492,7 +499,38 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-
+/* disable brightness filter on hover, it's will make image lose raw color */
 .notion-collection-card:hover .notion-collection-card-cover {
   filter: brightness(100%);
+}
+
+/* fixes screen overflow when block is too wide */
+.notion-toggle {
+  padding: 0;
+  max-width: 100%;
+  -webkit-margin-before: 0.6em;
+  padding-inline-start: 0.6em;
+}
+
+/* fixes notion list block overflow and all list style */
+.notion-list {
+  list-style-position: outside;
+  max-width: 100%;
+}
+
+/** fixes notion toggle summary cursor */
+.notion-toggle summary {
+  cursor: pointer;
+  outline: none;
+  align-items: center;
+
+}
+
+/* custom define notion list ul (unordered list) and ol (ordered list) */
+.notion-list > ul {
+  padding-left: 2px;
+}
+
+.notion-list > ol {
+  padding-left: 2px;
 }
