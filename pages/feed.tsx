@@ -33,7 +33,12 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     site_url: config.host,
     feed_url: `${config.host}/feed.xml`,
     language: config.language,
-    ttl: ttlMinutes
+    ttl: ttlMinutes,
+    author: config.author,
+    generator: '🐳',
+    copyright: `© ${new Date().getFullYear()} ${
+      config.author
+    }. All rights reserved.`,
   })
 
   for (const pagePath of Object.keys(siteMap.canonicalPageMap)) {
@@ -46,6 +51,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     if (!block) continue
 
     const parentPage = getBlockParentPage(block, recordMap)
+    console.log(block, recordMap);
     const isBlogPost =
       block.type === 'page' &&
       block.parent_table === 'collection' &&
