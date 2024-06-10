@@ -65,10 +65,11 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
       recordMap
     )
     const publishedTime = getPageProperty<number>('Published', block, recordMap)
-    const date = lastUpdatedTime
-      ? new Date(lastUpdatedTime)
-      : publishedTime
+
+    const date = publishedTime
       ? new Date(publishedTime)
+      : lastUpdatedTime
+        ? new Date(lastUpdatedTime)
       : undefined
     const socialImageUrl = getSocialImageUrl(pageId)
 
