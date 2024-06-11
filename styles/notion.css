@@ -523,8 +523,13 @@
   cursor: pointer;
   outline: none;
   align-items: center;
-
 }
+
+/* fixes notion toggle summary & div text alignment */
+.notion-toggle > div {
+  margin-left: 11px;
+}
+
 
 /* custom define notion list ul (unordered list) and ol (ordered list) */
 .notion-list > ul {

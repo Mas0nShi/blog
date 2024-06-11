@@ -17,12 +17,12 @@ import 'react-notion-x/src/styles.css'
 import 'styles/global.css'
 // this might be better for dark mode
 // import 'prismjs/themes/prism-okaidia.css'
-// global style overrides for notion
-import 'styles/notion.css'
 // global style overrides for prism theme (optional)
 import 'styles/prism-theme.css'
 // global style overrides for waline (optional)
 import 'styles/waline.css'
+// global style overrides for notion
+import 'styles/notion.css'
 
 import {
   fathomConfig,
