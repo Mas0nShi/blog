@@ -24,6 +24,7 @@ import { Text } from '@/baseline/components/text'
 import { useNotionContext } from '@/baseline/context'
 import { LinkIcon } from '@/baseline/icons/link-icon'
 import { cs, getListNumber, isUrl } from '@/baseline/utils'
+import { BaseTextBlock } from 'notion-types/build/block'
 
 interface BlockProps {
   block: types.Block
@@ -102,7 +103,7 @@ export const Block: React.FC<BlockProps> = (props) => {
     ? 'notion-block'
     : `notion-block-${uuidToId(block.id)}`
 
-  switch (block.type) {
+  switch (block.type as string) { // TODO: fix block type
     case 'breadcrumb':
       break;
     case 'collection_view_page':
@@ -471,7 +472,7 @@ export const Block: React.FC<BlockProps> = (props) => {
 
     case 'embed':
       return <components.Embed blockId={blockId} block={block} />
-    case 'replit':
+    case'replit':
     // fallthrough
     case 'tweet':
     // fallthrough

@@ -26,7 +26,7 @@ export const Code: React.FC<{
   block: CodeBlock
   defaultLanguage?: string
   className?: string
-}> = ({ block, defaultLanguage = 'typescript', className }) => {
+}> = ({ block, defaultLanguage = 'typescript', className}) => {
   const [isCopied, setIsCopied] = React.useState(false)
   const copyTimeout = React.useRef<number>()
   const { recordMap, darkMode: isDarkMode } = useNotionContext()
@@ -67,7 +67,9 @@ export const Code: React.FC<{
           })
 
           const { svg } = await mermaid.render(`mermaid-${block.id}`, content)
-          codeRef.current.innerHTML = svg;
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          codeRef.current.innerHTML = svg; // todo: fix this
         }
         mermaidRender().catch((err)=>{
           console.error('mermaid render error', err)
