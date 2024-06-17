@@ -15,17 +15,17 @@ export const Waline = (props: WalineOptions) => {
     walineInstanceRef.current = init({
       ...props,
       el: containerRef.current,
-      
+
     });
     return () => walineInstanceRef.current?.destroy();
-  });
+  }, [containerRef, props]);
 
   useEffect(() => {
     walineInstanceRef.current?.update(props);
   }, [props]);
 
   return (
-  <div 
+  <div
     ref={containerRef}
     className={styles.comments}
     />

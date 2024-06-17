@@ -15,10 +15,12 @@ import 'prismjs/components/prism-tsx.min.js'
 import 'prismjs/components/prism-typescript.min.js'
 import mermaid from 'mermaid'
 
+
 import { Text } from '../components/text'
 import { useNotionContext } from '../context'
 import CopyIcon from '../icons/copy'
 import { cs } from '../utils'
+import { sv } from 'date-fns/locale'
 
 export const Code: React.FC<{
   block: CodeBlock
@@ -27,7 +29,7 @@ export const Code: React.FC<{
 }> = ({ block, defaultLanguage = 'typescript', className }) => {
   const [isCopied, setIsCopied] = React.useState(false)
   const copyTimeout = React.useRef<number>()
-  const { recordMap } = useNotionContext()
+  const { recordMap, darkMode: isDarkMode } = useNotionContext()
   const content = getBlockTitle(block, recordMap)
   /* Fixes https://github.com/NotionX/react-notion-x/issues/220 */
   const language = (() => {
@@ -45,25 +47,27 @@ export const Code: React.FC<{
 
   const caption = block.properties.caption
 
-  // Initialize mermaid
-  React.useEffect(() => {
-    mermaid.initialize({
-      startOnLoad: true,
-      theme: 'neutral',
-      flowchart: {
-        useMaxWidth: false,
-        htmlLabels: true,
-        curve: 'linear'
-      }
-    })
-  }, []);
 
   const codeRef = React.useRef()
+
   React.useEffect(() => {
     if (codeRef.current) {
       if (language === 'mermaid') {
+
         const mermaidRender = async () => {
-          await mermaid.run({nodes: [codeRef.current]})
+          mermaid.initialize({
+            startOnLoad: true,
+            theme: isDarkMode ? 'dark' : 'neutral',
+            themeVariables: {
+              // fontSize: '14px'
+            },
+            fontFamily: `SFMono-Regular, Consolas, 'Liberation Mono', Menlo, Courier, monospace;`,
+            htmlLabels: true,
+            securityLevel: "strict"
+          })
+
+          const { svg } = await mermaid.render(`mermaid-${block.id}`, content)
+          codeRef.current.innerHTML = svg;
         }
         mermaidRender().catch((err)=>{
           console.error('mermaid render error', err)
@@ -77,7 +81,7 @@ export const Code: React.FC<{
         }
       }
     }
-  }, [codeRef, language])
+  }, [codeRef, language, isDarkMode])
 
   const onClickCopyToClipboard = React.useCallback(() => {
     copyToClipboard(content)
