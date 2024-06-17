@@ -456,6 +456,28 @@
   }
 }
 
+/* todo: not check: fixes notion row auto layout */
+@media (max-width: 640px) {
+  .notion-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .notion-row > * {
+    flex: 1;
+  }
+
+  .notion-row .notion-column {
+    width: 100% !important;
+  }
+
+  .notion-row .notion-spacer {
+    display: none;
+  }
+}
+
 /* custom define notion collection card hover effect */
 .notion-collection-card {
   transition: box-shadow 0.2s ease;
