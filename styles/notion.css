@@ -445,17 +445,6 @@
   border-radius: 0.5rem;
 }
 
-/* fixes simple table rendering block exceeding container */
-.notion-simple-table {
-  display: block;
-  width: 100%;
-  overflow-x: auto;
-}
-
-.notion-simple-table td {
-  white-space: pre-wrap; /* 允许自动换行 */
-}
-
 /* todo: fixes nav header overflow */
 @media only screen and (max-width: 600px) {
   .notion-header .notion-nav-header {
@@ -463,28 +452,6 @@
   }
 
   .notion-header .notion-nav-header .title {
-    display: none;
-  }
-}
-
-/* todo: not check: fixes notion row auto layout */
-@media (max-width: 640px) {
-  .notion-row {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .notion-row > * {
-    flex: 1;
-  }
-
-  .notion-row .notion-column {
-    width: 100% !important;
-  }
-
-  .notion-row .notion-spacer {
     display: none;
   }
 }

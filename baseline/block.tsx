@@ -472,7 +472,7 @@ export const Block: React.FC<BlockProps> = (props) => {
 
     case 'embed':
       return <components.Embed blockId={blockId} block={block} />
-    case'replit':
+    case 'replit':
     // fallthrough
     case 'tweet':
     // fallthrough
@@ -781,9 +781,11 @@ export const Block: React.FC<BlockProps> = (props) => {
 
     case 'table':
       return (
-        <table className={cs('notion-simple-table', blockId)}>
-          <tbody>{children}</tbody>
-        </table>
+        <div className={cs('notion-simple-table-container', blockId)}>
+          <table className={cs('notion-simple-table', blockId)}>
+            <tbody>{children}</tbody>
+          </table>
+        </div>
       )
 
     case 'table_row': {
@@ -813,7 +815,8 @@ export const Block: React.FC<BlockProps> = (props) => {
                 key={column}
                 className={color ? `notion-${color}` : ''}
                 style={{
-                  width: formatMap?.[column]?.width || 120
+                  // width: formatMap?.[column]?.width || 120
+                  minWidth: 120
                 }}
               >
                 <div className='notion-simple-table-cell'>
