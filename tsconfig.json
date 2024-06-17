@@ -18,11 +18,14 @@
     "typeRoots": ["./node_modules/@types"],
     "incremental": true,
     "paths": {
+      "got": ["./node_modules/got/dist/source"],
       "@/components/*": ["components/*"],
       "@/lib/*": ["lib/*"],
+      "@/baseline/*": ["baseline/*"],
+      "@/baseline": ["baseline/index"],
       "@/styles/*": ["styles/*"]
     }
   },
   "exclude": ["node_modules"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "site.config.ts"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "site.config.ts", "**/*.svg"]
 }

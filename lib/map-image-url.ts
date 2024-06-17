@@ -1,5 +1,5 @@
 import { Block } from 'notion-types'
-import { defaultMapImageUrl } from 'react-notion-x'
+import { defaultMapImageUrl } from '@/baseline'
 
 import { defaultPageCover, defaultPageIcon } from './config'
 
@@ -10,7 +10,7 @@ export const mapImageUrl = (url: string, block: Block) => {
   }
   // TODO: load image from notion host is too slow in PRC
   // TODO: cancel this changes.
-  // Solution (maybe): 
+  // Solution (maybe):
   // * save cache on storage server in home country
   // check if the url is a notion image
   // that's means the image is referenced by the notion page

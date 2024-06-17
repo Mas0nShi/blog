@@ -36,7 +36,7 @@
     "date-fns": "^2.28.0",
     "expiry-map": "^2.0.0",
     "fathom-client": "^3.4.1",
-    "got": "^12.0.3",
+    "got": "^14.4.1",
     "isomorphic-unfetch": "^3.1.0",
     "lqip-modern": "^2.0.0",
     "next": "^14.0.1",
@@ -45,16 +45,26 @@
     "notion-utils": "^6.15.6",
     "p-map": "^5.3.0",
     "p-memoize": "^6.0.1",
-    "posthog-js": "^1.20.2",
+    "posthog-js": "^1.139.2",
     "react": "^18.2.0",
     "react-body-classname": "^1.3.1",
     "react-dom": "^18.2.0",
     "react-ga4": "^2.1.0",
-    "react-notion-x": "^6.15.6",
     "react-tweet-embed": "^2.0.0",
-    "react-use": "^17.4.2",
+    "react-use": "^17.5.0",
     "rss": "^1.2.2",
-    "sass": "^1.60.0"
+    "sass": "^1.60.0",
+    "prismjs": "^1.27.0",
+    "react-image": "^4.1.0",
+    "react-hotkeys-hook": "^4.5.0",
+    "react-lazy-images": "^1.1.0",
+    "react-fast-compare": "^3.2.2",
+    "@fisch0920/medium-zoom": "^1.0.7",
+    "@matejmazur/react-katex": "^3.1.3",
+    "react-modal": "^3.16.1",
+    "react-pdf": "^9.0.0",
+    "katex": "^0.16.10",
+    "mermaid": "^10.2.3"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^12.3.1",
@@ -70,7 +80,9 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.7.1",
-    "typescript": "^4.8.4"
+    "typescript": "^4.8.4",
+    "clipboard-copy": "^4.0.1",
+    "format-number": "^3.0.0"
   },
   "overrides": {
     "cacheable-request": {
