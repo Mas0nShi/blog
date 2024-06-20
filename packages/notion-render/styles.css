@@ -1508,7 +1508,6 @@ code[class*='language-mermaid'] {
   width: 16px;
   height: 16px;
   background: var(--select-color-0);
-  border-radius: 2px;
 }
 
 .notion-property-checkbox-checked svg {
