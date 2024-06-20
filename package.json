@@ -15,8 +15,8 @@
     "start": "next start",
     "deploy": "vercel deploy",
     "deps": "run-s deps:*",
-    "deps:update": "[ -z $GITHUB_ACTIONS ] && yarn add notion-client notion-types notion-utils react-notion-x || echo 'Skipping deps:update on CI'",
-    "deps:link": "[ -z $GITHUB_ACTIONS ] && yarn link notion-client notion-types notion-utils react-notion-x || echo 'Skipping deps:link on CI'",
+    "deps:update": "[ -z $GITHUB_ACTIONS ] && yarn add packages/notion-client notion-types notion-utils react-notion-x || echo 'Skipping deps:update on CI'",
+    "deps:link": "[ -z $GITHUB_ACTIONS ] && yarn link packages/notion-client notion-types notion-utils react-notion-x || echo 'Skipping deps:link on CI'",
     "analyze": "cross-env ANALYZE=true next build",
     "analyze:server": "cross-env BUNDLE_ANALYZE=server next build",
     "analyze:browser": "cross-env BUNDLE_ANALYZE=browser next build",
@@ -40,9 +40,6 @@
     "isomorphic-unfetch": "^3.1.0",
     "lqip-modern": "^2.0.0",
     "next": "^14.0.1",
-    "notion-client": "^6.15.6",
-    "notion-types": "^6.15.6",
-    "notion-utils": "^6.15.6",
     "p-map": "^5.3.0",
     "p-memoize": "^6.0.1",
     "posthog-js": "^1.139.2",
@@ -64,7 +61,11 @@
     "react-modal": "^3.16.1",
     "react-pdf": "^9.0.0",
     "katex": "^0.16.10",
-    "mermaid": "^10.2.3"
+    "mermaid": "^10.2.3",
+    "@notionhq/client": "^0.4.13",
+    "p-queue": "^8.0.1",
+    "mem": "^10.0.0",
+    "is-url-superb": "^6.1.0"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^12.3.1",

@@ -1,5 +1,5 @@
-import { ExtendedRecordMap, SearchParams, SearchResults } from 'notion-types'
-import { mergeRecordMaps } from 'notion-utils'
+import { ExtendedRecordMap, SearchParams, SearchResults } from '@/notion-types'
+import { mergeRecordMaps } from '@/notion-utils'
 import pMap from 'p-map'
 import pMemoize from 'p-memoize'
 
@@ -43,7 +43,7 @@ export async function getPage(pageId: string): Promise<ExtendedRecordMap> {
   // Refer: https://github.com/WeijunDeng/nextjs-notion-starter-kit/commit/5a2f5bab6a6dfe2d8df49ebcb9c506f3134bd66d
   if (recordMap && recordMap.signed_urls) {
     const signed_urls = recordMap.signed_urls
-    const new_signed_urls = {} 
+    const new_signed_urls = {}
     for (const p in signed_urls) {
       if (signed_urls[p] && signed_urls[p].includes(".amazonaws.com/")) {
         console.log("cache: " + signed_urls[p])

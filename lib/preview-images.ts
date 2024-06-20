@@ -1,7 +1,7 @@
 import got from 'got'
 import lqip from 'lqip-modern'
-import { ExtendedRecordMap, PreviewImage, PreviewImageMap } from 'notion-types'
-import { getPageImageUrls, normalizeUrl } from 'notion-utils'
+import { ExtendedRecordMap, PreviewImage, PreviewImageMap } from '@/notion-types'
+import { getPageImageUrls, normalizeUrl } from '@/notion-utils'
 import pMap from 'p-map'
 import pMemoize from 'p-memoize'
 
@@ -60,7 +60,7 @@ async function createPreviewImage(
     }
 
     try {
-      
+
       await db.set(cacheKey, previewImage)
     } catch (err) {
       // ignore redis errors

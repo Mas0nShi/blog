@@ -1,7 +1,7 @@
-import { ExtendedRecordMap, PageMap } from 'notion-types'
+import { ExtendedRecordMap, PageMap } from '@/notion-types'
 import { ParsedUrlQuery } from 'querystring'
 
-export * from 'notion-types'
+export * from '@/notion-types'
 
 export type NavigationStyle = 'default' | 'custom'
 

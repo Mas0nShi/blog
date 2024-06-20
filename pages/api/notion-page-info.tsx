@@ -1,14 +1,14 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
 import got from 'got'
-import { PageBlock } from 'notion-types'
+import { PageBlock } from '@/notion-types'
 import {
   getBlockIcon,
   getBlockTitle,
   getPageProperty,
   isUrl,
   parsePageId
-} from 'notion-utils'
+} from '@/notion-utils'
 
 import * as libConfig from '@/lib/config'
 import { mapImageUrl } from '@/lib/map-image-url'

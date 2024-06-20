@@ -1,12 +1,12 @@
 import type { GetServerSideProps } from 'next'
 
-import { ExtendedRecordMap } from 'notion-types'
+import { ExtendedRecordMap } from '@/notion-types'
 import {
   getBlockParentPage,
   getBlockTitle,
   getPageProperty,
   idToUuid
-} from 'notion-utils'
+} from '@/notion-utils'
 import RSS from 'rss'
 
 import * as config from '@/lib/config'

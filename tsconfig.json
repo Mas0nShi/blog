@@ -21,8 +21,7 @@
       "got": ["./node_modules/got/dist/source"],
       "@/components/*": ["components/*"],
       "@/lib/*": ["lib/*"],
-      "@/baseline/*": ["baseline/*"],
-      "@/baseline": ["baseline/index"],
+      "@/*": ["packages/*"],
       "@/styles/*": ["styles/*"]
     }
   },

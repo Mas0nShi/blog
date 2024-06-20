@@ -1,4 +1,4 @@
-import { getPageProperty } from 'notion-utils'
+import { getPageProperty } from '@/notion-utils'
 
 import * as types from './types'
 

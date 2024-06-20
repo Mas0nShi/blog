@@ -1,4 +1,4 @@
-import { getPageTitle, parsePageId } from 'notion-utils'
+import { getPageTitle, parsePageId } from '@/notion-utils'
 
 import * as config from './config'
 import { getPage } from './notion'

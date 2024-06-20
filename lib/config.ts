@@ -4,7 +4,7 @@
  * This file pulls from the root "site.config.ts" as well as environment variables
  * for optional depenencies.
  */
-import { parsePageId } from 'notion-utils'
+import { parsePageId } from '@/notion-utils'
 import { PostHogConfig } from 'posthog-js'
 
 import { getEnv, getSiteConfig } from './get-config-value'
@@ -62,7 +62,7 @@ export const linkedin: string | null = getSiteConfig('linkedin', null)
 export const newsletter: string | null = getSiteConfig('newsletter', null)
 export const zhihu: string | null = getSiteConfig('zhihu', null)
 
-// ICP & Public Security Record Number 
+// ICP & Public Security Record Number
 export const icp: string | null = getSiteConfig('icp', null)
 export const recordNumber: string | null = getSiteConfig('recordNumber', null)
 export const recordName: string | null = getSiteConfig('recordName', null)

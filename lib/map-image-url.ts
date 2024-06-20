@@ -1,5 +1,5 @@
-import { Block } from 'notion-types'
-import { defaultMapImageUrl } from '@/baseline'
+import { Block } from '@/notion-types'
+import { defaultMapImageUrl } from '../packages/notion-render'
 
 import { defaultPageCover, defaultPageIcon } from './config'
 

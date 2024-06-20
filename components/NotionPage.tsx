@@ -1,14 +1,14 @@
 import * as React from 'react'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
-import Link from 'next/link'
+import PageLink from '@/components/PageLink'
 import { useRouter } from 'next/router'
 
 import cs from 'classnames'
-import { PageBlock } from 'notion-types'
-import { formatDate, getBlockTitle, getPageProperty } from 'notion-utils'
+import { PageBlock } from '@/notion-types'
+import { formatDate, getBlockTitle, getPageProperty } from '@/notion-utils'
 import BodyClassName from 'react-body-classname'
-import { NotionRenderer } from '@/baseline'
+import { NotionRenderer } from '../packages/notion-render'
 import TweetEmbed from 'react-tweet-embed'
 import { useSearchParam } from 'react-use'
 
@@ -34,7 +34,7 @@ import { Waline } from './Comment'
 // -----------------------------------------------------------------------------
 
 const Code = dynamic(() =>
-  import('../baseline/third-party/code').then(async (m) => {
+  import('../packages/notion-render/third-party/code').then(async (m) => {
     // add / remove any prism syntaxes here
     await Promise.allSettled([
       import('prismjs/components/prism-markup-templating.js'),
@@ -76,22 +76,22 @@ const Code = dynamic(() =>
 )
 
 const Collection = dynamic(() =>
-  import('../baseline/third-party/collection').then(
+  import('../packages/notion-render/third-party/collection').then(
     (m) => m.Collection
   )
 )
 const Equation = dynamic(() =>
-  import('../baseline/third-party/equation').then((m) => m.Equation)
+  import('../packages/notion-render/third-party/equation').then((m) => m.Equation)
 )
 const Pdf = dynamic(
-  () => import('../baseline/third-party/pdf').then((m) => m.Pdf),
+  () => import('../packages/notion-render/third-party/pdf').then((m) => m.Pdf),
   {
     ssr: false
   }
 )
 const Modal = dynamic(
   () =>
-    import('../baseline/third-party/modal').then((m) => {
+    import('../packages/notion-render/third-party/modal').then((m) => {
       m.Modal.setAppElement('.notion-viewport')
       return m.Modal
     }),
@@ -157,7 +157,7 @@ export const NotionPage: React.FC<types.PageProps> = ({
   const components = React.useMemo(
     () => ({
       nextImage: Image,
-      nextLink: Link,
+      nextLink: PageLink,
       Code,
       Collection,
       Equation,
