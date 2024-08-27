@@ -96,7 +96,7 @@ export const Block: React.FC<BlockProps> = (props) => {
   // ugly hack to make viewing raw collection views work properly
   // e.g., 6d886ca87ab94c21a16e3b82b43a57fb
   if (level === 0 && block.type === 'collection_view') {
-    ;(block as any).type = 'collection_view_page'
+    ; (block as any).type = 'collection_view_page'
   }
 
   const blockId = hideBlockId
@@ -123,10 +123,10 @@ export const Block: React.FC<BlockProps> = (props) => {
             block.type === 'page'
               ? block.properties
               : {
-                  title:
-                    recordMap.collection[getBlockCollectionId(block, recordMap)]
-                      ?.value?.name
-                }
+                title:
+                  recordMap.collection[getBlockCollectionId(block, recordMap)]
+                    ?.value?.name
+              }
 
           const coverPosition = (1 - (page_cover_position || 0.5)) * 100
           const pageCoverObjectPosition = `center ${coverPosition}%`
@@ -219,8 +219,8 @@ export const Block: React.FC<BlockProps> = (props) => {
                     {(block.type === 'collection_view_page' ||
                       (block.type === 'page' &&
                         block.parent_table === 'collection')) && (
-                      <components.Collection block={block} ctx={ctx} />
-                    )}
+                        <components.Collection block={block} ctx={ctx} />
+                      )}
 
                     {block.type !== 'collection_view_page' && (
                       <div
@@ -276,8 +276,8 @@ export const Block: React.FC<BlockProps> = (props) => {
               {(block.type === 'collection_view_page' ||
                 (block.type === 'page' &&
                   block.parent_table === 'collection')) && (
-                <components.Collection block={block} ctx={ctx} />
-              )}
+                  <components.Collection block={block} ctx={ctx} />
+                )}
 
               {block.type !== 'collection_view_page' && children}
 
@@ -428,46 +428,67 @@ export const Block: React.FC<BlockProps> = (props) => {
     case 'bulleted_list':
     // fallthrough
     case 'numbered_list': {
-      const wrapList = (content: React.ReactNode, start?: number) =>
-        block.type === 'bulleted_list' ? (
-          <ul className={cs('notion-list', 'notion-list-disc', blockId)}>
-            {content}
-          </ul>
-        ) : (
-          <ol
-            start={start}
-            className={cs('notion-list', 'notion-list-numbered', blockId)}
-          >
-            {content}
-          </ol>
-        )
+      const wrapList = (content: React.ReactNode) => {
+        switch (block.type) {
+          case 'bulleted_list':
+            return (
+              <div className={cs('notion-list', 'notion-list-disc', blockId)}>
+                {content}
+              </div>
+            )
+          case 'numbered_list':
+            return (
+              <div className={cs('notion-list', 'notion-list-numbered', blockId)}>
+                {content}
+              </div>
+            )
+          default:
+            return content
+        }
+      }
 
       let output: JSX.Element | null = null
-
-      if (block.content) {
-        output = (
-          <>
-            {block.properties && (
-              <li>
-                <Text value={block.properties.title} block={block} />
-              </li>
-            )}
-            {wrapList(children)}
-          </>
-        )
-      } else {
-        output = block.properties ? (
-          <li>
-            <Text value={block.properties.title} block={block} />
-          </li>
-        ) : null
-      }
 
       const isTopLevel =
         block.type !== recordMap.block[block.parent_id]?.value?.type
       const start = getListNumber(block.id, recordMap.block)
 
-      return isTopLevel ? wrapList(output, start) : output
+      const props = block.type === 'bulleted_list' ? {} : {
+        'block-list-numbered-counter': start,
+      }
+
+      if (block.content) {
+        output = (
+          <>
+            {block.properties && (
+              <div className="notion-block-list-item" {...props}>
+
+                <div className="notion-block-list-item-content">
+                  <div style={{ maxWidth: '100%', width: '100%', whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
+                    <Text value={block.properties.title} block={block} />
+                  </div>
+                  <div style={{ maxWidth: '100%', width: '100%', whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
+                    {children}
+                  </div>
+                </div>
+              </div>
+            )}
+          </>
+        )
+      } else {
+        output = block.properties ? (
+          <div className="notion-block-list-item" {...props}>
+            <div className="notion-block-list-item-content">
+              <div style={{ maxWidth: '100%', width: '100%', whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
+                <Text value={block.properties.title} block={block} />
+              </div>
+            </div>
+
+          </div>
+        ) : null
+      }
+
+      return isTopLevel ? wrapList(output) : output
     }
 
     case 'embed':
@@ -541,9 +562,8 @@ export const Block: React.FC<BlockProps> = (props) => {
       const columns =
         parent?.content?.length || Math.max(2, Math.ceil(1.0 / ratio))
 
-      const width = `calc((100% - (${
-        columns - 1
-      } * ${spacerWidth})) * ${ratio})`
+      const width = `calc((100% - (${columns - 1
+        } * ${spacerWidth})) * ${ratio})`
       const style = { width }
 
       return (
@@ -592,7 +612,7 @@ export const Block: React.FC<BlockProps> = (props) => {
             className={cs(
               'notion-callout',
               block.format?.block_color &&
-                `notion-${block.format?.block_color}_co`,
+              `notion-${block.format?.block_color}_co`,
               blockId
             )}
           >
