@@ -2518,8 +2518,8 @@ code[class*='language-mermaid'] {
 .notion-header .searchIcon {
   width: 14px;
   height: 14px;
-  /*color: var(--fg-color);*/
-  /*fill: var(--fg-color);*/
+  color: var(--fg-color);
+  fill: var(--fg-color);
 }
 
 .notion-search-button {
