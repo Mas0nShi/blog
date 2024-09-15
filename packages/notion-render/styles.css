@@ -793,6 +793,8 @@ svg.notion-page-icon {
   height: 30px;
   margin: 1px 0;
   transition: background 120ms ease-in 0s;
+
+  user-select: none; /* disable text selection */
 }
 
 .notion-page-link:hover {
@@ -976,6 +978,7 @@ svg.notion-page-icon {
   justify-content: center;
   margin: 0 auto;
   max-width: 66.666%;
+  user-select: none;
 }
 
 .react-tweet-theme {
@@ -1028,6 +1031,7 @@ div[class*='language-mermaid'] {
   display: flex;
   justify-content: center;
   align-items: center;
+  user-select: none; /* disable text selection */
 }
 
 .notion-code-copy {
@@ -1305,6 +1309,8 @@ div[class*='language-mermaid'] {
   height: 24px;
   line-height: 24px;
   font-size: 1.3em;
+
+  user-select: none;
 }
 
 .notion-callout-text {
