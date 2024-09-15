@@ -3,9 +3,10 @@ import * as React from 'react'
 import { Block } from '@/notion-types'
 
 import { useNotionContext } from '../context'
-import SvgTypeGitHub from '../icons/type-github'
+import { SvgTypeGitHub } from '../icons/type-github'
 import { cs, formatNotionDateTime } from '../utils'
 import { MentionPreviewCard } from './mention-preview-card'
+import Image from 'next/image'
 
 // External Object Instance
 export const EOI: React.FC<{
@@ -26,9 +27,35 @@ export const EOI: React.FC<{
   const lastUpdated = lastUpdatedAt ? formatNotionDateTime(lastUpdatedAt) : null
   let externalImage: React.ReactNode
 
+  console.log('EOI', block.format, attributes, { title, owner, lastUpdatedAt, lastUpdated, domain })
+
   switch (domain) {
     case 'github.com':
-      externalImage = <SvgTypeGitHub />
+      const [ownerAvatar, setOwnerAvatar] = React.useState<string>(null);
+
+      React.useEffect(() => {
+        if (domain === 'github.com' && owner) {
+          fetch(`https://api.github.com/users/${owner}`)
+            .then((response) => response.json())
+            .then((data) => {
+              // console.log('Github user data', data)  
+              if (data.avatar_url) {
+                setOwnerAvatar(data.avatar_url)
+              }
+            })
+        }
+      }, [owner])
+      externalImage = ownerAvatar ? (
+        <>
+        <Image
+          src={ownerAvatar}
+          alt={owner}
+          width={32}
+          height={32}
+          className='notion-external-avatar' />
+        <SvgTypeGitHub className='notion-external-github-icon'/>
+      </>
+      ) : (<></>)
       if (owner) {
         const parts = owner.split('/')
         owner = parts[parts.length - 1]
@@ -62,9 +89,10 @@ export const EOI: React.FC<{
       )}
 
       <div className='notion-external-description'>
-        <div className='notion-external-title'>{title}</div>
+        {/* <div className='notion-external-title'>{title}</div> */}
 
         {(owner || lastUpdated) && (
+          <>
           <MentionPreviewCard
             title={title}
             owner={owner}
@@ -72,7 +100,23 @@ export const EOI: React.FC<{
             domain={domain}
             externalImage={externalImage}
           />
+          {/* {domain === 'github.com' && (
+            <div className='notion-preview-card-github-shields'>
+              <img
+                src={`https://img.shields.io/github/stars/${owner}/${title}?logo=github`}
+                alt=''
+              />
+              <img
+                src={`https://img.shields.io/github/last-commit/${owner}/${title}`}
+                alt=''
+              />
+            </div>
+          )} */}
+          </>
         )}
+
+
+
       </div>
     </components.Link>
   )

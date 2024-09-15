@@ -26,7 +26,7 @@ export const Code: React.FC<{
   block: CodeBlock
   defaultLanguage?: string
   className?: string
-}> = ({ block, defaultLanguage = 'typescript', className}) => {
+}> = ({ block, defaultLanguage = 'typescript', className }) => {
   const [isCopied, setIsCopied] = React.useState(false)
   const copyTimeout = React.useRef<number>()
   const { recordMap, darkMode: isDarkMode } = useNotionContext()
@@ -34,7 +34,7 @@ export const Code: React.FC<{
   /* Fixes https://github.com/NotionX/react-notion-x/issues/220 */
   const language = (() => {
     const languageFromNotion = (block.properties?.language?.[0]?.[0] || defaultLanguage
-  ).toLowerCase()
+    ).toLowerCase()
     switch (languageFromNotion) {
       case "c++":
         return "cpp";
@@ -71,7 +71,7 @@ export const Code: React.FC<{
           // @ts-ignore
           codeRef.current.innerHTML = svg; // todo: fix this
         }
-        mermaidRender().catch((err)=>{
+        mermaidRender().catch((err) => {
           console.error('mermaid render error', err)
         });
 
@@ -107,7 +107,8 @@ export const Code: React.FC<{
 
   return (
     <>
-      <pre className={cs('notion-code', className)}>
+    <div style={{position: 'relative', width: '100%'}}>
+      <div className={cs('notion-code', className)}>
         <div className='notion-code-copy'>
           {copyButton}
 
@@ -118,16 +119,17 @@ export const Code: React.FC<{
           )}
         </div>
 
-        <code className={`language-${language}`} ref={codeRef}>
+        <div className={`language-${language}`} ref={codeRef}>
           {content}
-        </code>
-      </pre>
+        </div>
+      </div>
 
       {caption && (
         <figcaption className='notion-asset-caption'>
           <Text value={caption} block={block} />
         </figcaption>
       )}
+    </div>
     </>
   )
 }

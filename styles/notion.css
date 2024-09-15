@@ -494,12 +494,12 @@
 }
 
 /* fixes screen overflow when block is too wide */
-.notion-toggle {
+/* .notion-toggle {
   padding: 0;
   max-width: 100%;
   -webkit-margin-before: 0.6em;
   padding-inline-start: 0.6em;
-}
+} */
 
 /* fixes notion list block overflow and all list style */
 .notion-list {
@@ -508,16 +508,16 @@
 }
 
 /** fixes notion toggle summary cursor */
-.notion-toggle summary {
+/* .notion-toggle summary {
   cursor: pointer;
   outline: none;
   align-items: center;
-}
+} */
 
 /* fixes notion toggle summary & div text alignment */
-.notion-toggle > div {
+/* .notion-toggle > div {
   margin-left: 11px;
-}
+} */
 
 
 /* custom define notion list ul (unordered list) and ol (ordered list) */

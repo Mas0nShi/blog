@@ -24,7 +24,8 @@ import { Text } from './components/text'
 import { useNotionContext } from './context'
 import { LinkIcon } from './icons/link-icon'
 import { cs, getListNumber, isUrl } from './utils'
-import { BaseTextBlock } from 'packages/notion-types/block'
+import { Tweet } from 'react-tweet'
+import { ToggleBlock } from './components/toggle-block'
 
 interface BlockProps {
   block: types.Block
@@ -102,6 +103,8 @@ export const Block: React.FC<BlockProps> = (props) => {
   const blockId = hideBlockId
     ? 'notion-block'
     : `notion-block-${uuidToId(block.id)}`
+
+  console.log('Block', block.type, block)
 
   switch (block.type as string) { // TODO: fix block type
     case 'breadcrumb':
@@ -496,7 +499,14 @@ export const Block: React.FC<BlockProps> = (props) => {
     case 'replit':
     // fallthrough
     case 'tweet':
-    // fallthrough
+      const uri = block?.properties?.source?.[0]?.[0]
+      const id = uri.split('/').pop()
+
+      return (
+        <div data-theme={darkMode ? 'dark' : ''} className='notion-tweet'>
+          <Tweet id={id} />
+        </div>
+      )
     case 'maps':
     // fallthrough
     case 'pdf':
@@ -706,15 +716,7 @@ export const Block: React.FC<BlockProps> = (props) => {
     }
 
     case 'toggle':
-      return (
-        <details className={cs('notion-toggle', blockId)}>
-          <summary>
-            <Text value={block.properties?.title} block={block} />
-          </summary>
-
-          <div>{children}</div>
-        </details>
-      )
+      return <ToggleBlock blockId={blockId} block={block} children={children} />
 
     case 'table_of_contents': {
       const page = getBlockParentPage(block, recordMap)

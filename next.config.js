@@ -4,6 +4,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 })
 
 module.exports = withBundleAnalyzer({
+  transpilePackages: ['react-tweet'],
   staticPageGenerationTimeout: 300,
   images: {
     remotePatterns: [
@@ -18,6 +19,6 @@ module.exports = withBundleAnalyzer({
     ],
     formats: ['image/avif', 'image/webp'],
     dangerouslyAllowSVG: true,
-    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;"
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   }
 })

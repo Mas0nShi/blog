@@ -15,39 +15,18 @@ export const MentionPreviewCard: React.FC<{
     <div className='notion-external-subtitle'>
       {externalImage && (
         <div className='notion-preview-card-domain-warp'>
-          <div className='notion-preview-card-logo'>{externalImage}</div>
-          <div className='notion-preview-card-domain'>
+          {/* <div className='notion-preview-card-logo'><SvgTypeGitHub/></div> */}
+          {/* <div className='notion-preview-card-domain'>
             {capitalizeFirstLetter(domain.split('.')[0])}
-          </div>
+          </div> */}
         </div>
       )}
       <div className='notion-preview-card-title'>{title}</div>
-      {owner && (
-        <div className='notion-external-subtitle-item'>
-          <div className='notion-external-subtitle-item-name'>Owner</div>
-          <span className='notion-external-subtitle-item-desc'>{owner}</span>
-        </div>
-      )}
-      {lastUpdated && (
-        <div className='notion-external-subtitle-item'>
-          <div className='notion-external-subtitle-item-name'>Updated</div>
-          <span className='notion-external-subtitle-item-desc'>
-            {lastUpdated}
-          </span>
-        </div>
-      )}
-      {domain === 'github.com' && (
-        <div className='notion-preview-card-github-shields'>
-          <img
-            src={`https://img.shields.io/github/stars/${owner}/${title}?logo=github`}
-            alt=''
-          />
-          <img
-            src={`https://img.shields.io/github/last-commit/${owner}/${title}`}
-            alt=''
-          />
-        </div>
-      )}
+      <div className='notion-external-subtitle-item'>
+        {owner && (<div className='notion-external-subtitle-item-name'>{owner}</div>)}
+        <div style={{marginLeft: '3px', marginRight: '3px'}}>•</div>
+        {lastUpdated && (<div className='notion-external-subtitle-item-desc'>Updated in {lastUpdated}</div>)}
+      </div>
     </div>
   )
 }

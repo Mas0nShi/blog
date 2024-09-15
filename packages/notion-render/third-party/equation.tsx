@@ -23,8 +23,7 @@ export const Equation: React.FC<{
   if (!math) return null
 
   return (
-    <span
-      role='button'
+    <div
       tabIndex={0}
       className={cs(
         'notion-equation',
@@ -33,6 +32,6 @@ export const Equation: React.FC<{
       )}
     >
       <Katex math={math} settings={katexSettings} {...rest} />
-    </span>
+    </div>
   )
 }
