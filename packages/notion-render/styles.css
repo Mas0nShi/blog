@@ -901,7 +901,7 @@ svg.notion-page-icon {
 }
 
 .notion-block-list-sub-item .notion-text:first-child {
-  /*margin-top: 1px;*/
+  margin-top: 0px;
 }
 
 .notion-list-disc .notion-block-list-item::before {
@@ -1334,7 +1334,7 @@ div[class*='language-mermaid'] {
 }
 
 .notion-toggle-block .notion-text:first-child {
-  /*margin-top: 1px;*/
+  margin-top: 0px;
 }
 
 .notion-toggle-button-wrap {
