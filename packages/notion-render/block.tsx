@@ -503,7 +503,7 @@ export const Block: React.FC<BlockProps> = (props) => {
       const id = uri.split('/').pop()
 
       return (
-        <div data-theme={darkMode ? 'dark' : ''} className='notion-tweet'>
+        <div data-theme={darkMode ? 'dark' : 'light'} className='notion-tweet'>
           <Tweet id={id} />
         </div>
       )
