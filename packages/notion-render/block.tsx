@@ -104,7 +104,7 @@ export const Block: React.FC<BlockProps> = (props) => {
     ? 'notion-block'
     : `notion-block-${uuidToId(block.id)}`
 
-  console.log('Block', block.type, block)
+  // console.log('Block', block.type, block)
 
   switch (block.type as string) { // TODO: fix block type
     case 'breadcrumb':
