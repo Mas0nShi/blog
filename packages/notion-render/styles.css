@@ -2892,12 +2892,12 @@ div[class*='language-mermaid'] {
 }
 
 .notion-external-image {
-  display: flex;
-  align-self: center;
+  display: flex; 
+  align-self: start; 
+  height: 32px; 
+  width: 32px; 
+  margin: 3px 12px 3px 4px; 
   position: relative;
-  width: 32px;
-  height: 32px;
-  margin: 3px 12px 3px 4px;
 }
 
 .notion-external-avatar {

@@ -80,11 +80,11 @@ export const EOI: React.FC<{
       href={original_url}
       className={cs(
         'notion-external',
-        inline ? 'notion-external-mention' : 'notion-external-block notion-row',
+        inline ? 'notion-external-mention' : 'notion-external-block', // notion-row
         className
       )}
     >
-      {externalImage && (
+    {externalImage && (
         <div className='notion-external-image'>{externalImage}</div>
       )}
 
