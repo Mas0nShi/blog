@@ -2881,6 +2881,7 @@ div[class*='language-mermaid'] {
   border: 1px solid var(--bg-color-0);
   padding: 8px 12px;
   display: flex;
+  user-select: none;
 }
 
 .notion-external-mention {
