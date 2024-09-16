@@ -32,7 +32,7 @@ export const ToggleBlock = ({ blockId, block, children }) => {
               </svg>
             </div>
           </div>
-          <div style={{ flex: '1 1 0px', minWidth: '1px' }}>
+          <div style={{ flex: '1 1 0px', minWidth: '1px', padding: '3px 2px' }}>
             <div style={{ display: 'flex' }}>
               <div
                 style={{
@@ -40,7 +40,7 @@ export const ToggleBlock = ({ blockId, block, children }) => {
                   width: '100%',
                   whiteSpace: 'pre-wrap',
                   wordBreak: 'break-word',
-                  padding: '3px 2px',
+                  
                   textAlign: 'left',
                 }}
               >
