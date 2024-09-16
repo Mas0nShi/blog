@@ -2253,6 +2253,7 @@ div[class*='language-mermaid'] {
   padding: 4px 8px;
   margin: 4px 0;
   cursor: pointer;
+  transition: background 100ms ease-in-out 0s;
 }
 
 .notion-equation:hover {
@@ -2927,7 +2928,10 @@ div[class*='language-mermaid'] {
   height:1em;
   vertical-align:-0.15em;
   border-radius:4px;
-  margin-right:0.3em
+  margin-right:0.3em;
+  background: var(--notion-github-bg-icon);
+  color: var(--notion-github-icon);
+  border-radius: 50%;
 }
 
 .notion-external-mention-image-right {
