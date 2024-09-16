@@ -2932,6 +2932,7 @@ div[class*='language-mermaid'] {
   color: var(--notion-github-icon);
   border-radius: 50%;
   transform: translate3d(0, 0, 0); /* fix for safari */
+  user-select: none;
 }
 
 .notion-external-mention-image-right {
@@ -2939,7 +2940,8 @@ div[class*='language-mermaid'] {
   height:1em;
   vertical-align:-0.15em;
   border-radius:4px;
-  margin-left:0.3em
+  margin-left:0.3em;
+  user-select: none;
 }
 
 .notion-external-mention-text {
