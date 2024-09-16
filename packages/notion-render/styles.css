@@ -2905,7 +2905,7 @@ div[class*='language-mermaid'] {
 .notion-external-mention {
   flex: 1 1 0px; 
   min-width: 1px; 
-  display: flex; 
+  display: inline-flex; 
   flex-direction: column;
 }
 
