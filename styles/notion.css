@@ -45,6 +45,7 @@
 
 .notion-header .notion-nav-header {
   max-width: 1100px;
+  width: 100%;
   margin: 0 auto;
   overflow-x: auto;
 }
@@ -447,9 +448,9 @@
 
 /* todo: fixes nav header overflow */
 @media only screen and (max-width: 600px) {
-  .notion-header .notion-nav-header {
+  /* .notion-header .notion-nav-header {
     justify-content: space-around;
-  }
+  } */
 
   .notion-header .notion-nav-header .title {
     display: none;

@@ -29,10 +29,10 @@ export const EOI: React.FC<{
 
   console.log('EOI', block.format, attributes, { title, owner, lastUpdatedAt, lastUpdated, domain })
 
+  const [ownerAvatar, setOwnerAvatar] = React.useState<string>(null);
+
   switch (domain) {
     case 'github.com':
-      const [ownerAvatar, setOwnerAvatar] = React.useState<string>(null);
-
       React.useEffect(() => {
         if (domain === 'github.com' && owner) {
           fetch(`https://api.github.com/users/${owner}`)
@@ -47,14 +47,14 @@ export const EOI: React.FC<{
       }, [owner])
       externalImage = ownerAvatar ? (
         <>
-        <Image
-          src={ownerAvatar}
-          alt={owner}
-          width={32}
-          height={32}
-          className='notion-external-avatar' />
-        <SvgTypeGitHub className='notion-external-github-icon'/>
-      </>
+          <Image
+            src={ownerAvatar}
+            alt={owner}
+            width={30.192}
+            height={30.192}
+            className='notion-external-block-avatar' />
+          <SvgTypeGitHub className='notion-external-block-github-icon' />
+        </>
       ) : (<></>)
       if (owner) {
         const parts = owner.split('/')
@@ -84,40 +84,28 @@ export const EOI: React.FC<{
         className
       )}
     >
-    {externalImage && (
-        <div className='notion-external-image'>{externalImage}</div>
-      )}
-
-      <div className='notion-external-description'>
-        {/* <div className='notion-external-title'>{title}</div> */}
-
-        {(owner || lastUpdated) && (
-          <>
-          <MentionPreviewCard
-            title={title}
-            owner={owner}
-            lastUpdated={lastUpdated}
-            domain={domain}
-            externalImage={externalImage}
-          />
-          {/* {domain === 'github.com' && (
-            <div className='notion-preview-card-github-shields'>
-              <img
-                src={`https://img.shields.io/github/stars/${owner}/${title}?logo=github`}
-                alt=''
-              />
-              <img
-                src={`https://img.shields.io/github/last-commit/${owner}/${title}`}
-                alt=''
-              />
+      {inline ? (
+        <>
+          <div className='notion-external-mention-flex'>
+            <div className='notion-external-mention-wrap'>
+              {domain === 'github.com' && (
+                <SvgTypeGitHub className='notion-external-mention-image-left' />
+              )}
+              <span className='notion-external-mention-text'>{title}</span>
+              {ownerAvatar && (
+                <Image className='notion-external-mention-image-right' width={16} height={16} src={ownerAvatar} alt={owner} />
+              )}
             </div>
-          )} */}
-          </>
-        )}
-
-
-
-      </div>
+          </div>
+        </>
+      ) : (
+        <MentionPreviewCard
+          owner={owner}
+          lastUpdated={lastUpdated}
+          title={title}
+          externalImage={externalImage}
+        />
+      )}
     </components.Link>
   )
 }
