@@ -57,7 +57,6 @@ export default siteConfig({
   pageUrlOverrides: {
     '/about': '15cb182beebe432f829e69f1171c5922',
     '/links': '3fa438474af645fa859f28bb58f641be',
-    '/think': '62658339b8f048b19b549696f56fb6fb'
   },
   // pageUrlOverrides: null,
 
@@ -74,9 +73,5 @@ export default siteConfig({
       title: 'Links',
       pageId: '3fa438474af645fa859f28bb58f641be'
     },
-    {
-      title: 'Think',
-      pageId: '62658339b8f048b19b549696f56fb6fb'
-    }
   ]
 })
