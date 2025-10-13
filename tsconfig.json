@@ -18,7 +18,6 @@
     "typeRoots": ["./node_modules/@types"],
     "incremental": true,
     "paths": {
-      "got": ["./node_modules/got/dist/source"],
       "@/components/*": ["components/*"],
       "@/lib/*": ["lib/*"],
       "@/*": ["packages/*"],
