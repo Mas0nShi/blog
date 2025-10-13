@@ -19,7 +19,6 @@ import * as Fathom from 'fathom-client'
 import { useRouter } from 'next/router'
 import { posthog } from 'posthog-js'
 import * as React from 'react'
-
 // google analytics
 import ReactGA from 'react-ga4'
 
@@ -27,7 +26,6 @@ import {
   fathomConfig,
   fathomId,
   googleAnalyticsId,
-  isServer,
   posthogConfig,
   posthogId
 } from '@/lib/config'

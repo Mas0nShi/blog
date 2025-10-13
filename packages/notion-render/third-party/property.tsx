@@ -1,9 +1,10 @@
 /* eslint-disable react/function-component-definition */
-import type * as types from '@/notion-types'
 import { format } from 'date-fns/format'
 import formatNumber from 'format-number'
-import { type FormulaResult } from '@/notion-types'
 import React from 'react'
+
+import type * as types from '@/notion-types'
+import { type FormulaResult } from '@/notion-types'
 
 import { Checkbox } from '../components/checkbox'
 import { GracefulImage } from '../components/graceful-image'

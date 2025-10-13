@@ -1,6 +1,9 @@
 // import { promises as fs } from 'fs'
 //import ky, { type Options as OfetchOptions } from 'ky'
 
+import { type FetchOptions as OfetchOptions, ofetch } from 'ofetch'
+import pMap from 'p-map'
+
 import type * as notion from '@/notion-types'
 import {
   getBlockCollectionId,
@@ -8,8 +11,6 @@ import {
   parsePageId,
   uuidToId
 } from '@/notion-utils'
-import { type FetchOptions as OfetchOptions, ofetch } from 'ofetch'
-import pMap from 'p-map'
 
 import type * as types from './types'
 
@@ -310,7 +311,7 @@ export class NotionAPI {
                 pagePointer.length > 1 &&
                 pagePointer[0] === 'p'
               ) {
-                pageIds.add(pagePointer[1])
+                pageIds.add(pagePointer[1] as string)
               }
             }
           }

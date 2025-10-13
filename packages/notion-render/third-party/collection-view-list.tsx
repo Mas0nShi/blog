@@ -1,5 +1,6 @@
-import type * as types from '@/notion-types'
 import type React from 'react'
+
+import type * as types from '@/notion-types'
 import { type PageBlock } from '@/notion-types'
 
 import { PageIcon } from '../components/page-icon'

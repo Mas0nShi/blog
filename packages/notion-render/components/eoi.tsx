@@ -1,11 +1,12 @@
+import Image from 'next/image'
 import React from 'react'
+
 import { type Block } from '@/notion-types'
 
 import { useNotionContext } from '../context'
 import SvgTypeGitHub from '../icons/type-github'
 import { cs, formatNotionDateTime } from '../utils'
 import { MentionPreviewCard } from './mention-preview-card'
-import Image from 'next/image'
 
 // External Object Instance
 export function EOI({
@@ -32,7 +33,7 @@ export function EOI({
 
   console.log('EOI', block.format, attributes, { title, owner, lastUpdatedAt, lastUpdated, domain })
 
-  const [ownerAvatar, setOwnerAvatar] = React.useState<string>(null);
+  const [ownerAvatar, setOwnerAvatar] = React.useState<string | null>(null);
 
   switch (domain) {
     case 'github.com':
@@ -40,7 +41,7 @@ export function EOI({
         if (domain === 'github.com' && owner) {
           fetch(`https://api.github.com/users/${owner}`)
             .then((response) => response.json())
-            .then((data) => {
+            .then((data: any) => {
               // console.log('Github user data', data)  
               if (data.avatar_url) {
                 setOwnerAvatar(data.avatar_url)

@@ -1,14 +1,13 @@
-import * as React from 'react'
-
-import * as types from '@/notion-types'
 import { IoMoonSharp } from '@react-icons/all-files/io5/IoMoonSharp'
 import { IoSunnyOutline } from '@react-icons/all-files/io5/IoSunnyOutline'
 import cs from 'classnames'
-import { Breadcrumbs, Header, Search, useNotionContext } from '../packages/notion-render'
+import * as React from 'react'
 
+import type * as types from '@/notion-types'
 import { isSearchEnabled, navigationLinks, navigationStyle } from '@/lib/config'
 import { useDarkMode } from '@/lib/use-dark-mode'
 
+import { Breadcrumbs, Header, Search, useNotionContext } from '../packages/notion-render'
 import styles from './styles.module.css'
 
 function ToggleThemeButton() {

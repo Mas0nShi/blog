@@ -1,3 +1,6 @@
+import React from 'react'
+import { Tweet } from 'react-tweet'
+
 import type * as types from '@/notion-types'
 import {
   getBlockCollectionId,
@@ -7,7 +10,6 @@ import {
   getTextContent,
   uuidToId
 } from '@/notion-utils'
-import React from 'react'
 
 import { AssetWrapper } from './components/asset-wrapper'
 import { Audio } from './components/audio'
@@ -20,16 +22,12 @@ import { PageIcon } from './components/page-icon'
 import { PageTitle } from './components/page-title'
 import { SyncPointerBlock } from './components/sync-pointer-block'
 import { Text } from './components/text'
+import { ToggleBlock } from './components/toggle-block'
 import { useNotionContext } from './context'
 import { LinkIcon } from './icons/link-icon'
-import { Tweet } from 'react-tweet'
-import { ToggleBlock } from './components/toggle-block'
-
 import {
   cs,
-  getListNestingLevel,
   getListNumber,
-  getListStyle,
   isUrl
 } from './utils'
 

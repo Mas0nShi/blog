@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-export const LinkIcon = (props) => {
+export function LinkIcon(props) {
   const { className, ...rest } = props
   return (
     <svg

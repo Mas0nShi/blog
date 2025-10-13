@@ -9,13 +9,15 @@ import 'prismjs/components/prism-json.min.js'
 import 'prismjs/components/prism-jsx.min.js'
 import 'prismjs/components/prism-tsx.min.js'
 import 'prismjs/components/prism-typescript.min.js'
-import mermaid from 'mermaid'
+
 import copyToClipboard from 'clipboard-copy'
-import { type CodeBlock } from '@/notion-types'
-import { getBlockTitle } from '@/notion-utils'
+import mermaid from 'mermaid'
 // eslint-disable-next-line import/no-duplicates, no-duplicate-imports
 import prism from 'prismjs'
 import React from 'react'
+
+import { type CodeBlock } from '@/notion-types'
+import { getBlockTitle } from '@/notion-utils'
 
 import { Text } from '../components/text'
 import { useNotionContext } from '../context'
@@ -51,27 +53,27 @@ export function Code({
   })()
   const caption = block.properties.caption
 
-  const mermaidRender = async () => {
-    mermaid.initialize({
-      startOnLoad: true,
-      theme: darkMode ? 'dark' : 'neutral',
-      themeVariables: {
-        // fontSize: '14px'
-      },
-      fontFamily: `SFMono-Regular, Consolas, 'Liberation Mono', Menlo, Courier, monospace;`,
-      htmlLabels: true,
-      securityLevel: "strict"
-    })
-
-    const { svg, bindFunctions } = await mermaid.render(`mermaid-${block.id}`, content)
-    codeRef.current.innerHTML = svg;
-    bindFunctions?.(codeRef.current)
-  }
 
   const codeRef = React.useRef<HTMLElement | null>(null)
   React.useEffect(() => {
     if (codeRef.current) {
       if (language === 'mermaid') {
+        const mermaidRender = async () => {
+          mermaid.initialize({
+            startOnLoad: true,
+            theme: darkMode ? 'dark' : 'neutral',
+            themeVariables: {
+              // fontSize: '14px'
+            },
+            fontFamily: `SFMono-Regular, Consolas, 'Liberation Mono', Menlo, Courier, monospace;`,
+            htmlLabels: true,
+            securityLevel: "strict"
+          })
+
+          const { svg, bindFunctions } = await mermaid.render(`mermaid-${block.id}`, content)
+          codeRef.current.innerHTML = svg;
+          bindFunctions?.(codeRef.current)
+        }
         mermaidRender().catch((err) => {
           console.error('mermaid render error', err)
         });

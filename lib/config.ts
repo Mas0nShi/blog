@@ -4,8 +4,9 @@
  * This file pulls from the root "site.config.ts" as well as environment variables
  * for optional depenencies.
  */
-import { parsePageId } from '@/notion-utils'
 import { type PostHogConfig } from 'posthog-js'
+
+import { parsePageId } from '@/notion-utils'
 
 import {
   getEnv,

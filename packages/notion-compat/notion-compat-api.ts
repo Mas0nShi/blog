@@ -1,7 +1,8 @@
 import type { Client } from '@notionhq/client'
+import PQueue from 'p-queue'
+
 import type * as notion from '@/notion-types'
 import { parsePageId } from '@/notion-utils'
-import PQueue from 'p-queue'
 
 import type * as types from './types'
 import { convertPage } from './convert-page'

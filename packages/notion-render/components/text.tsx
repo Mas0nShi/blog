@@ -1,10 +1,11 @@
+import React from 'react'
+
 import {
   type Block,
   type Decoration,
   type ExternalObjectInstance
 } from '@/notion-types'
 import { parsePageId } from '@/notion-utils'
-import React from 'react'
 
 import { useNotionContext } from '../context'
 import { formatDate, getHashFragmentValue } from '../utils'

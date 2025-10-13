@@ -3,15 +3,8 @@ import dynamic from 'next/dynamic'
 import Image from 'next/legacy/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { type PageBlock } from '@/notion-types'
-import { formatDate, getBlockTitle, getPageProperty } from '@/notion-utils'
 import * as React from 'react'
 import BodyClassName from 'react-body-classname'
-import {
-  type NotionComponents,
-  NotionRenderer,
-  useNotionContext
-} from '@/notion-render'
 import { EmbeddedTweet, TweetNotFound, TweetSkeleton } from 'react-tweet'
 import { useSearchParam } from 'react-use'
 
@@ -21,7 +14,15 @@ import { mapImageUrl } from '@/lib/map-image-url'
 import { getCanonicalPageUrl, mapPageUrl } from '@/lib/map-page-url'
 import { searchNotion } from '@/lib/search-notion'
 import { useDarkMode } from '@/lib/use-dark-mode'
+import {
+  type NotionComponents,
+  NotionRenderer,
+  useNotionContext
+} from '@/notion-render'
+import { type PageBlock } from '@/notion-types'
+import { formatDate, getBlockTitle, getPageProperty } from '@/notion-utils'
 
+import { Waline } from './Comment'
 import { Footer } from './Footer'
 import { Loading } from './Loading'
 import { NotionPageHeader } from './NotionPageHeader'
@@ -29,8 +30,6 @@ import { Page404 } from './Page404'
 import { PageAside } from './PageAside'
 import { PageHead } from './PageHead'
 import styles from './styles.module.css'
-
-import { Waline } from './Comment'
 
 // -----------------------------------------------------------------------------
 // dynamic imports for optional components
@@ -71,8 +70,8 @@ const Code = dynamic(() =>
       import('prismjs/components/prism-swift.js'),
       import('prismjs/components/prism-wasm.js'),
       import('prismjs/components/prism-yaml.js')
-    ]).catch(reason => {
-      console.error('Failed to load prism syntaxes', reason);
+    ]).catch(err => {
+      console.error('Failed to load prism syntaxes', err);
     })
     return m.Code
   })
@@ -155,12 +154,12 @@ const propertyTextValue = (
   return defaultFn()
 }
 
-export const NotionPage: React.FC<types.PageProps> = ({
+export function NotionPage({
   site,
   recordMap,
   error,
   pageId
-}) => {
+}: types.PageProps) {
   const router = useRouter()
   const lite = useSearchParam('lite')
 
@@ -300,7 +299,7 @@ export const NotionPage: React.FC<types.PageProps> = ({
         footer={footer}
         pageFooter={pageId === site.rootNotionPageId ? null : (config.walineHost ? <Waline
           serverURL={config.walineHost}
-          path={'/' + block.id.replace(/-/g, '')}
+          path={'/' + block.id.replaceAll('-', '')}
           emoji={[
             '//cdn.jsdelivr.net/gh/walinejs/emojis@1.1.0/tw-emoji'
           ]}
@@ -321,7 +320,7 @@ export const NotionPage: React.FC<types.PageProps> = ({
           highlighter={true}
           texRenderer={true}
           login={'disable'}
-          wordLimit={10000}
+          wordLimit={10_000}
 
         /> : null)}
       />

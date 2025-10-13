@@ -1,6 +1,12 @@
 import ky from 'ky'
 import { type NextApiRequest, type NextApiResponse } from 'next'
 import { ImageResponse } from 'next/og'
+
+import * as libConfig from '@/lib/config'
+import interSemiBoldFont from '@/lib/fonts/inter-semibold'
+import { mapImageUrl } from '@/lib/map-image-url'
+import { notion } from '@/lib/notion-api'
+import { type NotionPageInfo, type PageError } from '@/lib/types'
 import { type PageBlock } from '@/notion-types'
 import {
   getBlockIcon,
@@ -9,12 +15,6 @@ import {
   isUrl,
   parsePageId
 } from '@/notion-utils'
-
-import * as libConfig from '@/lib/config'
-import interSemiBoldFont from '@/lib/fonts/inter-semibold'
-import { mapImageUrl } from '@/lib/map-image-url'
-import { notion } from '@/lib/notion-api'
-import { type NotionPageInfo, type PageError } from '@/lib/types'
 
 export const runtime = 'edge'
 

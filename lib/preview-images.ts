@@ -1,13 +1,14 @@
 import ky from 'ky'
 import lqip from 'lqip-modern'
+import pMap from 'p-map'
+import pMemoize from 'p-memoize'
+
 import {
   type ExtendedRecordMap,
   type PreviewImage,
   type PreviewImageMap
 } from '@/notion-types'
 import { getPageImageUrls, normalizeUrl } from '@/notion-utils'
-import pMap from 'p-map'
-import pMemoize from 'p-memoize'
 
 import { defaultPageCover, defaultPageIcon } from './config'
 import { db } from './db'

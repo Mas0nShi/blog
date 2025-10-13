@@ -1,7 +1,8 @@
-import type * as types from '@/notion-types'
-import { getPageBreadcrumbs } from '@/notion-utils'
 import React from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
+
+import type * as types from '@/notion-types'
+import { getPageBreadcrumbs } from '@/notion-utils'
 
 import { useNotionContext } from '../context'
 import { SearchIcon } from '../icons/search-icon'

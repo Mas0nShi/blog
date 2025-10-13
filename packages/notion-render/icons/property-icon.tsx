@@ -1,6 +1,4 @@
-import * as React from 'react'
-
-import { PropertyType } from '@/notion-types'
+import type { PropertyType } from '@/notion-types'
 
 import CheckboxIcon from './type-checkbox'
 import DateIcon from './type-date'
@@ -47,10 +45,10 @@ const iconMap = {
   last_edited_by: Person2Icon
 }
 
-export const PropertyIcon: React.FC<PropertyIconProps> = ({
+export function PropertyIcon({
   type,
   ...rest
-}) => {
+}: PropertyIconProps) {
   const icon = iconMap[type] as any
   if (!icon) return null
 

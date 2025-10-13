@@ -1,6 +1,5 @@
-import { type Block, type ExtendedRecordMap } from '@/notion-types'
-
 import { getPageTweet } from '@/lib/get-page-tweet'
+import { type Block, type ExtendedRecordMap } from '@/notion-types'
 
 import { PageActions } from './PageActions'
 import { PageSocial } from './PageSocial'

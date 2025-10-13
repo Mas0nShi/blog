@@ -1,5 +1,6 @@
 import type React from 'react'
 import Katex from '@matejmazur/react-katex'
+
 import { type EquationBlock } from '@/notion-types'
 import { getBlockTitle } from '@/notion-utils'
 
@@ -29,7 +30,7 @@ export function Equation({
 
   return (
     <div
-      tabIndex={0}
+      // tabIndex={0}
       className={cs(
         'notion-equation',
         inline ? 'notion-equation-inline' : 'notion-equation-block',

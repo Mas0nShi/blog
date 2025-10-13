@@ -1,5 +1,4 @@
 /* eslint-disable security/detect-non-literal-regexp */
-import type * as types from '@/notion-types'
 import { add } from 'date-fns/add'
 import { format } from 'date-fns/format'
 import { getDate } from 'date-fns/getDate'
@@ -10,6 +9,8 @@ import { getMonth } from 'date-fns/getMonth'
 import { getYear } from 'date-fns/getYear'
 import { intervalToDuration } from 'date-fns/intervalToDuration'
 import { sub } from 'date-fns/sub'
+
+import type * as types from '@/notion-types'
 import { getDateValue, getTextContent } from '@/notion-utils'
 
 export interface EvalFormulaContext {

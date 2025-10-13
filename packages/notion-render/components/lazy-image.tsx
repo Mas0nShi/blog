@@ -1,5 +1,6 @@
-import { normalizeUrl } from '@/notion-utils'
 import React from 'react'
+
+import { normalizeUrl } from '@/notion-utils'
 
 import { useNotionContext } from '../context'
 import { cs } from '../utils'

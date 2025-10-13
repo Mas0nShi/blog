@@ -1,6 +1,7 @@
 import throttle from 'lodash.throttle'
-import { type TableOfContentsEntry, uuidToId } from '@/notion-utils'
 import React from 'react'
+
+import { type TableOfContentsEntry, uuidToId } from '@/notion-utils'
 
 import { cs } from '../utils'
 

@@ -2,12 +2,17 @@ import type React from 'react'
 
 
 
-export const MentionPreviewCard: React.FC<{
+export function MentionPreviewCard({
+  owner,
+  lastUpdated,
+  externalImage,
+  title
+}: {
   owner?: string
-  lastUpdated?: string
+  lastUpdated?: string | null
   title: string
-  externalImage: React.ReactNode
-}> = ({ owner, lastUpdated, externalImage, title }) => {
+  externalImage?: React.ReactNode
+}) {
   return (
     <>
       {externalImage && (

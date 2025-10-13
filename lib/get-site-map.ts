@@ -1,5 +1,6 @@
-import { getAllPagesInSpace, getPageProperty, uuidToId } from '@/notion-utils'
 import pMemoize from 'p-memoize'
+
+import { getAllPagesInSpace, getPageProperty, uuidToId } from '@/notion-utils'
 
 import type * as types from './types'
 import * as config from './config'

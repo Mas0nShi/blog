@@ -1,8 +1,9 @@
 import React from 'react';
-import { Text } from './text';
-import { cs } from '../utils';
 
-export const ToggleBlock = ({ blockId, block, children }) => {
+import { cs } from '../utils';
+import { Text } from './text';
+
+export function ToggleBlock({ blockId, block, children }) {
     const [isOpen, setOpen] = React.useState(false);
 
     const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -63,4 +64,4 @@ export const ToggleBlock = ({ blockId, block, children }) => {
         </div>
       </div>
     );
-  }; 
+  } 

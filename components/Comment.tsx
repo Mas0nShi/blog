@@ -1,13 +1,13 @@
-import { init } from '@waline/client';
 import '@waline/client/meta';
-import React, { useEffect, useRef } from 'react';
-import styles from './styles.module.css';
 
-import type { WalineInitOptions, WalineInstance } from '@waline/client';
+import { init,type WalineInitOptions, type WalineInstance  } from '@waline/client';
+import React, { useEffect, useRef } from 'react';
+
+import styles from './styles.module.css';
 
 export type WalineOptions = Omit<WalineInitOptions, 'el'> & { path: string };
 
-export const Waline = (props: WalineOptions) => {
+export function Waline(props: WalineOptions) {
   const walineInstanceRef = useRef<WalineInstance | null>(null);
   const containerRef = React.createRef<HTMLDivElement>();
   useEffect(() => {
@@ -29,4 +29,4 @@ export const Waline = (props: WalineOptions) => {
     className={styles.comments}
     />
    );
-};
+}

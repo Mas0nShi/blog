@@ -1,6 +1,7 @@
 import mediumZoom from '@fisch0920/medium-zoom'
-import { type ExtendedRecordMap } from '@/notion-types'
 import * as React from 'react'
+
+import { type ExtendedRecordMap } from '@/notion-types'
 
 import { Block } from './block'
 import { NotionContextProvider, useNotionContext } from './context'

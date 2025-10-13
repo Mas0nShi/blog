@@ -1,10 +1,11 @@
+import React from 'react'
+
 import type * as types from '@/notion-types'
 import {
   getBlockCollectionId,
   getBlockParentPage,
   getTextContent
 } from '@/notion-utils'
-import React from 'react'
 
 import { PageIcon } from '../components/page-icon'
 import {
