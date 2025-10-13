@@ -48,4 +48,3 @@ package-lock.json
 yarn.lock
 
 .turbo/
-pnpm-lock.yaml

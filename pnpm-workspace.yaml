@@ -51,6 +51,7 @@ catalog:
   react-intersection-observer: ^9.16.0
   react-modal: ^3.16.3
   react-scripts: 5.0.1
+  react-tweet: ^3.2.2
   react-tweet-embed: ^2.0.0
   simple-git-hooks: ^2.13.0
   tsup: ^8.5.0
@@ -59,3 +60,4 @@ catalog:
   typescript: ^5.9.2
   unionize: ^3.1.0
   vitest: ^3.2.4
+  mermaid: ^11.6.0
