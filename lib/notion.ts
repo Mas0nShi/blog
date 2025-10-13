@@ -1,4 +1,8 @@
-import { ExtendedRecordMap, SearchParams, SearchResults } from '@/notion-types'
+import {
+  type ExtendedRecordMap,
+  type SearchParams,
+  type SearchResults
+} from '@/notion-types'
 import { mergeRecordMaps } from '@/notion-utils'
 import pMap from 'p-map'
 import pMemoize from 'p-memoize'
@@ -8,13 +12,14 @@ import {
   navigationLinks,
   navigationStyle
 } from './config'
+import { getTweetsMap } from './get-tweets'
 import { notion } from './notion-api'
 import { getPreviewImageMap } from './preview-images'
 
 const getNavigationLinkPages = pMemoize(
   async (): Promise<ExtendedRecordMap[]> => {
     const navigationLinkPageIds = (navigationLinks || [])
-      .map((link) => link.pageId)
+      .map((link) => link?.pageId)
       .filter(Boolean)
 
     if (navigationStyle !== 'default' && navigationLinkPageIds.length) {
@@ -39,20 +44,6 @@ const getNavigationLinkPages = pMemoize(
 
 export async function getPage(pageId: string): Promise<ExtendedRecordMap> {
   let recordMap = await notion.getPage(pageId)
-  // @patch: optimize image cache.
-  // Refer: https://github.com/WeijunDeng/nextjs-notion-starter-kit/commit/5a2f5bab6a6dfe2d8df49ebcb9c506f3134bd66d
-  if (recordMap && recordMap.signed_urls) {
-    const signed_urls = recordMap.signed_urls
-    const new_signed_urls = {}
-    for (const p in signed_urls) {
-      if (signed_urls[p] && signed_urls[p].includes(".amazonaws.com/")) {
-        console.log("cache: " + signed_urls[p])
-        continue
-      }
-      new_signed_urls[p] = signed_urls[p]
-    }
-    recordMap.signed_urls = new_signed_urls
-  }
 
   if (navigationStyle !== 'default') {
     // ensure that any pages linked to in the custom navigation header have
@@ -73,6 +64,8 @@ export async function getPage(pageId: string): Promise<ExtendedRecordMap> {
     const previewImageMap = await getPreviewImageMap(recordMap)
     ;(recordMap as any).preview_images = previewImageMap
   }
+
+  await getTweetsMap(recordMap)
 
   return recordMap
 }

@@ -1,18 +1,22 @@
-import { ExtendedRecordMap } from '@/notion-types'
+import { type ExtendedRecordMap } from '@/notion-types'
 import { parsePageId } from '@/notion-utils'
 
+import type { PageProps } from './types'
 import * as acl from './acl'
 import { environment, pageUrlAdditions, pageUrlOverrides, site } from './config'
 import { db } from './db'
 import { getSiteMap } from './get-site-map'
 import { getPage } from './notion'
 
-export async function resolveNotionPage(domain: string, rawPageId?: string) {
-  let pageId: string
+export async function resolveNotionPage(
+  domain: string,
+  rawPageId?: string
+): Promise<PageProps> {
+  let pageId: string | undefined
   let recordMap: ExtendedRecordMap
 
   if (rawPageId && rawPageId !== 'index') {
-    pageId = parsePageId(rawPageId)
+    pageId = parsePageId(rawPageId)!
 
     if (!pageId) {
       // check if the site configuration provides an override or a fallback for
@@ -21,15 +25,15 @@ export async function resolveNotionPage(domain: string, rawPageId?: string) {
         pageUrlOverrides[rawPageId] || pageUrlAdditions[rawPageId]
 
       if (override) {
-        pageId = parsePageId(override)
+        pageId = parsePageId(override)!
       }
     }
 
     const useUriToPageIdCache = true
     const cacheKey = `uri-to-page-id:${domain}:${environment}:${rawPageId}`
     // TODO: should we use a TTL for these mappings or make them permanent?
-    const cacheTTL = 8.64e7 * 3 // three day in milliseconds
-    // const cacheTTL = undefined // disable cache TTL
+    // const cacheTTL = 8.64e7 // one day in milliseconds
+    const cacheTTL = undefined // disable cache TTL
 
     if (!pageId && useUriToPageIdCache) {
       try {
@@ -37,7 +41,7 @@ export async function resolveNotionPage(domain: string, rawPageId?: string) {
         pageId = await db.get(cacheKey)
 
         // console.log(`redis get "${cacheKey}"`, pageId)
-      } catch (err) {
+      } catch (err: any) {
         // ignore redis errors
         console.warn(`redis error get "${cacheKey}"`, err.message)
       }
@@ -61,11 +65,10 @@ export async function resolveNotionPage(domain: string, rawPageId?: string) {
         if (useUriToPageIdCache) {
           try {
             // update the database mapping of URI to pageId
-            // * fix notion image cache expried issues.
             await db.set(cacheKey, pageId, cacheTTL)
 
             // console.log(`redis set "${cacheKey}"`, pageId, { cacheTTL })
-          } catch (err) {
+          } catch (err: any) {
             // ignore redis errors
             console.warn(`redis error set "${cacheKey}"`, err.message)
           }
@@ -87,6 +90,6 @@ export async function resolveNotionPage(domain: string, rawPageId?: string) {
     recordMap = await getPage(pageId)
   }
 
-  const props = { site, recordMap, pageId }
+  const props: PageProps = { site, recordMap, pageId }
   return { ...props, ...(await acl.pageAcl(props)) }
 }

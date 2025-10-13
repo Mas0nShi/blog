@@ -1,16 +1,15 @@
-import * as React from 'react'
-
-import { BaseContentBlock, Block } from '@/notion-types'
+import type React from 'react'
+import { type BaseContentBlock, type Block } from '@/notion-types'
 import { getTextContent } from '@/notion-utils'
 
 import { useNotionContext } from '../context'
-import { getYoutubeId } from '../utils'
+import { getUrlParams, getYoutubeId } from '../utils'
 import { LazyImage } from './lazy-image'
 import { LiteYouTubeEmbed } from './lite-youtube-embed'
 
-const isServer = typeof window === 'undefined'
+const isServer = !globalThis.window
 
-const supportedAssetTypes = [
+const supportedAssetTypes = new Set([
   'replit',
   'video',
   'image',
@@ -24,16 +23,20 @@ const supportedAssetTypes = [
   'gist',
   'codepen',
   'drive'
-]
+])
 
-export const Asset: React.FC<{
+export function Asset({
+  block,
+  zoomable = true,
+  children
+}: {
   block: BaseContentBlock
   children: any
   zoomable?: boolean
-}> = ({ block, zoomable = true, children }) => {
+}) {
   const { recordMap, mapImageUrl, components } = useNotionContext()
 
-  if (!block || !supportedAssetTypes.includes(block.type)) {
+  if (!block || !supportedAssetTypes.has(block.type)) {
     return null
   }
 
@@ -90,18 +93,17 @@ export const Asset: React.FC<{
       }
     } else {
       switch (block.format?.block_alignment) {
-        case 'center': {
+        case 'center':
           style.alignSelf = 'center'
           break
-        }
-        case 'left': {
+
+        case 'left':
           style.alignSelf = 'start'
           break
-        }
-        case 'right': {
+
+        case 'right':
           style.alignSelf = 'end'
           break
-        }
       }
 
       if (block_width) {
@@ -127,17 +129,24 @@ export const Asset: React.FC<{
 
   let source =
     recordMap.signed_urls?.[block.id] || block.properties?.source?.[0]?.[0]
-  let content = null
 
   if (!source) {
     return null
   }
 
+  if (block.space_id) {
+    const url = new URL(source)
+    url.searchParams.set('spaceId', block.space_id)
+    source = url.toString()
+  }
+
+  let content = null
+
   if (block.type === 'tweet') {
     const src = source
     if (!src) return null
 
-    const id = src.split('?')[0].split('/').pop()
+    const id = src.split('?')?.[0]?.split('/').pop()
     if (!id) return null
 
     content = (
@@ -181,13 +190,14 @@ export const Asset: React.FC<{
     if (
       block.type === 'video' &&
       source &&
-      source.indexOf('youtube') < 0 &&
-      source.indexOf('youtu.be') < 0 &&
-      source.indexOf('vimeo') < 0 &&
-      source.indexOf('wistia') < 0 &&
-      source.indexOf('loom') < 0 &&
-      source.indexOf('videoask') < 0 &&
-      source.indexOf('getcloudapp') < 0
+      !source.includes('youtube') &&
+      !source.includes('youtu.be') &&
+      !source.includes('vimeo') &&
+      !source.includes('wistia') &&
+      !source.includes('loom') &&
+      !source.includes('videoask') &&
+      !source.includes('getcloudapp') &&
+      !source.includes('tella')
     ) {
       style.paddingBottom = undefined
 
@@ -210,11 +220,13 @@ export const Asset: React.FC<{
         // console.log({ youtubeVideoId, src, format: block.format, style })
 
         if (youtubeVideoId) {
+          const params = getUrlParams(src)
           content = (
             <LiteYouTubeEmbed
               id={youtubeVideoId}
               style={assetStyle}
               className='notion-asset-object-fit'
+              params={params}
             />
           )
         } else if (block.type === 'gist') {
@@ -263,13 +275,14 @@ export const Asset: React.FC<{
     }
   } else if (block.type === 'image') {
     // console.log('image', block)
-    //kind of a hack for now. New file.notion.so images aren't signed correctly
+    // TODO: kind of a hack for now. New file.notion.so images aren't signed correctly
     if (source.includes('file.notion.so')) {
       source = block.properties?.source?.[0]?.[0]
     }
     const src = mapImageUrl(source, block as Block)
+    const altText = getTextContent(block.properties?.alt_text)
     const caption = getTextContent(block.properties?.caption)
-    const alt = caption || 'notion image'
+    const alt = altText || caption || 'notion image'
 
     content = (
       <LazyImage

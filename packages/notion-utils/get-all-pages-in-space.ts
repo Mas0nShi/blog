@@ -1,4 +1,4 @@
-import { ExtendedRecordMap, PageMap } from '@/notion-types'
+import { type ExtendedRecordMap, type PageMap } from '@/notion-types'
 import PQueue from 'p-queue'
 
 import { parsePageId } from './parse-page-id'
@@ -12,7 +12,6 @@ import { parsePageId } from './parse-page-id'
  * If `rootSpaceId` is not defined, the space ID of the root page will be used
  * to scope traversal.
  *
- *
  * @param rootPageId - Page ID to start from.
  * @param rootSpaceId - Space ID to scope traversal.
  * @param getPage - Function used to fetch a single page.
@@ -25,18 +24,24 @@ export async function getAllPagesInSpace(
   {
     concurrency = 4,
     traverseCollections = true,
-    targetPageId = null
+    targetPageId,
+    maxDepth = Number.POSITIVE_INFINITY
   }: {
     concurrency?: number
     traverseCollections?: boolean
     targetPageId?: string
+    maxDepth?: number
   } = {}
 ): Promise<PageMap> {
   const pages: PageMap = {}
   const pendingPageIds = new Set<string>()
   const queue = new PQueue({ concurrency })
 
-  async function processPage(pageId: string) {
+  async function processPage(pageId: string, depth = 0) {
+    if (depth > maxDepth) {
+      return
+    }
+
     if (targetPageId && pendingPageIds.has(targetPageId)) {
       return
     }
@@ -46,7 +51,7 @@ export async function getAllPagesInSpace(
     if (pageId && !pages[pageId] && !pendingPageIds.has(pageId)) {
       pendingPageIds.add(pageId)
 
-      queue.add(async () => {
+      void queue.add(async () => {
         try {
           if (
             targetPageId &&
@@ -71,31 +76,31 @@ export async function getAllPagesInSpace(
             }
           }
 
-          Object.keys(page.block)
-            .filter((key) => {
-              const block = page.block[key]?.value
-              if (!block) return false
+          for (const subPageId of Object.keys(page.block).filter((key) => {
+            const block = page.block[key]?.value
+            if (!block || block.alive === false) return false
 
-              if (
-                block.type !== 'page' &&
-                block.type !== 'collection_view_page'
-              ) {
-                return false
-              }
+            if (
+              block.type !== 'page' &&
+              block.type !== 'collection_view_page'
+            ) {
+              return false
+            }
 
-              // the space id check is important to limit traversal because pages
-              // can reference pages in other spaces
-              if (
-                rootSpaceId &&
-                block.space_id &&
-                block.space_id !== rootSpaceId
-              ) {
-                return false
-              }
+            // the space id check is important to limit traversal because pages
+            // can reference pages in other spaces
+            if (
+              rootSpaceId &&
+              block.space_id &&
+              block.space_id !== rootSpaceId
+            ) {
+              return false
+            }
 
-              return true
-            })
-            .forEach((subPageId) => processPage(subPageId))
+            return true
+          })) {
+            void processPage(subPageId, depth + 1)
+          }
 
           // traverse collection item pages as they may contain subpages as well
           if (traverseCollections) {
@@ -103,11 +108,17 @@ export async function getAllPagesInSpace(
               page.collection_query
             )) {
               for (const collectionData of Object.values(collectionViews)) {
-                const { blockIds } = collectionData
+                const blockIds = Array.from(
+                  new Set([
+                    ...(collectionData?.collection_group_results?.blockIds ||
+                      []),
+                    ...(collectionData.blockIds || [])
+                  ])
+                )
 
-                if (blockIds) {
+                if (blockIds.length) {
                   for (const collectionItemId of blockIds) {
-                    processPage(collectionItemId)
+                    void processPage(collectionItemId, depth + 1)
                   }
                 }
               }
@@ -115,7 +126,7 @@ export async function getAllPagesInSpace(
           }
 
           pages[pageId] = page
-        } catch (err) {
+        } catch (err: any) {
           console.warn(
             'page load error',
             { pageId, spaceId: rootSpaceId },

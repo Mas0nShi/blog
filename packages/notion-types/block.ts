@@ -1,4 +1,4 @@
-import { Color, Decoration, ID, Role } from './core'
+import { type Color, type Decoration, type ID, type Role } from './core'
 
 export type BlockType =
   | 'page'
@@ -108,13 +108,9 @@ export interface BaseBlock {
 
   version: number
   created_time: number
-
   last_edited_time: number
   alive: boolean
-
-  created_by: ID | string
   created_by_table: string
-
   created_by_id: ID
   last_edited_by_table: string
   last_edited_by_id: ID
@@ -135,6 +131,7 @@ export interface BaseContentBlock extends BaseBlock {
   properties: {
     source: string[][]
     caption?: Decoration[]
+    alt_text?: Decoration[]
   }
   format?: {
     block_alignment: 'center' | 'left' | 'right'
@@ -157,6 +154,7 @@ export interface BasePageBlock extends BaseBlock {
     page_full_width?: boolean
     page_small_text?: boolean
     page_cover_position?: number
+    card_cover_position?: number
     block_locked?: boolean
     block_locked_by?: string
     page_cover?: string
@@ -195,6 +193,9 @@ export interface BulletedListBlock extends BaseTextBlock {
 
 export interface NumberedListBlock extends BaseTextBlock {
   type: 'numbered_list'
+  format?: BaseTextBlock['format'] & {
+    list_start_index?: number
+  }
 }
 
 export interface HeaderBlock extends BaseTextBlock {
@@ -449,6 +450,7 @@ export interface TableBlock extends BaseBlock {
       [column: string]: { width?: number; color?: Color }
     }
     table_block_column_header: boolean
+    table_block_row_header: boolean
     table_block_column_order: string[]
   }
   view_ids: ID[]

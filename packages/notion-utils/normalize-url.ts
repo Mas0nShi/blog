@@ -1,7 +1,7 @@
-import mem from 'mem'
+import memoize from 'memoize'
 import normalizeUrlImpl from 'normalize-url'
 
-export const normalizeUrl = mem((url?: string) => {
+export const normalizeUrl = memoize((url?: string) => {
   if (!url) {
     return ''
   }
@@ -9,7 +9,7 @@ export const normalizeUrl = mem((url?: string) => {
   try {
     if (url.startsWith('https://www.notion.so/image/')) {
       const u = new URL(url)
-      const subUrl = decodeURIComponent(u.pathname.substr('/image/'.length))
+      const subUrl = decodeURIComponent(u.pathname.slice('/image/'.length))
       const normalizedSubUrl = normalizeUrl(subUrl)
       u.pathname = `/image/${encodeURIComponent(normalizedSubUrl)}`
       url = u.toString()
@@ -22,7 +22,7 @@ export const normalizeUrl = mem((url?: string) => {
       stripTextFragment: true,
       removeQueryParameters: true
     })
-  } catch (err) {
+  } catch {
     return ''
   }
 })

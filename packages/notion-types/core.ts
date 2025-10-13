@@ -45,6 +45,7 @@ export type PropertyType =
   | 'select'
   | 'status'
   | 'multi_select'
+  | 'auto_increment_id'
   | 'date'
   | 'person'
   | 'file'
@@ -70,6 +71,37 @@ export type NumberFormat =
   | 'rupee'
   | 'won'
   | 'yuan'
+  | 'argentine_peso'
+  | 'baht'
+  | 'canadian_dollar'
+  | 'chilean_peso'
+  | 'colombian_peso'
+  | 'danish_krone'
+  | 'dirham'
+  | 'forint'
+  | 'franc'
+  | 'hong_kong_dollar'
+  | 'koruna'
+  | 'krona'
+  | 'leu'
+  | 'lira'
+  | 'mexican_peso'
+  | 'new_taiwan_dollar'
+  | 'new_zealand_dollar'
+  | 'norwegian_krone'
+  | 'number'
+  | 'philippine_peso'
+  | 'peruvian_sol'
+  | 'rand'
+  | 'real'
+  | 'ringgit'
+  | 'riyal'
+  | 'ruble'
+  | 'rupiah'
+  | 'shekel'
+  | 'singapore_dollar'
+  | 'uruguayan_peso'
+  | 'zloty'
 
 export type Role = 'editor' | 'reader' | 'none' | 'read_and_write'
 
@@ -87,6 +119,8 @@ export type InlineEquationFormat = ['e', string]
 export type DiscussionFormat = ['m', string]
 export type ExternalLinkFormat = ['‣', [string, string]]
 export type DateFormat = ['d', FormattedDate]
+export type LinkMentionFormat = ['lm', string]
+export type SuggestionEditFormat = ['si', string]
 
 export interface FormattedDate {
   type: 'date' | 'daterange' | 'datetime' | 'datetimerange'
@@ -113,6 +147,8 @@ export type SubDecoration =
   | ExternalLinkFormat
   | DiscussionFormat
   | ExternalObjectInstanceFormat
+  | LinkMentionFormat
+  | SuggestionEditFormat
 
 export type BaseDecoration = [string]
 export type AdditionalDecoration = [string, SubDecoration[]]

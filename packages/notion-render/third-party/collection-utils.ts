@@ -1,21 +1,21 @@
-import format from 'date-fns/format/index.js'
+import { format } from 'date-fns/format'
 
 export function getCollectionGroups(
   collection: any,
   collectionView: any,
   collectionData: any,
-  ...rest
-) {
+  ...rest: any[]
+): any[] {
   const elems = collectionView?.format?.collection_groups || []
-  return elems?.map(({ property, hidden, value: { value, type } }) => {
-    const isUncategorizedValue = typeof value === 'undefined'
+  return elems.map(({ property, hidden, value: { value, type } }: any) => {
+    const isUncategorizedValue = value === undefined
     const isDateValue = value?.range
     // TODO: review dates reducers
     const queryLabel = isUncategorizedValue
       ? 'uncategorized'
       : isDateValue
-      ? value.range?.start_date || value.range?.end_date
-      : value?.value || value
+        ? value.range?.start_date || value.range?.end_date
+        : value?.value || value
 
     const collectionGroup = collectionData[`results:${type}:${queryLabel}`]
     let queryValue =
@@ -34,7 +34,7 @@ export function getCollectionGroups(
       }
 
       // TODO: review dates format based on value.type ('week'|'month'|'year')
-      queryValue = format(new Date(queryLabel), 'MMM d, YYY hh:mm aa')
+      queryValue = format(new Date(queryLabel), 'MMM d, yyyy hh:mm aa')
     }
 
     return {

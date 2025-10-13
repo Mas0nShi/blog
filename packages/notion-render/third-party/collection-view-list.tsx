@@ -1,20 +1,21 @@
-import * as React from 'react'
+import type * as types from '@/notion-types'
+import type React from 'react'
+import { type PageBlock } from '@/notion-types'
 
-import { PageBlock } from '@/notion-types'
-
+import { PageIcon } from '../components/page-icon'
 import { useNotionContext } from '../context'
-import { CollectionViewProps } from '../types'
+import { type CollectionViewProps } from '../types'
 import { CollectionGroup } from './collection-group'
 import { getCollectionGroups } from './collection-utils'
 import { Property } from './property'
 
-const defaultBlockIds = []
+const defaultBlockIds: string[] = []
 
-export const CollectionViewList: React.FC<CollectionViewProps> = ({
+export function CollectionViewList({
   collection,
   collectionView,
   collectionData
-}) => {
+}: CollectionViewProps) {
   const isGroupedCollection = collectionView?.format?.collection_group_by
 
   if (isGroupedCollection) {
@@ -30,7 +31,7 @@ export const CollectionViewList: React.FC<CollectionViewProps> = ({
   }
 
   const blockIds =
-    (collectionData['collection_group_results']?.blockIds ??
+    (collectionData.collection_group_results?.blockIds ??
       collectionData.blockIds) ||
     defaultBlockIds
 
@@ -43,7 +44,15 @@ export const CollectionViewList: React.FC<CollectionViewProps> = ({
   )
 }
 
-function List({ blockIds, collection, collectionView }) {
+function List({
+  blockIds = [],
+  collection,
+  collectionView
+}: {
+  blockIds?: string[]
+  collection: types.Collection
+  collectionView: types.CollectionView
+}) {
   const { components, recordMap, mapPageUrl } = useNotionContext()
 
   return (
@@ -64,20 +73,30 @@ function List({ blockIds, collection, collectionView }) {
                 key={blockId}
               >
                 <div className='notion-list-item-title'>
+                  <PageIcon
+                    block={block}
+                    className='notion-page-title-icon'
+                    hideDefaultIcon
+                  />
                   <Property
                     schema={titleSchema}
                     data={titleData}
                     block={block}
                     collection={collection}
+                    linkToTitlePage={false}
                   />
                 </div>
 
                 <div className='notion-list-item-body'>
                   {collectionView.format?.list_properties
-                    ?.filter((p) => p.visible)
-                    .map((p) => {
+                    ?.filter((p: any) => p.visible)
+                    .map((p: any) => {
                       const schema = collection.schema[p.property]
-                      const data = block && block.properties?.[p.property]
+                      const data =
+                        block &&
+                        block.properties?.[
+                          p.property as keyof typeof block.properties
+                        ]
 
                       if (!schema) {
                         return null

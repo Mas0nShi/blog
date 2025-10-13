@@ -1,19 +1,10 @@
-import * as React from 'react'
-
-import throttle from 'lodash/throttle'
-import { TableOfContentsEntry, uuidToId } from '@/notion-utils'
+import throttle from 'lodash.throttle'
+import { type TableOfContentsEntry, uuidToId } from '@/notion-utils'
+import React from 'react'
 
 import { cs } from '../utils'
 
-export const PageAside: React.FC<{
-  toc: Array<TableOfContentsEntry>
-  activeSection: string | null
-  setActiveSection: (activeSection: string | null) => unknown
-  hasToc: boolean
-  hasAside: boolean
-  pageAside?: React.ReactNode
-  className?: string
-}> = ({
+export function PageAside({
   toc,
   activeSection,
   setActiveSection,
@@ -21,22 +12,29 @@ export const PageAside: React.FC<{
   hasToc,
   hasAside,
   className
-}) => {
+}: {
+  toc: Array<TableOfContentsEntry>
+  activeSection: string | null
+  setActiveSection: (activeSection: string | null) => unknown
+  hasToc: boolean
+  hasAside: boolean
+  pageAside?: React.ReactNode
+  className?: string
+}) {
   const throttleMs = 100
   const actionSectionScrollSpy = React.useMemo(
     () =>
       throttle(() => {
         const sections = document.getElementsByClassName('notion-h')
 
-        let prevBBox: DOMRect = null
+        let prevBBox: DOMRect | null = null
         let currentSectionId = activeSection
 
-        for (let i = 0; i < sections.length; ++i) {
-          const section = sections[i]
+        for (const section of sections) {
           if (!section || !(section instanceof Element)) continue
 
           if (!currentSectionId) {
-            currentSectionId = section.getAttribute('data-id')
+            currentSectionId = (section as any).dataset.id
           }
 
           const bbox = section.getBoundingClientRect()
@@ -45,7 +43,7 @@ export const PageAside: React.FC<{
 
           // GetBoundingClientRect returns values relative to the viewport
           if (bbox.top - offset < 0) {
-            currentSectionId = section.getAttribute('data-id')
+            currentSectionId = (section as any).dataset.id
 
             prevBBox = bbox
             continue
@@ -63,16 +61,6 @@ export const PageAside: React.FC<{
       setActiveSection
     ]
   )
-
-  const smoothScrollTo = React.useCallback((id: string) => {
-    const element = document.getElementById(id)
-    if (element) {
-      element.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      })
-    }
-  }, [])
 
   React.useEffect(() => {
     if (!hasToc) {
@@ -114,7 +102,6 @@ export const PageAside: React.FC<{
                     activeSection === id &&
                       'notion-table-of-contents-active-item'
                   )}
-                  onClick={ (e) => { e.preventDefault(); smoothScrollTo(id) } }
                 >
                   <span
                     className='notion-table-of-contents-item-body'

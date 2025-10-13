@@ -1,9 +1,7 @@
-import * as React from 'react'
-
 import { PageHead } from './PageHead'
 import styles from './styles.module.css'
 
-export const ErrorPage: React.FC<{ statusCode: number }> = ({ statusCode }) => {
+export function ErrorPage({ statusCode }: { statusCode: number }) {
   const title = 'Error'
 
   return (
@@ -12,7 +10,7 @@ export const ErrorPage: React.FC<{ statusCode: number }> = ({ statusCode }) => {
 
       <div className={styles.container}>
         <main className={styles.main}>
-          <h1>加载出错了 😭</h1>
+          <h1>Oops, Not Found or Deleted :(</h1>
 
           {statusCode && <p>Error code: {statusCode}</p>}
 

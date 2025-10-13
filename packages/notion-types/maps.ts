@@ -1,8 +1,8 @@
-import { Block } from './block'
-import { Collection } from './collection'
-import { CollectionView, CollectionViewType } from './collection-view'
-import { Decoration, ID, PropertyType, Role } from './core'
-import { User } from './user'
+import { type Block } from './block'
+import { type Collection } from './collection'
+import { type CollectionView, type CollectionViewType } from './collection-view'
+import { type Decoration, type ID, type PropertyType, type Role } from './core'
+import { type User } from './user'
 
 // Aggregate map types
 // ----------------------------------------------------------------------------
@@ -88,6 +88,18 @@ export interface CollectionQueryResult {
     blockIds: ID[]
     hasMore: boolean
   }
+
+  reducerResults?: {
+    collection_group_results: {
+      type: string
+      blockIds: ID[]
+      hasMore: boolean
+    }
+  }
+
+  collectionIds?: ID[]
+
+  recordMap?: ExtendedRecordMap
 }
 
 export interface AggregationResult {

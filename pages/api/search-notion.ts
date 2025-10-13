@@ -1,19 +1,21 @@
-import { NextApiRequest, NextApiResponse } from 'next'
+import { type NextApiRequest, type NextApiResponse } from 'next'
 
-import * as types from '@/lib/types'
-import { search } from '@/lib/notion'
+import type * as types from '../../lib/types'
+import { search } from '../../lib/notion'
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export default async function searchNotion(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   if (req.method !== 'POST') {
-    console.log('[+] Search Notion Request:', req.method);
     return res.status(405).send({ error: 'method not allowed' })
   }
 
   const searchParams: types.SearchParams = req.body
 
-  console.log('[+]: Searching: ', searchParams)
+  console.log('<<< lambda search-notion', searchParams)
   const results = await search(searchParams)
-  console.log('[+]: Search Result:', results)
+  console.log('>>> lambda search-notion', results)
 
   res.setHeader(
     'Cache-Control',

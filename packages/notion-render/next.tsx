@@ -1,9 +1,40 @@
-import * as React from 'react'
-
+import React from 'react'
 import isEqual from 'react-fast-compare'
 
 export const wrapNextImage = (NextImage: any): React.FC<any> => {
   return React.memo(function ReactNotionXNextImage({
+    src,
+    alt,
+
+    width,
+    height,
+
+    className,
+
+    fill,
+
+    ...rest
+  }) {
+    if (fill === 'undefined') {
+      fill = !(width && height)
+    }
+
+    return (
+      <NextImage
+        className={className}
+        src={src}
+        alt={alt}
+        width={!fill && width && height ? width : undefined}
+        height={!fill && width && height ? height : undefined}
+        fill={fill}
+        {...rest}
+      />
+    )
+  }, isEqual)
+}
+
+export const wrapNextLegacyImage = (NextLegacyImage: any): React.FC<any> => {
+  return React.memo(function ReactNotionXNextLegacyImage({
     src,
     alt,
 
@@ -22,7 +53,7 @@ export const wrapNextImage = (NextImage: any): React.FC<any> => {
     }
 
     return (
-      <NextImage
+      <NextLegacyImage
         className={className}
         src={src}
         alt={alt}
@@ -37,8 +68,8 @@ export const wrapNextImage = (NextImage: any): React.FC<any> => {
   }, isEqual)
 }
 
-export const wrapNextLink = (NextLink: any): React.FC<any> =>
-  function ReactNotionXNextLink({
+export function wrapNextLink(NextLink: any) {
+  return ({
     href,
     as,
     passHref,
@@ -48,7 +79,7 @@ export const wrapNextLink = (NextLink: any): React.FC<any> =>
     shallow,
     locale,
     ...linkProps
-  }) {
+  }: any) => {
     return (
       <NextLink
         href={href}
@@ -59,8 +90,10 @@ export const wrapNextLink = (NextLink: any): React.FC<any> =>
         scroll={scroll}
         shallow={shallow}
         locale={locale}
+        legacyBehavior
       >
         <a {...linkProps} />
       </NextLink>
     )
   }
+}

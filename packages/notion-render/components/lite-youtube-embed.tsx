@@ -1,27 +1,54 @@
-import * as React from 'react'
+import React from 'react'
 
 import { cs } from '../utils'
 
 const qs = (params: Record<string, string>) => {
   return Object.keys(params)
     .map(
-      (key) => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`
+      (key) => `${encodeURIComponent(key)}=${encodeURIComponent(params[key]!)}`
     )
     .join('&')
 }
 
-export const LiteYouTubeEmbed: React.FC<{
-  id: string
-  defaultPlay?: boolean
-  mute?: boolean
-  lazyImage?: boolean
-  iframeTitle?: string
-  alt?: string
-  params?: Record<string, string>
-  adLinksPreconnect?: boolean
-  style?: React.CSSProperties
-  className?: string
-}> = ({
+type ImageType = 'jpg' | 'webp'
+
+const resolutions = [120, 320, 480, 640, 1280] as const
+type VideoResolution = (typeof resolutions)[number]
+
+const resolutionMap: Record<VideoResolution, string> = {
+  120: 'default',
+  320: 'mqdefault',
+  480: 'hqdefault',
+  640: 'sddefault',
+  1280: 'maxresdefault'
+  // 2k, 4k, 8k images don't seem to be available
+  // Source: https://longzero.com/articles/youtube-thumbnail-sizes-url/
+}
+
+const resolutionSizes = resolutions
+  .map((resolution) => `(max-width: ${resolution}px) ${resolution}px`)
+  .join(', ')
+
+function getPosterUrl(
+  id: string,
+  resolution: VideoResolution = 480,
+  type: ImageType = 'jpg'
+): string {
+  if (type === 'webp') {
+    return `https://i.ytimg.com/vi_webp/${id}/${resolutionMap[resolution]}.webp`
+  }
+
+  // Default to jpg
+  return `https://i.ytimg.com/vi/${id}/${resolutionMap[resolution]}.jpg`
+}
+
+function generateSrcSet(id: string, type: ImageType = 'jpg'): string {
+  return resolutions
+    .map((resolution) => `${getPosterUrl(id, resolution, type)} ${resolution}w`)
+    .join(', ')
+}
+
+export function LiteYouTubeEmbed({
   id,
   defaultPlay = false,
   mute = false,
@@ -32,16 +59,24 @@ export const LiteYouTubeEmbed: React.FC<{
   adLinksPreconnect = true,
   style,
   className
-}) => {
+}: {
+  id: string
+  defaultPlay?: boolean
+  mute?: boolean
+  lazyImage?: boolean
+  iframeTitle?: string
+  alt?: string
+  params?: Record<string, string>
+  adLinksPreconnect?: boolean
+  style?: React.CSSProperties
+  className?: string
+}) {
   const muteParam = mute || defaultPlay ? '1' : '0' // Default play must be muted
   const queryString = React.useMemo(
     () => qs({ autoplay: '1', mute: muteParam, ...params }),
     [muteParam, params]
   )
-  // const mobileResolution = 'hqdefault'
-  // const desktopResolution = 'maxresdefault'
-  const resolution = 'hqdefault'
-  const posterUrl = `https://i.ytimg.com/vi/${id}/${resolution}.jpg`
+
   const ytUrl = 'https://www.youtube-nocookie.com'
   const iframeSrc = `${ytUrl}/embed/${id}?${queryString}`
 
@@ -65,7 +100,17 @@ export const LiteYouTubeEmbed: React.FC<{
 
   return (
     <>
-      <link rel='preload' href={posterUrl} as='image' />
+      {/*
+        'it seems pretty unlikely for a browser to support preloading but not WebP images'
+        Source: https://blog.laurenashpole.com/post/658079409151016960
+       */}
+      <link
+        rel='preload'
+        as='image'
+        href={getPosterUrl(id)}
+        imageSrcSet={generateSrcSet(id, 'webp')}
+        imageSizes={resolutionSizes}
+      />
 
       {isPreconnected && (
         <>
@@ -79,7 +124,9 @@ export const LiteYouTubeEmbed: React.FC<{
 
       {isPreconnected && adLinksPreconnect && (
         <>
-          {/* Not certain if these ad related domains are in the critical path. Could verify with domain-specific throttling. */}
+          {/* Not certain if these ad related domains are in the critical path.
+              Could verify with domain-specific throttling.
+            */}
           <link rel='preconnect' href='https://static.doubleclick.net' />
           <link rel='preconnect' href='https://googleads.g.doubleclick.net' />
         </>
@@ -96,12 +143,27 @@ export const LiteYouTubeEmbed: React.FC<{
         )}
         style={style}
       >
-        <img
-          src={posterUrl}
-          className='notion-yt-thumbnail'
-          loading={lazyImage ? 'lazy' : undefined}
-          alt={alt}
-        />
+        <picture>
+          {/*
+            Browsers which don't support srcSet will most likely not support webp too
+            These browsers will then just get the default 480 size jpg
+           */}
+          {resolutions.map((resolution) => (
+            <source
+              key={resolution}
+              srcSet={`${getPosterUrl(id, resolution, 'webp')} ${resolution}w`}
+              media={`(max-width: ${resolution}px)`}
+              type='image/webp'
+            />
+          ))}
+
+          <img
+            src={getPosterUrl(id)}
+            className='notion-yt-thumbnail'
+            loading={lazyImage ? 'lazy' : undefined}
+            alt={alt}
+          />
+        </picture>
 
         <div className='notion-yt-playbtn' />
 

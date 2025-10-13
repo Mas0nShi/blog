@@ -1,6 +1,5 @@
 import type { GetServerSideProps } from 'next'
-
-import { ExtendedRecordMap } from '@/notion-types'
+import { type ExtendedRecordMap } from '@/notion-types'
 import {
   getBlockParentPage,
   getBlockTitle,
@@ -42,16 +41,15 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   })
 
   for (const pagePath of Object.keys(siteMap.canonicalPageMap)) {
-    const pageId = siteMap.canonicalPageMap[pagePath]
+    const pageId = siteMap.canonicalPageMap[pagePath]!
     const recordMap = siteMap.pageMap[pageId] as ExtendedRecordMap
     if (!recordMap) continue
 
     const keys = Object.keys(recordMap?.block || {})
-    const block = recordMap?.block?.[keys[0]]?.value
+    const block = recordMap?.block?.[keys[0]!]?.value
     if (!block) continue
 
     const parentPage = getBlockParentPage(block, recordMap)
-    console.log(block, recordMap);
     const isBlogPost =
       block.type === 'page' &&
       block.parent_table === 'collection' &&
@@ -71,12 +69,11 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
       recordMap
     )
     const publishedTime = getPageProperty<number>('Published', block, recordMap)
-
-    const date = publishedTime
-      ? new Date(publishedTime)
-      : lastUpdatedTime
-        ? new Date(lastUpdatedTime)
-      : undefined
+    const date = lastUpdatedTime
+      ? new Date(lastUpdatedTime)
+      : publishedTime
+        ? new Date(publishedTime)
+        : new Date()
     const socialImageUrl = getSocialImageUrl(pageId)
 
     feed.item({
@@ -106,4 +103,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   return { props: {} }
 }
 
-export default () => null
+export default function noop() {
+  return null
+}

@@ -1,19 +1,22 @@
-import * as React from 'react'
+import cs from 'classnames'
 import dynamic from 'next/dynamic'
 import Image from 'next/legacy/image'
-import PageLink from '@/components/PageLink'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
-
-import cs from 'classnames'
-import { PageBlock } from '@/notion-types'
+import { type PageBlock } from '@/notion-types'
 import { formatDate, getBlockTitle, getPageProperty } from '@/notion-utils'
+import * as React from 'react'
 import BodyClassName from 'react-body-classname'
-import { NotionRenderer } from '../packages/notion-render'
-import TweetEmbed from 'react-tweet-embed'
+import {
+  type NotionComponents,
+  NotionRenderer,
+  useNotionContext
+} from '@/notion-render'
+import { EmbeddedTweet, TweetNotFound, TweetSkeleton } from 'react-tweet'
 import { useSearchParam } from 'react-use'
 
+import type * as types from '@/lib/types'
 import * as config from '@/lib/config'
-import * as types from '@/lib/types'
 import { mapImageUrl } from '@/lib/map-image-url'
 import { getCanonicalPageUrl, mapPageUrl } from '@/lib/map-page-url'
 import { searchNotion } from '@/lib/search-notion'
@@ -100,8 +103,15 @@ const Modal = dynamic(
   }
 )
 
-const Tweet = ({ id }: { id: string }) => {
-  return <TweetEmbed tweetId={id} />
+function Tweet({ id }: { id: string }) {
+  const { recordMap } = useNotionContext()
+  const tweet = (recordMap as types.ExtendedTweetRecordMap)?.tweets?.[id]
+
+  return (
+    <React.Suspense fallback={<TweetSkeleton />}>
+      {tweet ? <EmbeddedTweet tweet={tweet} /> : <TweetNotFound />}
+    </React.Suspense>
+  )
 }
 
 const propertyLastEditedTimeValue = (
@@ -154,10 +164,10 @@ export const NotionPage: React.FC<types.PageProps> = ({
   const router = useRouter()
   const lite = useSearchParam('lite')
 
-  const components = React.useMemo(
+  const components = React.useMemo<Partial<NotionComponents>>(
     () => ({
-      nextImage: Image,
-      nextLink: PageLink,
+      nextLegacyImage: Image,
+      nextLink: Link,
       Code,
       Collection,
       Equation,
@@ -182,11 +192,11 @@ export const NotionPage: React.FC<types.PageProps> = ({
     if (lite) params.lite = lite
 
     const searchParams = new URLSearchParams(params)
-    return mapPageUrl(site, recordMap, searchParams)
+    return site ? mapPageUrl(site, recordMap!, searchParams) : undefined
   }, [site, recordMap, lite])
 
   const keys = Object.keys(recordMap?.block || {})
-  const block = recordMap?.block?.[keys[0]]?.value
+  const block = recordMap?.block?.[keys[0]!]?.value
 
   // const isRootPage =
   //   parsePageId(block?.id) === parsePageId(site?.rootNotionPageId)
@@ -198,7 +208,11 @@ export const NotionPage: React.FC<types.PageProps> = ({
 
   const pageAside = React.useMemo(
     () => (
-      <PageAside block={block} recordMap={recordMap} isBlogPost={isBlogPost} />
+      <PageAside
+        block={block!}
+        recordMap={recordMap!}
+        isBlogPost={isBlogPost}
+      />
     ),
     [block, recordMap, isBlogPost]
   )
@@ -214,8 +228,6 @@ export const NotionPage: React.FC<types.PageProps> = ({
   }
 
   const title = getBlockTitle(block, recordMap) || site.name
-  // @TODO: page title include site name
-  // const title = `${getBlockTitle(block, recordMap)} | ${site.name}`
 
   console.log('notion page', {
     isDev: config.isDev,
@@ -233,8 +245,9 @@ export const NotionPage: React.FC<types.PageProps> = ({
     g.block = block
   }
 
-  const canonicalPageUrl =
-    !config.isDev && getCanonicalPageUrl(site, recordMap)(pageId)
+  const canonicalPageUrl = config.isDev
+    ? undefined
+    : getCanonicalPageUrl(site, recordMap)(pageId)
 
   const socialImage = mapImageUrl(
     getPageProperty<string>('Social Image', block, recordMap) ||
@@ -256,6 +269,7 @@ export const NotionPage: React.FC<types.PageProps> = ({
         description={socialDescription}
         image={socialImage}
         url={canonicalPageUrl}
+        isBlogPost={isBlogPost}
       />
 
       {isLiteMode && <BodyClassName className='notion-lite' />}
@@ -294,7 +308,7 @@ export const NotionPage: React.FC<types.PageProps> = ({
           meta={['nick', 'mail']}
           requiredMeta={['nick', 'mail']}
           imageUploader={false}
-          copyright={false}
+          noCopyright={true}
           reaction={[
             '//npm.elemecdn.com/@waline/emojis/tieba/tieba_agree.png',
             '//npm.elemecdn.com/@waline/emojis/tieba/tieba_look_down.png',

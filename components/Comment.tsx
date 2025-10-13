@@ -1,6 +1,5 @@
 import { init } from '@waline/client';
-import '@waline/client/dist/waline-meta.css';
-// import '@waline/client/dist/waline.css';
+import '@waline/client/meta';
 import React, { useEffect, useRef } from 'react';
 import styles from './styles.module.css';
 

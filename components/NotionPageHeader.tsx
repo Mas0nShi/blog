@@ -11,7 +11,7 @@ import { useDarkMode } from '@/lib/use-dark-mode'
 
 import styles from './styles.module.css'
 
-const ToggleThemeButton = () => {
+function ToggleThemeButton() {
   const [hasMounted, setHasMounted] = React.useState(false)
   const { isDarkMode, toggleDarkMode } = useDarkMode()
 
@@ -33,25 +33,11 @@ const ToggleThemeButton = () => {
   )
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const ToggleScrolled = () => {
-  const [scrolled, setScrolled] = React.useState(false)
-
-  React.useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 0)
-    }
-
-    window.addEventListener('scroll', onScroll)
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
-
-  return <div className={cs(styles.toggleScrolled, scrolled && styles.scrolled)} />
-}
-
-export const NotionPageHeader: React.FC<{
+export function NotionPageHeader({
+  block
+}: {
   block: types.CollectionViewPageBlock | types.PageBlock
-}> = ({ block }) => {
+}) {
   const { components, mapPageUrl } = useNotionContext()
 
   if (navigationStyle === 'default') {
@@ -66,7 +52,7 @@ export const NotionPageHeader: React.FC<{
         <div className='notion-nav-header-rhs breadcrumbs'>
           {navigationLinks
             ?.map((link, index) => {
-              if (!link.pageId && !link.url) {
+              if (!link?.pageId && !link?.url) {
                 return null
               }
 

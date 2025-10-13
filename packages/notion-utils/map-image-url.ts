@@ -1,11 +1,11 @@
-import { Block } from '@/notion-types'
+import { type Block } from '@/notion-types'
 
 export const defaultMapImageUrl = (
-  url: string,
+  url: string | undefined,
   block: Block
-): string | null => {
+): string | undefined => {
   if (!url) {
-    return null
+    return undefined
   }
 
   if (url.startsWith('data:')) {
@@ -32,6 +32,10 @@ export const defaultMapImageUrl = (
         // if the URL is already signed, then use it as-is
         return url
       }
+    }
+
+    if (u.hostname === 'img.notionusercontent.com') {
+      return url
     }
   } catch {
     // ignore invalid urls

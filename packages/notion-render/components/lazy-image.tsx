@@ -1,23 +1,14 @@
-import * as React from 'react'
-
 import { normalizeUrl } from '@/notion-utils'
-import { ImageState, LazyImageFull } from 'react-lazy-images'
+import React from 'react'
 
 import { useNotionContext } from '../context'
 import { cs } from '../utils'
+import { ImageState, LazyImageFull } from './lazy-image-full'
 
 /**
  * Progressive, lazy images modeled after Medium's LQIP technique.
  */
-export const LazyImage: React.FC<{
-  src?: string
-  alt?: string
-  className?: string
-  style?: React.CSSProperties
-  height?: number
-  zoomable?: boolean
-  priority?: boolean
-}> = ({
+export function LazyImage({
   src,
   alt,
   className,
@@ -26,14 +17,21 @@ export const LazyImage: React.FC<{
   priority = false,
   height,
   ...rest
-}) => {
+}: {
+  src?: string
+  alt?: string
+  className?: string
+  style?: React.CSSProperties
+  height?: number
+  zoomable?: boolean
+  priority?: boolean
+}) {
   const { recordMap, zoom, previewImages, forceCustomImages, components } =
     useNotionContext()
-
   const zoomRef = React.useRef(zoom ? zoom.clone() : null)
   const previewImage = previewImages
-    ? recordMap?.preview_images?.[src] ??
-      recordMap?.preview_images?.[normalizeUrl(src)]
+    ? (recordMap?.preview_images?.[src!] ??
+      recordMap?.preview_images?.[normalizeUrl(src)])
     : null
 
   const onLoad = React.useCallback(
@@ -83,12 +81,8 @@ export const LazyImage: React.FC<{
       )
     }
 
-
     return (
-      // todo: fix this
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      <LazyImageFull src={src} {...rest} experimentalDecode={true}>
+      <LazyImageFull src={src!} {...rest} experimentalDecode={true}>
         {({ imageState, ref }) => {
           const isLoaded = imageState === ImageState.LoadSuccess
           const wrapperStyle: React.CSSProperties = {

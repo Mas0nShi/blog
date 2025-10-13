@@ -1,9 +1,5 @@
-import * as React from 'react'
-
-import copyToClipboard from 'clipboard-copy'
-import { CodeBlock } from '@/notion-types'
-import { getBlockTitle } from '@/notion-utils'
-import { highlightElement } from 'prismjs'
+// eslint-disable-next-line import/no-duplicates
+import 'prismjs'
 import 'prismjs/components/prism-clike.min.js'
 import 'prismjs/components/prism-css-extras.min.js'
 import 'prismjs/components/prism-css.min.js'
@@ -14,84 +10,88 @@ import 'prismjs/components/prism-jsx.min.js'
 import 'prismjs/components/prism-tsx.min.js'
 import 'prismjs/components/prism-typescript.min.js'
 import mermaid from 'mermaid'
-
+import copyToClipboard from 'clipboard-copy'
+import { type CodeBlock } from '@/notion-types'
+import { getBlockTitle } from '@/notion-utils'
+// eslint-disable-next-line import/no-duplicates, no-duplicate-imports
+import prism from 'prismjs'
+import React from 'react'
 
 import { Text } from '../components/text'
 import { useNotionContext } from '../context'
 import CopyIcon from '../icons/copy'
 import { cs } from '../utils'
-import { sv } from 'date-fns/locale'
 
-export const Code: React.FC<{
+export function Code({
+  block,
+  defaultLanguage = 'typescript',
+  className
+}: {
   block: CodeBlock
   defaultLanguage?: string
   className?: string
-}> = ({ block, defaultLanguage = 'typescript', className }) => {
+}) {
   const [isCopied, setIsCopied] = React.useState(false)
-  const copyTimeout = React.useRef<number>()
-  const { recordMap, darkMode: isDarkMode } = useNotionContext()
+  const copyTimeout = React.useRef<number | undefined>(undefined)
+  const { recordMap, darkMode } = useNotionContext()
   const content = getBlockTitle(block, recordMap)
-  /* Fixes https://github.com/NotionX/react-notion-x/issues/220 */
   const language = (() => {
-    const languageFromNotion = (block.properties?.language?.[0]?.[0] || defaultLanguage
+    const languageNotion = (
+      block.properties?.language?.[0]?.[0] || defaultLanguage
     ).toLowerCase()
-    switch (languageFromNotion) {
-      case "c++":
-        return "cpp";
-      case "f#":
-        return "fsharp";
-      default:
-        return languageFromNotion;
-    }
-  })();
 
+    switch (languageNotion) {
+      case 'c++':
+        return 'cpp'
+      case 'f#':
+        return 'fsharp'
+      default:
+        return languageNotion
+    }
+  })()
   const caption = block.properties.caption
 
+  const mermaidRender = async () => {
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: darkMode ? 'dark' : 'neutral',
+      themeVariables: {
+        // fontSize: '14px'
+      },
+      fontFamily: `SFMono-Regular, Consolas, 'Liberation Mono', Menlo, Courier, monospace;`,
+      htmlLabels: true,
+      securityLevel: "strict"
+    })
 
-  const codeRef = React.useRef()
+    const { svg, bindFunctions } = await mermaid.render(`mermaid-${block.id}`, content)
+    codeRef.current.innerHTML = svg;
+    bindFunctions?.(codeRef.current)
+  }
 
+  const codeRef = React.useRef<HTMLElement | null>(null)
   React.useEffect(() => {
     if (codeRef.current) {
       if (language === 'mermaid') {
-
-        const mermaidRender = async () => {
-          mermaid.initialize({
-            startOnLoad: true,
-            theme: isDarkMode ? 'dark' : 'neutral',
-            themeVariables: {
-              // fontSize: '14px'
-            },
-            fontFamily: `SFMono-Regular, Consolas, 'Liberation Mono', Menlo, Courier, monospace;`,
-            htmlLabels: true,
-            securityLevel: "strict"
-          })
-
-          const { svg } = await mermaid.render(`mermaid-${block.id}`, content)
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          codeRef.current.innerHTML = svg; // todo: fix this
-        }
         mermaidRender().catch((err) => {
           console.error('mermaid render error', err)
         });
-
       } else {
         try {
-          highlightElement(codeRef.current)
+          prism.highlightElement(codeRef.current)
         } catch (err) {
           console.warn('prismjs highlight error', err)
         }
       }
     }
-  }, [codeRef, language, isDarkMode])
+  }, [codeRef, language, darkMode])
 
   const onClickCopyToClipboard = React.useCallback(() => {
-    copyToClipboard(content)
+    void copyToClipboard(content)
     setIsCopied(true)
 
     if (copyTimeout.current) {
       clearTimeout(copyTimeout.current)
-      copyTimeout.current = null
+      copyTimeout.current = undefined
     }
 
     copyTimeout.current = setTimeout(() => {
@@ -119,7 +119,7 @@ export const Code: React.FC<{
           )}
         </div>
 
-        <div className={`language-${language}`} ref={codeRef}>
+        <div className={`language-${language}`} ref={codeRef as any}>
           {content}
         </div>
       </div>

@@ -5,18 +5,9 @@ import styles from './styles.module.css'
 
 // TODO: merge the data and icons from PageSocial with the social links in Footer
 
-export const FooterImpl: React.FC = () => {
+export function FooterImpl() {
   const [, setHasMounted] = React.useState(false)
-  // const { toggleDarkMode } = useDarkMode()
   const currentYear = new Date().getFullYear()
-
-  // const onToggleDarkMode = React.useCallback(
-  //   (e) => {
-  //     e.preventDefault()
-  //     toggleDarkMode()
-  //   },
-  //   [toggleDarkMode]
-  // )
 
   React.useEffect(() => {
     setHasMounted(true)
@@ -25,21 +16,6 @@ export const FooterImpl: React.FC = () => {
   return (
     <footer className={styles.footer}>
       <div className={styles.copyright}>Copyright {currentYear} ❤️ {config.author}</div>
-      {/* 
-      <div className={styles.settings}>
-        {hasMounted && (
-          <a
-            className={styles.toggleDarkMode}
-            href='#'
-            role='button'
-            onClick={onToggleDarkMode}
-            title='Toggle dark mode'
-          >
-            {isDarkMode ? <IoMoonSharp /> : <IoSunnyOutline />}
-          </a>
-        )}
-      </div> */}
-
       {(config.icp || (config.recordName && config.recordNumber)) && (
         <div>
         {config.icp && (

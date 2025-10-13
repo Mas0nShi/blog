@@ -1,6 +1,4 @@
-import * as React from 'react'
-
-import * as types from '@/notion-types'
+import type * as types from '@/notion-types'
 import {
   getBlockCollectionId,
   getBlockIcon,
@@ -9,6 +7,7 @@ import {
   getTextContent,
   uuidToId
 } from '@/notion-utils'
+import React from 'react'
 
 import { AssetWrapper } from './components/asset-wrapper'
 import { Audio } from './components/audio'
@@ -23,9 +22,16 @@ import { SyncPointerBlock } from './components/sync-pointer-block'
 import { Text } from './components/text'
 import { useNotionContext } from './context'
 import { LinkIcon } from './icons/link-icon'
-import { cs, getListNumber, isUrl } from './utils'
 import { Tweet } from 'react-tweet'
 import { ToggleBlock } from './components/toggle-block'
+
+import {
+  cs,
+  getListNestingLevel,
+  getListNumber,
+  getListStyle,
+  isUrl
+} from './utils'
 
 interface BlockProps {
   block: types.Block
@@ -55,7 +61,7 @@ const tocIndentLevelCache: {
 
 const pageCoverStyleCache: Record<string, object> = {}
 
-export const Block: React.FC<BlockProps> = (props) => {
+export function Block(props: BlockProps) {
   const ctx = useNotionContext()
   const {
     components,
@@ -71,7 +77,7 @@ export const Block: React.FC<BlockProps> = (props) => {
     defaultPageCoverPosition
   } = ctx
 
-  const [activeSection, setActiveSection] = React.useState(null)
+  const [activeSection, setActiveSection] = React.useState<string | null>(null)
 
   const {
     block,
@@ -97,18 +103,14 @@ export const Block: React.FC<BlockProps> = (props) => {
   // ugly hack to make viewing raw collection views work properly
   // e.g., 6d886ca87ab94c21a16e3b82b43a57fb
   if (level === 0 && block.type === 'collection_view') {
-    ; (block as any).type = 'collection_view_page'
+    ;(block as any).type = 'collection_view_page'
   }
 
   const blockId = hideBlockId
     ? 'notion-block'
     : `notion-block-${uuidToId(block.id)}`
 
-  // console.log('Block', block.type, block)
-
-  switch (block.type as string) { // TODO: fix block type
-    case 'breadcrumb':
-      break;
+  switch (block.type) {
     case 'collection_view_page':
     // fallthrough
     case 'page':
@@ -126,10 +128,11 @@ export const Block: React.FC<BlockProps> = (props) => {
             block.type === 'page'
               ? block.properties
               : {
-                title:
-                  recordMap.collection[getBlockCollectionId(block, recordMap)]
-                    ?.value?.name
-              }
+                  title:
+                    recordMap.collection[
+                      getBlockCollectionId(block, recordMap)!
+                    ]?.value?.name
+                }
 
           const coverPosition = (1 - (page_cover_position || 0.5)) * 100
           const pageCoverObjectPosition = `center ${coverPosition}%`
@@ -150,8 +153,8 @@ export const Block: React.FC<BlockProps> = (props) => {
 
           const hasToc =
             showTableOfContents && toc.length >= minTableOfContentsItems
-          const hasAside = (hasToc || pageAside) && !page_full_width
-          const hasPageCover = pageCover || page_cover
+          const hasAside = !!((hasToc || pageAside) && !page_full_width)
+          const hasPageCover = !!(pageCover || page_cover)
 
           return (
             <div
@@ -171,12 +174,10 @@ export const Block: React.FC<BlockProps> = (props) => {
 
                 <div className='notion-page-scroller'>
                   {hasPageCover &&
-                    (pageCover ? (
-                      pageCover
-                    ) : (
+                    (pageCover ?? (
                       <div className='notion-page-cover-wrapper'>
                         <LazyImage
-                          src={mapImageUrl(page_cover, block)}
+                          src={mapImageUrl(page_cover!, block)}
                           alt={getTextContent(properties?.title)}
                           priority={true}
                           className='notion-page-cover'
@@ -222,8 +223,8 @@ export const Block: React.FC<BlockProps> = (props) => {
                     {(block.type === 'collection_view_page' ||
                       (block.type === 'page' &&
                         block.parent_table === 'collection')) && (
-                        <components.Collection block={block} ctx={ctx} />
-                      )}
+                      <components.Collection block={block} ctx={ctx} />
+                    )}
 
                     {block.type !== 'collection_view_page' && (
                       <div
@@ -279,8 +280,8 @@ export const Block: React.FC<BlockProps> = (props) => {
               {(block.type === 'collection_view_page' ||
                 (block.type === 'page' &&
                   block.parent_table === 'collection')) && (
-                  <components.Collection block={block} ctx={ctx} />
-                )}
+                <components.Collection block={block} ctx={ctx} />
+              )}
 
               {block.type !== 'collection_view_page' && children}
 
@@ -319,7 +320,7 @@ export const Block: React.FC<BlockProps> = (props) => {
 
       // we use a cache here because constructing the ToC is non-trivial
       let indentLevel = tocIndentLevelCache[block.id]
-      let indentLevelClass: string
+      let indentLevelClass: string | undefined
 
       if (indentLevel === undefined) {
         const page = getBlockParentPage(block, recordMap)
@@ -450,7 +451,7 @@ export const Block: React.FC<BlockProps> = (props) => {
         }
       }
 
-      let output: JSX.Element | null = null
+      let output: React.ReactElement | null = null
 
       const isTopLevel =
         block.type !== recordMap.block[block.parent_id]?.value?.type
@@ -572,8 +573,9 @@ export const Block: React.FC<BlockProps> = (props) => {
       const columns =
         parent?.content?.length || Math.max(2, Math.ceil(1.0 / ratio))
 
-      const width = `calc((100% - (${columns - 1
-        } * ${spacerWidth})) * ${ratio})`
+      const width = `calc((100% - (${
+        columns - 1
+      } * ${spacerWidth})) * ${ratio})`
       const style = { width }
 
       return (
@@ -622,11 +624,11 @@ export const Block: React.FC<BlockProps> = (props) => {
             className={cs(
               'notion-callout',
               block.format?.block_color &&
-              `notion-${block.format?.block_color}_co`,
+                `notion-${block.format?.block_color}_co`,
               blockId
             )}
           >
-            <PageIcon block={block} />
+            <PageIcon block={block} hideDefaultIcon={true} />
 
             <div className='notion-callout-text'>
               <Text value={block.properties?.title} block={block} />
@@ -652,7 +654,7 @@ export const Block: React.FC<BlockProps> = (props) => {
           try {
             const url = new URL(title)
             title = url.hostname
-          } catch (err) {
+          } catch {
             // ignore invalid links
           }
         }
@@ -781,7 +783,7 @@ export const Block: React.FC<BlockProps> = (props) => {
       return <div className={cs('notion-sync-block', blockId)}>{children}</div>
 
     case 'transclusion_reference':
-      return <SyncPointerBlock block={block} level={level + 1} {...props} />
+      return <SyncPointerBlock {...props} level={level + 1} />
 
     case 'alias': {
       const blockPointerId = block?.format?.alias_pointer?.id
@@ -817,6 +819,11 @@ export const Block: React.FC<BlockProps> = (props) => {
       const formatMap = tableBlock.format?.table_block_column_format
       const backgroundColor = block.format?.block_color
 
+      const hasRowHeader = tableBlock.format?.table_block_column_header === true
+      const hasColumnHeader = tableBlock.format?.table_block_row_header === true
+
+      const isHeaderRow = hasRowHeader && tableBlock.content?.[0] === block.id
+
       if (!tableBlock || !order) {
         return null
       }
@@ -826,19 +833,24 @@ export const Block: React.FC<BlockProps> = (props) => {
           className={cs(
             'notion-simple-table-row',
             backgroundColor && `notion-${backgroundColor}`,
+            isHeaderRow && 'notion-simple-table-header-row',
             blockId
           )}
         >
-          {order.map((column) => {
+          {order.map((column, columnIndex) => {
             const color = formatMap?.[column]?.color
+
+            const isHeaderColumn = hasColumnHeader && columnIndex === 0
 
             return (
               <td
                 key={column}
-                className={color ? `notion-${color}` : ''}
+                className={cs(
+                  color ? `notion-${color}` : '',
+                  isHeaderColumn && 'notion-simple-table-header-cell'
+                )}
                 style={{
-                  // width: formatMap?.[column]?.width || 120
-                  minWidth: 120
+                  width: formatMap?.[column]?.width || 120
                 }}
               >
                 <div className='notion-simple-table-cell'>
@@ -860,13 +872,11 @@ export const Block: React.FC<BlockProps> = (props) => {
     default:
       if (process.env.NODE_ENV !== 'production') {
         console.log(
-          'Unsupported type ' + (block as any).type,
+          'Unsupported block type ' + (block as any).type,
           JSON.stringify(block, null, 2)
         )
       }
 
       return <div />
   }
-
-  return null
 }

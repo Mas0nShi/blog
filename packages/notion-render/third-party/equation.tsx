@@ -1,7 +1,6 @@
-import * as React from 'react'
-
+import type React from 'react'
 import Katex from '@matejmazur/react-katex'
-import { EquationBlock } from '@/notion-types'
+import { type EquationBlock } from '@/notion-types'
 import { getBlockTitle } from '@/notion-utils'
 
 import { useNotionContext } from '../context'
@@ -12,12 +11,18 @@ const katexSettings = {
   strict: false
 }
 
-export const Equation: React.FC<{
+export function Equation({
+  block,
+  math,
+  inline = false,
+  className,
+  ...rest
+}: {
   block: EquationBlock
   math?: string
   inline?: boolean
   className?: string
-}> = ({ block, math, inline = false, className, ...rest }) => {
+}) {
   const { recordMap } = useNotionContext()
   math = math || getBlockTitle(block, recordMap)
   if (!math) return null

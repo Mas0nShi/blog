@@ -1,9 +1,9 @@
-import * as notion from '@/notion-types'
 import type { Client } from '@notionhq/client'
+import type * as notion from '@/notion-types'
 import { parsePageId } from '@/notion-utils'
 import PQueue from 'p-queue'
 
-import * as types from './types'
+import type * as types from './types'
 import { convertPage } from './convert-page'
 
 export class NotionCompatAPI {
@@ -15,6 +15,9 @@ export class NotionCompatAPI {
 
   public async getPage(rawPageId: string): Promise<notion.ExtendedRecordMap> {
     const pageId = parsePageId(rawPageId)
+    if (!pageId) {
+      throw new Error(`Invalid page id "${rawPageId}"`)
+    }
 
     const [page, block, children] = await Promise.all([
       this.client.pages.retrieve({ page_id: pageId }),
@@ -65,7 +68,7 @@ export class NotionCompatAPI {
       }
 
       pendingBlockIds.add(blockId)
-      queue.add(async () => {
+      void queue.add(async () => {
         try {
           let partialBlock = blockMap[blockId]
           if (!partialBlock) {
@@ -87,7 +90,7 @@ export class NotionCompatAPI {
               const page = partialPage as types.Page
               switch (page.parent?.type) {
                 case 'page_id':
-                  processBlock(page.parent.page_id, {
+                  void processBlock(page.parent.page_id, {
                     shallow: true
                   })
                   if (!parentMap[blockId]) {
@@ -96,7 +99,7 @@ export class NotionCompatAPI {
                   break
 
                 case 'database_id':
-                  processBlock(page.parent.database_id, {
+                  void processBlock(page.parent.database_id, {
                     shallow: true
                   })
                   if (!parentMap[blockId]) {
@@ -129,23 +132,25 @@ export class NotionCompatAPI {
               blockMap[child.id] = childBlock
               parentMap[child.id] = blockId
 
-              const details = childBlock[childBlock.type]
+              const details: any =
+                childBlock[childBlock.type as keyof types.Block]
               if (details?.rich_text) {
                 const richTextMentions = details.rich_text.filter(
-                  (richTextItem) => richTextItem.type === 'mention'
+                  (richTextItem: types.RichTextItem) =>
+                    richTextItem.type === 'mention'
                 )
 
                 for (const richTextMention of richTextMentions) {
                   switch (richTextMention.mention?.type) {
                     case 'page': {
                       const pageId = richTextMention.mention.page.id
-                      processBlock(pageId, { shallow: true })
+                      void processBlock(pageId, { shallow: true })
                       break
                     }
 
                     case 'database': {
                       const databaseId = richTextMention.mention.database.id
-                      processBlock(databaseId, { shallow: true })
+                      void processBlock(databaseId, { shallow: true })
                       break
                     }
                   }
@@ -155,13 +160,13 @@ export class NotionCompatAPI {
               if (childBlock.type === 'link_to_page') {
                 switch (childBlock.link_to_page?.type) {
                   case 'page_id':
-                    processBlock(childBlock.link_to_page.page_id, {
+                    void processBlock(childBlock.link_to_page.page_id, {
                       shallow: true
                     })
                     break
 
                   case 'database_id':
-                    processBlock(childBlock.link_to_page.database_id, {
+                    void processBlock(childBlock.link_to_page.database_id, {
                       shallow: true
                     })
                     break
@@ -172,11 +177,11 @@ export class NotionCompatAPI {
                 childBlock.has_children &&
                 childBlock.type !== 'child_database'
               ) {
-                processBlock(childBlock.id)
+                void processBlock(childBlock.id)
               }
             }
           }
-        } catch (err) {
+        } catch (err: any) {
           console.warn('failed resolving block', blockId, err.message)
         } finally {
           pendingBlockIds.delete(blockId)
@@ -197,7 +202,7 @@ export class NotionCompatAPI {
 
   async getAllBlockChildren(blockId: string) {
     let blocks: types.BlockChildren = []
-    let cursor: string
+    let cursor: string | undefined
 
     do {
       const res = await this.client.blocks.children.list({
@@ -206,6 +211,8 @@ export class NotionCompatAPI {
       })
 
       blocks = blocks.concat(res.results)
+      if (!res.next_cursor) break
+
       cursor = res.next_cursor
     } while (cursor)
 

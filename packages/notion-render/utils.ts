@@ -1,8 +1,6 @@
-import { BlockMap } from '@/notion-types'
+import { type BlockMap } from '@/notion-types'
 
-export { isUrl, formatDate, formatNotionDateTime } from '@/notion-utils'
-export * from './map-image-url'
-export * from './map-page-url'
+export { formatDate, formatNotionDateTime, isUrl } from '@/notion-utils'
 
 export const cs = (...classes: Array<string | undefined | false>) =>
   classes.filter((a) => !!a).join(' ')
@@ -10,30 +8,31 @@ export const cs = (...classes: Array<string | undefined | false>) =>
 const groupBlockContent = (blockMap: BlockMap): string[][] => {
   const output: string[][] = []
 
-  let lastType: string | undefined = undefined
+  let lastType: string | undefined
   let index = -1
 
-  Object.keys(blockMap).forEach((id) => {
+  for (const id of Object.keys(blockMap)) {
     const blockValue = blockMap[id]?.value
 
     if (blockValue) {
-      blockValue.content?.forEach((blockId) => {
-        const blockType = blockMap[blockId]?.value?.type
+      if (blockValue.content)
+        for (const blockId of blockValue.content) {
+          const blockType = blockMap[blockId]?.value?.type
 
-        if (blockType && blockType !== lastType) {
-          index++
-          lastType = blockType
-          output[index] = []
-        }
+          if (blockType && blockType !== lastType) {
+            index++
+            lastType = blockType
+            output[index] = []
+          }
 
-        if (index > -1) {
-          output[index].push(blockId)
+          if (index > -1) {
+            output[index]?.push(blockId)
+          }
         }
-      })
     }
 
     lastType = undefined
-  })
+  }
 
   return output
 }
@@ -46,14 +45,50 @@ export const getListNumber = (blockId: string, blockMap: BlockMap) => {
     return
   }
 
-  return group.indexOf(blockId) + 1
+  const groupIndex = group.indexOf(blockId) + 1
+  const startIndex = blockMap[blockId]?.value.format?.list_start_index
+  return blockMap[blockId]?.value.type === 'numbered_list'
+    ? (startIndex ?? groupIndex)
+    : groupIndex
+}
+
+export const getListNestingLevel = (
+  blockId: string,
+  blockMap: BlockMap
+): number => {
+  let level = 0
+  let currentBlockId = blockId
+
+  while (true) {
+    const parentId = blockMap[currentBlockId]?.value?.parent_id
+
+    if (!parentId) break
+
+    const parentBlock = blockMap[parentId]?.value
+    if (!parentBlock) break
+
+    if (parentBlock.type === 'numbered_list') {
+      level++
+      currentBlockId = parentId
+    } else {
+      break
+    }
+  }
+
+  return level
+}
+
+export const getListStyle = (level: number): string => {
+  const styles: string[] = ['decimal', 'lower-alpha', 'lower-roman']
+  const index = ((level % styles.length) + styles.length) % styles.length
+  return styles[index] as string
 }
 
 export const getHashFragmentValue = (url: string) => {
   return url.includes('#') ? url.replace(/^.+(#.+)$/, '$1') : ''
 }
 
-export const isBrowser = typeof window !== 'undefined'
+export const isBrowser = !!globalThis.window
 
 const youtubeDomains = new Set([
   'youtu.be',
@@ -73,7 +108,7 @@ export const getYoutubeId = (url: string): string | null => {
       /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/i
 
     const match = url.match(regExp)
-    if (match && match[2].length == 11) {
+    if (match && match[2]?.length === 11) {
       return match[2]
     }
   } catch {
@@ -81,4 +116,22 @@ export const getYoutubeId = (url: string): string | null => {
   }
 
   return null
+}
+
+export const getUrlParams = (
+  url: string
+): Record<string, string> | undefined => {
+  try {
+    const { searchParams } = new URL(url)
+    const result: Record<string, string> = {}
+    for (const [key, value] of searchParams.entries()) {
+      result[key] = value
+    }
+
+    return result
+  } catch {
+    // ignore invalid urls
+  }
+
+  return
 }

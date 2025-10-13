@@ -1,4 +1,4 @@
-import * as types from '@/notion-types'
+import type * as types from '@/notion-types'
 
 import { getBlockIcon } from './get-block-icon'
 import { getBlockParentPage } from './get-block-parent-page'
@@ -42,8 +42,6 @@ export const getPageBreadcrumbs = (
     }
 
     currentPageId = parentId
-
-    // eslint-disable-next-line no-constant-condition
   } while (true)
 
   breadcrumbs.reverse()
