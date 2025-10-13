@@ -1,0 +1,91 @@
+{
+  "name": "notion-render",
+  "version": "7.7.1",
+  "type": "module",
+  "description": "Fast and accurate React renderer for Notion.",
+  "repository": "Mas0nShi/blog",
+  "author": "Travis Fischer <travis@transitivebullsh.it> & Mas0nShi <fishilir@gmail.com>",
+  "license": "MIT",
+  "main": "./build/index.js",
+  "module": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./build/index.d.ts",
+      "default": "./build/index.js"
+    },
+    "./build/third-party/code": {
+      "types": "./build/third-party/code.d.ts",
+      "default": "./build/third-party/code.js"
+    },
+    "./build/third-party/collection": {
+      "types": "./build/third-party/collection.d.ts",
+      "default": "./build/third-party/collection.js"
+    },
+    "./build/third-party/equation": {
+      "types": "./build/third-party/equation.d.ts",
+      "default": "./build/third-party/equation.js"
+    },
+    "./build/third-party/modal": {
+      "types": "./build/third-party/modal.d.ts",
+      "default": "./build/third-party/modal.js"
+    },
+    "./build/third-party/pdf": {
+      "types": "./build/third-party/pdf.d.ts",
+      "default": "./build/third-party/pdf.js"
+    },
+    "./styles.css": "./src/styles.css",
+    "./src/styles.css": "./src/styles.css"
+  },
+  "files": [
+    "build",
+    "src/styles.css"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "watch": "tsup --watch --silent --onSuccess 'echo build successful'",
+    "clean": "del build",
+    "test": "run-s test:*",
+    "test:lint": "eslint .",
+    "test:typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@fisch0920/medium-zoom": "catalog:",
+    "@matejmazur/react-katex": "catalog:",
+    "katex": "catalog:",
+    "notion-types": "workspace:*",
+    "notion-utils": "workspace:*",
+    "prismjs": "catalog:",
+    "react-fast-compare": "catalog:",
+    "react-hotkeys-hook": "catalog:",
+    "react-image": "catalog:",
+    "react-intersection-observer": "catalog:",
+    "react-modal": "catalog:",
+    "unionize": "catalog:"
+  },
+  "devDependencies": {
+    "@types/lodash.throttle": "catalog:",
+    "@types/prismjs": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-modal": "catalog:",
+    "clipboard-copy": "catalog:",
+    "date-fns": "catalog:",
+    "format-number": "catalog:",
+    "lodash.throttle": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "react-pdf": "^9.1.1"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "optionalDependencies": {
+    "react-pdf": "^9.2.1"
+  }
+}
