@@ -1,6 +1,7 @@
 {
   "extends": "@fisch0920/config/tsconfig-react",
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
     "lib": ["esnext", "ESNext.Array", "dom", "dom.iterable"],
     "target": "ES2020",
     "jsx": "react-jsx"

@@ -3005,6 +3005,17 @@ div[class*='language-mermaid'] {
   box-shadow: rgba(15, 15, 15, 0.1) 0px 2px 4px;
 }
 
+.notion-external-block-avatar-placeholder {
+  display: block; 
+  object-fit: cover; 
+  border-radius: 34px; 
+  width: 30.192px; 
+  height: 30.192px; 
+  transition: opacity 100ms ease-out; 
+  box-shadow: rgba(15, 15, 15, 0.1) 0px 2px 4px;
+  background: var(--bg-color-0);
+}
+
 .notion-external-block-github-icon {
   position: absolute;
   bottom: -2px;

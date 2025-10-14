@@ -1,16 +1,15 @@
 import type React from 'react'
 
 
-
 export function MentionPreviewCard({
+  title,
   owner,
   lastUpdated,
-  externalImage,
-  title
+  externalImage
 }: {
-  owner?: string
-  lastUpdated?: string | null
   title: string
+  owner: string | undefined
+  lastUpdated: string | null
   externalImage?: React.ReactNode
 }) {
   return (
