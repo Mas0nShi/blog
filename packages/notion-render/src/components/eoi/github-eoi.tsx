@@ -88,7 +88,7 @@ export function GitHubEOI({
                                         className='notion-external-block-avatar'
                                     />
                                 ) : (
-                                    <div className='notion-external-block-avatar' />
+                                    <div className='notion-external-block-avatar-placeholder' />
                                 )}
                                 <SvgTypeGitHub className='notion-external-block-github-icon' />
                             </>
