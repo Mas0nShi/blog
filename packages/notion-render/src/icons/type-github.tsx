@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-export default function SvgTypeGitHub(props: React.SVGProps<SVGSVGElement>) {
+function SvgTypeGitHub(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox='0 0 512 512' {...props}>
       <g>
@@ -11,3 +11,5 @@ export default function SvgTypeGitHub(props: React.SVGProps<SVGSVGElement>) {
     </svg>
   )
 }
+
+export default SvgTypeGitHub

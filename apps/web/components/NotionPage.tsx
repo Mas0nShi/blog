@@ -23,6 +23,7 @@ import { searchNotion } from '@/lib/search-notion'
 import { useDarkMode } from '@/lib/use-dark-mode'
 
 import { Waline } from './Comment'
+import { FloatingTableOfContents } from './FloatingTableOfContents'
 import { Footer } from './Footer'
 import { Loading } from './Loading'
 import { NotionPageHeader } from './NotionPageHeader'
@@ -302,6 +303,9 @@ export function NotionPage({
 
       {isLiteMode && <BodyClassName className='notion-lite' />}
       {isDarkMode && <BodyClassName className='dark-mode' />}
+
+      {/* 悬浮目录组件 */}
+      {showTableOfContents && !isLiteMode && <FloatingTableOfContents />}
 
       <NotionRenderer
         bodyClassName={cs(

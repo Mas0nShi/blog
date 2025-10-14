@@ -1,0 +1,285 @@
+/* 外层固定定位容器 */
+.floatingToc {
+  position: fixed;
+  right: 12px;
+  z-index: 100;
+  will-change: top;
+  transition: top 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 200ms ease,
+              transform 200ms ease;
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.floatingToc.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* hover触发器包装 - 整个组件的hover状态由这一层控制 */
+.hoverWrapper {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+/* 占位区域 - 用于定义hover触发区域和显示紧凑视图 */
+.placeholderArea {
+  width: 56px;
+  height: 362px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 8px;
+  position: relative;
+}
+
+/* 紧凑视图 - 线条模式 */
+.compactView {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: opacity 200ms ease, transform 200ms ease;
+  transition-delay: 50ms;
+  opacity: 1;
+}
+
+.hoverWrapper:hover .compactView {
+  opacity: 0;
+  transform: translateX(10px);
+  pointer-events: none;
+  transition-delay: 0ms;
+}
+
+/* 线条样式 */
+.compactLine {
+  height: 1.5px;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 1px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  transform-origin: left center;
+}
+
+.dark-mode .compactLine {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.compactLine:hover {
+  background: rgba(0, 0, 0, 0.5);
+  transform: scaleX(1.1) scaleY(1.3);
+}
+
+.dark-mode .compactLine:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.compactLine.active {
+  background: rgba(0, 0, 0, 0.9);
+  height: 2px;
+  transform: scaleX(1.05);
+}
+
+.dark-mode .compactLine.active {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+/* 内容容器 - 绝对定位，在占位区域之上 */
+.contentContainer {
+  position: absolute;
+  top: 0;
+  inset-inline-start: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+  pointer-events: none;
+}
+
+/* 交互区域 - 相对定位，始终允许pointer-events */
+.interactiveArea {
+  position: relative;
+  inset-inline-end: 100%;
+  pointer-events: auto;
+}
+
+/* 滑动容器 */
+.slideContainer {
+  display: flex;
+  align-items: center;
+  position: relative;
+  flex-direction: row;
+  transform-origin: right 0%;
+  inset-inline-end: -56px;
+  top: 0;
+  transition-duration: 200ms;
+  transition-timing-function: ease;
+  transition-property: none;
+}
+
+/* Dialog容器 */
+.dialogContainer {
+  border-radius: 10px;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  position: relative;
+  max-width: calc(-24px + 100vw);
+  margin-top: -10px;
+}
+
+/* 动画包装器 */
+.animationWrapper {
+  display: flex;
+  flex-direction: row;
+  width: 258px;
+  padding-inline-start: 16px;
+  cursor: default;
+  opacity: 0;
+  transform: translateX(10px);
+  transition: opacity 200ms ease, transform 200ms ease, visibility 0ms 200ms;
+  pointer-events: auto;
+  visibility: hidden;
+}
+
+.hoverWrapper:hover .animationWrapper {
+  opacity: 1;
+  transform: translateX(0);
+  visibility: visible;
+  transition: opacity 200ms ease, transform 200ms ease, visibility 0ms 0ms;
+}
+
+/* 内容面板 */
+.contentPanel {
+  width: 242px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding-top: 12px;
+  padding-inline: 12px;
+  padding-bottom: 0;
+  margin-inline-end: 10px;
+  background-color: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 14px;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 362px;
+}
+
+.dark-mode .contentPanel {
+  background-color: rgba(30, 30, 30, 0.98);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+}
+
+/* 内容区域 */
+.contentInner {
+  padding: 6px;
+  padding-bottom: 12px;
+  max-width: 500px;
+  width: 100%;
+  cursor: default;
+}
+
+/* 滚动条样式 */
+.contentPanel::-webkit-scrollbar {
+  width: 6px;
+}
+
+.contentPanel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.contentPanel::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+.dark-mode .contentPanel::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.contentPanel::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .contentPanel::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* 目录项 */
+.tocItem {
+  display: block;
+  color: rgba(0, 0, 0, 0.6);
+  text-decoration: none;
+  user-select: none;
+  transition: color 0.15s;
+  cursor: pointer;
+  fill: inherit;
+  width: 100%;
+}
+
+.dark-mode .tocItem {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.tocItem:hover {
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.dark-mode .tocItem:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.tocItem.active {
+  color: rgb(35, 131, 226);
+}
+
+.dark-mode .tocItem.active {
+  color: rgb(82, 156, 202);
+}
+
+/* 目录项内容 */
+.tocItemContent {
+  display: flex;
+  align-items: center;
+}
+
+.tocItemText {
+  padding-inline: 2px;
+  font-size: 13px;
+  line-height: 1.3;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+}
+
+.tocItemTextSpan {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+  .floatingToc {
+    display: none;
+  }
+}
+
+/* 动画优化 */
+@media (prefers-reduced-motion: reduce) {
+  .floatingToc,
+  .compactView,
+  .expandedView,
+  .compactLine,
+  .tocItem {
+    transition: none;
+  }
+}
+

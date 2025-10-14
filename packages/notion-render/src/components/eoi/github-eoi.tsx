@@ -1,5 +1,4 @@
 import { type Block } from 'notion-types'
-import Image from 'next/image'
 import React from 'react'
 
 import { useNotionContext } from '../../context'
@@ -67,7 +66,7 @@ export function GitHubEOI({
                                 <SvgTypeGitHub className='notion-external-mention-image-left' />
                                 <span className='notion-external-mention-text'>{title}</span>
                                 {ownerAvatar && (
-                                    <Image className='notion-external-mention-image-right' width={16} height={16} src={ownerAvatar} alt={owner} />
+                                    <img className='notion-external-mention-image-right' width={16} height={16} src={ownerAvatar} alt={owner} />
                                 )}
                             </div>
                         </div>
@@ -81,7 +80,7 @@ export function GitHubEOI({
                         externalImage={
                             <>
                                 {ownerAvatar ? (
-                                    <Image
+                                    <img
                                         src={ownerAvatar}
                                         alt={owner || ''}
                                         width={30.192}
