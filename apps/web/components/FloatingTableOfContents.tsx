@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+
 import styles from './FloatingTableOfContents.module.css'
 
 interface TocItem {
@@ -35,13 +36,14 @@ export function FloatingTableOfContents({
       const headings = container.querySelectorAll('.notion-h')
       const items: TocItem[] = []
 
-      headings.forEach((heading, index) => {
+      let index = 0
+      for (const heading of headings) {
         const element = heading as HTMLElement
-        let id = element.getAttribute('data-id') || element.id
+        let id = element.dataset.id || element.id
 
         if (!id) {
           id = `heading-${index}`
-          element.setAttribute('data-id', id)
+          element.dataset.id = id
         }
 
         let level = 1
@@ -56,14 +58,15 @@ export function FloatingTableOfContents({
         const text = element.textContent?.replace('​', '').trim() || ''
 
         const headerElement = (element.closest('h1, h2, h3, h4, h5, h6') || element) as HTMLElement
-        if (!headerElement.getAttribute('data-id')) {
-          headerElement.setAttribute('data-id', id)
+        if (!headerElement.dataset.id) {
+          headerElement.dataset.id = id
         }
 
         if (text) {
           items.push({ id, text, level, element, headerElement })
         }
-      })
+        index++
+      }
 
       setTocItems(items)
       
@@ -89,21 +92,21 @@ export function FloatingTableOfContents({
     }
 
     const observerCallback: IntersectionObserverCallback = (entries) => {
-      entries.forEach((entry) => {
+      for (const entry of entries) {
         if (entry.isIntersecting) {
-          const id = (entry.target as HTMLElement).getAttribute('data-id') || entry.target.id
+          const id = (entry.target as HTMLElement).dataset.id || entry.target.id
           if (id) {
             setActiveId(id)
           }
         }
-      })
+      }
     }
 
     const observer = new IntersectionObserver(observerCallback, observerOptions)
 
-    tocItems.forEach((item) => {
+    for (const item of tocItems) {
       observer.observe(item.headerElement)
-    })
+    }
 
     return () => {
       observer.disconnect()
@@ -116,7 +119,7 @@ export function FloatingTableOfContents({
     if (!container) return
 
     const observerCallback: IntersectionObserverCallback = (entries) => {
-      entries.forEach((entry) => {
+      for (const entry of entries) {
         if (entry.isIntersecting) {
           setIsVisible(true)
           requestAnimationFrame(() => {
@@ -128,7 +131,7 @@ export function FloatingTableOfContents({
             setIsVisible(false)
           }, 200) // 等待动画完成
         }
-      })
+      }
     }
 
     containerObserverRef.current = new IntersectionObserver(observerCallback, {
