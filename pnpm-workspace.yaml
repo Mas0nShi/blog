@@ -8,6 +8,7 @@ catalog:
   '@fisch0920/eslint-config': ^1.4.0
   '@fisch0920/medium-zoom': ^1.0.7
   '@matejmazur/react-katex': ^3.1.3
+  '@next/bundle-analyzer': ^15.5.11
   '@notionhq/client': ^2.3.0
   '@total-typescript/ts-reset': ^0.6.1
   '@types/lodash.throttle': ^4.1.9
@@ -41,6 +42,7 @@ catalog:
   prettier: ^3.8.1
   prismjs: ^1.30.0
   react: ^19.2.4
+  react-body-classname: ^1.3.1
   react-dom: ^19.2.4
   react-fast-compare: ^3.2.2
   react-hotkeys-hook: ^4.6.2
