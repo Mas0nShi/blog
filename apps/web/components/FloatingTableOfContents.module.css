@@ -22,15 +22,26 @@
   justify-content: flex-end;
 }
 
+.hoverWrapper::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  bottom: -10px;
+  inset-inline-start: -12px;
+  inset-inline-end: -12px;
+  pointer-events: auto;
+}
+
 /* 占位区域 - 用于定义hover触发区域和显示紧凑视图 */
 .placeholderArea {
   width: 56px;
-  height: auto;
-  min-height: 362px;
+  height: max-content;
+  min-height: 0;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-end;
   padding-right: 8px;
+  padding-block: 10px;
   position: relative;
 }
 
@@ -44,7 +55,7 @@
   opacity: 1;
 }
 
-.hoverWrapper:hover .compactView {
+.hoverWrapper.hovered .compactView {
   opacity: 0;
   transform: translateX(10px);
   pointer-events: none;
@@ -147,7 +158,7 @@
   visibility: hidden;
 }
 
-.hoverWrapper:hover .animationWrapper {
+.hoverWrapper.hovered .animationWrapper {
   opacity: 1;
   transform: translateX(0);
   visibility: visible;

@@ -24,14 +24,23 @@ export function FloatingTableOfContents({
   const [isVisible, setIsVisible] = useState(false)
   const [isRendered, setIsRendered] = useState(false)
   const [sidebarTop, setSidebarTop] = useState(220)
+  const [isHovered, setIsHovered] = useState(false)
   const sidebarRef = useRef<HTMLDivElement>(null)
   const containerObserverRef = useRef<IntersectionObserver | undefined>(undefined)
   const hideTimeoutRef = useRef<number | null>(null)
+  const hoverTimeoutRef = useRef<number | null>(null)
 
   const clearHideTimeout = useCallback(() => {
     if (hideTimeoutRef.current !== null) {
       window.clearTimeout(hideTimeoutRef.current)
       hideTimeoutRef.current = null
+    }
+  }, [])
+
+  const clearHoverTimeout = useCallback(() => {
+    if (hoverTimeoutRef.current !== null) {
+      window.clearTimeout(hoverTimeoutRef.current)
+      hoverTimeoutRef.current = null
     }
   }, [])
 
@@ -50,6 +59,18 @@ export function FloatingTableOfContents({
       setIsVisible(false)
     }, 200)
   }, [clearHideTimeout])
+
+  const handleMouseEnter = () => {
+    clearHoverTimeout()
+    setIsHovered(true)
+  }
+
+  const handleMouseLeave = () => {
+    clearHoverTimeout()
+    hoverTimeoutRef.current = window.setTimeout(() => {
+      setIsHovered(false)
+    }, 10)
+  }
 
   // 解析页面标题
   useEffect(() => {
@@ -217,6 +238,15 @@ export function FloatingTableOfContents({
     }
   }, [updateSidebarPosition])
 
+  // 首次显示时确保位置已计算
+  useEffect(() => {
+    if (!isVisible || tocItems.length === 0) return
+    const rafId = window.requestAnimationFrame(() => {
+      updateSidebarPosition()
+    })
+    return () => window.cancelAnimationFrame(rafId)
+  }, [isVisible, tocItems.length, updateSidebarPosition])
+
   // 处理点击，平滑滚动
   const handleItemClick = (id: string) => {
     const item = tocItems.find((item) => item.id === id)
@@ -245,7 +275,11 @@ export function FloatingTableOfContents({
       style={{ top: `${sidebarTop}px` }}
     >
       {/* hover触发器包装 - 统一控制整个组件的hover状态 */}
-      <div className={styles.hoverWrapper}>
+      <div
+        className={`${styles.hoverWrapper} ${isHovered ? styles.hovered : ''}`}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
         {/* 占位区域 - 显示紧凑视图线条 */}
         <div className={styles.placeholderArea}>
           <div className={styles.compactView}>
