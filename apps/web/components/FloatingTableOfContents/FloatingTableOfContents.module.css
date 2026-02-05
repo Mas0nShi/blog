@@ -153,8 +153,8 @@
   cursor: default;
   opacity: 0;
   transform: translateX(10px);
-  transition: opacity 200ms ease, transform 200ms ease, visibility 0ms 200ms;
-  pointer-events: auto;
+  transition: opacity 200ms ease, transform 200ms ease, visibility 0ms 200ms, pointer-events 0ms 200ms;
+  pointer-events: none;
   visibility: hidden;
 }
 
@@ -162,7 +162,8 @@
   opacity: 1;
   transform: translateX(0);
   visibility: visible;
-  transition: opacity 200ms ease, transform 200ms ease, visibility 0ms 0ms;
+  pointer-events: auto;
+  transition: opacity 200ms ease, transform 200ms ease, visibility 0ms 0ms, pointer-events 0ms 0ms;
 }
 
 /* 内容面板 */
@@ -296,4 +297,3 @@
     transition: none;
   }
 }
-
