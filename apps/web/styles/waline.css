@@ -25,6 +25,26 @@
     --waline-avatar-radius: 50%;
     --waline-box-shadow: none;
 }
+
+.dark-mode {
+    --waline-white: #fff;
+    --waline-light-grey: #9ca3af;
+    --waline-dark-grey: #cbd5f5;
+    --waline-theme-color: #7aa2ff;
+    --waline-active-color: #9bb8ff;
+    --waline-color: #e5e7eb;
+    --waline-bgcolor: #1b1b1b;
+    --waline-bgcolor-light: #242424;
+    --waline-bgcolor-hover: #2d2d2d;
+    --waline-border-color: #333;
+    --waline-disable-bgcolor: #262626;
+    --waline-disable-color: #9ca3af;
+    --waline-code-bgcolor: #0f172a;
+    --waline-bq-color: #2b2b2b;
+    --waline-info-bgcolor: #242424;
+    --waline-info-color: #9ca3af;
+    --waline-box-shadow: none;
+}
 [data-waline] {
     font-size:var(--waline-font-size);
     text-align:start
