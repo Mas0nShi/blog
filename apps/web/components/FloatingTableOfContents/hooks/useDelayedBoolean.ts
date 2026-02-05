@@ -4,7 +4,7 @@ import { useCallback, useRef, useState } from 'react'
  * 带延迟关闭的布尔状态 hook
  * 用于 hover 和 visibility 等需要延迟切换的场景
  */
-export function useDelayedBoolean(closeDelay: number = 0) {
+export function useDelayedBoolean(closeDelay = 0) {
   const [value, setValue] = useState(false)
   const timeoutRef = useRef<number | null>(null)
 

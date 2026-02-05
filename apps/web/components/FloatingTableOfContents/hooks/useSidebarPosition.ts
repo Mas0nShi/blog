@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useLayoutEffect, useState, type RefObject } from 'react'
+import { type RefObject,useCallback, useEffect, useLayoutEffect, useState } from 'react'
 
 interface UseSidebarPositionOptions {
   containerSelector: string

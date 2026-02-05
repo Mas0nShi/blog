@@ -1,5 +1,6 @@
 import React, { useCallback, useRef } from 'react'
 
+import styles from './FloatingTableOfContents.module.css'
 import {
   useActiveHeading,
   useContainerVisibility,
@@ -9,7 +10,6 @@ import {
 } from './hooks'
 import { TocCompactView } from './TocCompactView'
 import { TocExpandedPanel } from './TocExpandedPanel'
-import styles from './FloatingTableOfContents.module.css'
 
 // 常量配置
 const SCROLL_OFFSET = 80
