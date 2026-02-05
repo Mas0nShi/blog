@@ -26,6 +26,30 @@ export function FloatingTableOfContents({
   const [sidebarTop, setSidebarTop] = useState(220)
   const sidebarRef = useRef<HTMLDivElement>(null)
   const containerObserverRef = useRef<IntersectionObserver | undefined>(undefined)
+  const hideTimeoutRef = useRef<number | null>(null)
+
+  const clearHideTimeout = useCallback(() => {
+    if (hideTimeoutRef.current !== null) {
+      window.clearTimeout(hideTimeoutRef.current)
+      hideTimeoutRef.current = null
+    }
+  }, [])
+
+  const showToc = useCallback(() => {
+    clearHideTimeout()
+    setIsVisible(true)
+    requestAnimationFrame(() => {
+      setIsRendered(true)
+    })
+  }, [clearHideTimeout])
+
+  const hideToc = useCallback(() => {
+    setIsRendered(false)
+    clearHideTimeout()
+    hideTimeoutRef.current = window.setTimeout(() => {
+      setIsVisible(false)
+    }, 200)
+  }, [clearHideTimeout])
 
   // 解析页面标题
   useEffect(() => {
@@ -71,16 +95,16 @@ export function FloatingTableOfContents({
       setTocItems(items)
       
       if (items.length > 0) {
-        setIsVisible(true)
-        // 延迟触发渲染动画
-        requestAnimationFrame(() => {
-          setIsRendered(true)
-        })
+        const rect = container.getBoundingClientRect()
+        const isCurrentlyVisible = rect.top < window.innerHeight && rect.bottom > 0
+        if (isCurrentlyVisible) {
+          showToc()
+        }
       }
     }, 500)
 
     return () => clearTimeout(timer)
-  }, [containerSelector])
+  }, [containerSelector, showToc])
 
   // 监听滚动，更新当前活动的标题
   useEffect(() => {
@@ -121,15 +145,9 @@ export function FloatingTableOfContents({
     const observerCallback: IntersectionObserverCallback = (entries) => {
       for (const entry of entries) {
         if (entry.isIntersecting) {
-          setIsVisible(true)
-          requestAnimationFrame(() => {
-            setIsRendered(true)
-          })
+          showToc()
         } else {
-          setIsRendered(false)
-          setTimeout(() => {
-            setIsVisible(false)
-          }, 200) // 等待动画完成
+          hideToc()
         }
       }
     }
@@ -144,16 +162,14 @@ export function FloatingTableOfContents({
     const rect = container.getBoundingClientRect()
     const isCurrentlyVisible = rect.top < window.innerHeight && rect.bottom > 0
     if (isCurrentlyVisible) {
-      setIsVisible(true)
-      requestAnimationFrame(() => {
-        setIsRendered(true)
-      })
+      showToc()
     }
 
     return () => {
       containerObserverRef.current?.disconnect()
+      clearHideTimeout()
     }
-  }, [containerSelector])
+  }, [containerSelector, hideToc, showToc, clearHideTimeout])
 
   // 计算边栏位置
   const updateSidebarPosition = useCallback(() => {
@@ -162,6 +178,8 @@ export function FloatingTableOfContents({
 
     const containerRect = container.getBoundingClientRect()
     const viewportHeight = window.innerHeight
+    const header = document.querySelector('header.notion-header') as HTMLElement | null
+    const headerHeight = header?.getBoundingClientRect().height ?? 0
     
     const containerTop = Math.max(0, containerRect.top)
     const containerBottom = Math.min(viewportHeight, containerRect.bottom)
@@ -169,11 +187,11 @@ export function FloatingTableOfContents({
 
     if (visibleHeight <= 0) return
 
-    // 使用固定高度362px来计算位置
-    const sidebarHeight = 362
+    const sidebarHeight = sidebarRef.current.getBoundingClientRect().height
 
     const centerPosition = containerTop + visibleHeight / 2 - sidebarHeight / 2
-    const finalTop = Math.max(10, centerPosition)
+    const safeTop = Math.max(10, headerHeight + 10)
+    const finalTop = Math.max(safeTop, centerPosition)
 
     setSidebarTop(finalTop)
   }, [containerSelector])
