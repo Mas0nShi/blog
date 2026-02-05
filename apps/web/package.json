@@ -16,7 +16,7 @@
   "dependencies": {
     "notion-client": "workspace:*",
     "notion-compat": "workspace:*",
-    "notion-render": "workspace:*",
+    "react-notion-x": "^7.2.5",
     "notion-types": "workspace:*",
     "notion-utils": "workspace:*",
 
