@@ -334,7 +334,10 @@ export function NotionPage({
           serverURL={config.walineHost}
           path={'/' + block.id.replaceAll('-', '')}
           emoji={[
-            '//cdn.jsdelivr.net/gh/walinejs/emojis@1.1.0/tw-emoji'
+            '//cdn.jsdelivr.net/gh/walinejs/emojis@1.4.0/tw-emoji',
+            '//cdn.jsdelivr.net/gh/walinejs/emojis@1.4.0/tieba',
+            '//cdn.jsdelivr.net/gh/walinejs/emojis@1.4.0/qq',
+            '//cdn.jsdelivr.net/gh/walinejs/emojis@1.4.0/weibo',
           ]}
           dark={isDarkMode}
           meta={['nick', 'mail']}
