@@ -14,10 +14,11 @@ export const defaultMapImageUrl = (
   if (url.startsWith('data:')) {
     return url
   }
-
-  if (GIF_REGEXP.test(url)) {
-    return url
-  }
+  
+  // TODO: Unknown why this line breaks /about page cover gif.
+  // if (GIF_REGEXP.test(url)) {
+  //   return url
+  // }
 
   // more recent versions of notion don't proxy unsplash images
   if (url.startsWith('https://images.unsplash.com')) {
@@ -55,6 +56,7 @@ export const defaultMapImageUrl = (
   url = `https://www.notion.so${
     url.startsWith('/image') ? url : `/image/${encodeURIComponent(url)}`
   }`
+  
 
   const notionImageUrlV2 = new URL(url)
   let table = block.parent_table === 'space' ? 'block' : block.parent_table
