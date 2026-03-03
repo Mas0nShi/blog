@@ -57,7 +57,10 @@
   "dependencies": {
     "@fisch0920/medium-zoom": "catalog:",
     "@matejmazur/react-katex": "catalog:",
+    "@pierre/diffs": "^1.0.10",
     "katex": "catalog:",
+    "mermaid": "catalog:",
+    "next": "catalog:",
     "notion-types": "workspace:*",
     "notion-utils": "workspace:*",
     "prismjs": "catalog:",
@@ -66,10 +69,8 @@
     "react-image": "catalog:",
     "react-intersection-observer": "catalog:",
     "react-modal": "catalog:",
-    "unionize": "catalog:",
-    "mermaid": "catalog:",
-    "next": "catalog:",
-    "react-tweet": "catalog:"
+    "react-tweet": "catalog:",
+    "unionize": "catalog:"
   },
   "devDependencies": {
     "@types/lodash.throttle": "catalog:",

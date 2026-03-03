@@ -3,6 +3,7 @@ import {
   getBlockCollectionId,
   getBlockIcon,
   getBlockParentPage,
+  getBlockValue,
   getPageTableOfContents,
   getTextContent,
   uuidToId
@@ -12,6 +13,7 @@ import { Tweet } from 'react-tweet'
 
 import { AssetWrapper } from './components/asset-wrapper'
 import { Audio } from './components/audio'
+import { Button } from './components/button'
 import { EOI } from './components/eoi'
 import { File } from './components/file'
 import { GoogleDrive } from './components/google-drive'
@@ -26,7 +28,9 @@ import { useNotionContext } from './context'
 import { LinkIcon } from './icons/link-icon'
 import {
   cs,
+  getListNestingLevel,
   getListNumber,
+  getListStyle,
   isUrl
 } from './utils'
 
@@ -125,10 +129,11 @@ export function Block(props: BlockProps) {
             block.type === 'page'
               ? block.properties
               : {
-                  title:
+                  title: getBlockValue(
                     recordMap.collection[
                       getBlockCollectionId(block, recordMap)!
-                    ]?.value?.name
+                    ]
+                  )?.name
                 }
 
           const coverPosition = (1 - (page_cover_position || 0.5)) * 100
@@ -429,29 +434,31 @@ export function Block(props: BlockProps) {
     case 'bulleted_list':
     // fallthrough
     case 'numbered_list': {
-      const wrapList = (content: React.ReactNode) => {
-        switch (block.type) {
-          case 'bulleted_list':
-            return (
-              <div className={cs('notion-list', 'notion-list-disc', blockId)}>
-                {content}
-              </div>
-            )
-          case 'numbered_list':
-            return (
-              <div className={cs('notion-list', 'notion-list-numbered', blockId)}>
-                {content}
-              </div>
-            )
-          default:
-            return content
-        }
-      }
+      const wrapList = (content: React.ReactNode) =>
+        block.type === 'bulleted_list' ? (
+          <div className={cs('notion-list', 'notion-list-disc', blockId)}>
+            {content}
+          </div>
+        ) : (
+          <div
+            className={cs('notion-list', 'notion-list-numbered', blockId)}
+            style={
+              block.type === 'numbered_list'
+                ? {
+                    listStyleType: getListStyle(
+                      getListNestingLevel(block.id, recordMap.block)
+                    )
+                  }
+                : undefined
+            }
+          >
+            {content}
+          </div>
+        )
 
-      let output: React.ReactElement | null = null
-
+      let output: React.ReactNode | null = null
       const isTopLevel =
-        block.type !== recordMap.block[block.parent_id]?.value?.type
+        block.type !== getBlockValue(recordMap.block[block.parent_id])?.type
       const start = getListNumber(block.id, recordMap.block)
 
       const props = block.type === 'bulleted_list' ? {} : {
@@ -567,7 +574,7 @@ export function Block(props: BlockProps) {
       // note: notion uses 46px
       const spacerWidth = `min(32px, 4vw)`
       const ratio = block.format?.column_ratio || 0.5
-      const parent = recordMap.block[block.parent_id]?.value
+      const parent = getBlockValue(recordMap.block[block.parent_id])
       const columns =
         parent?.content?.length || Math.max(2, Math.ceil(1.0 / ratio))
 
@@ -718,6 +725,18 @@ export function Block(props: BlockProps) {
     case 'toggle':
       return <ToggleBlock blockId={blockId} block={block} children={children} />
 
+    case 'button': {
+      const ButtonComponent = components.Button || Button
+
+      return (
+        <ButtonComponent
+          blockId={blockId}
+          block={block as types.ButtonBlock}
+          className={blockId}
+        />
+      )
+    }
+
     case 'table_of_contents': {
       const page = getBlockParentPage(block, recordMap)
       if (!page) return null
@@ -785,7 +804,7 @@ export function Block(props: BlockProps) {
 
     case 'alias': {
       const blockPointerId = block?.format?.alias_pointer?.id
-      const linkedBlock = recordMap.block[blockPointerId]?.value
+      const linkedBlock = getBlockValue(recordMap.block[blockPointerId])
       if (!linkedBlock) {
         console.log('"alias" missing block', blockPointerId)
         return null
@@ -811,8 +830,13 @@ export function Block(props: BlockProps) {
       )
 
     case 'table_row': {
-      const tableBlock = recordMap.block[block.parent_id]
-        ?.value as types.TableBlock
+      const tableBlock = getBlockValue(
+        recordMap.block[block.parent_id]
+      ) as types.TableBlock
+      if (!tableBlock) {
+        return null
+      }
+
       const order = tableBlock.format?.table_block_column_order
       const formatMap = tableBlock.format?.table_block_column_format
       const backgroundColor = block.format?.block_color

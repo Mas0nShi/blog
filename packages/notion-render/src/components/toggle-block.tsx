@@ -1,9 +1,14 @@
+import { type ToggleBlock as ToggleBlockType } from 'notion-types'
 import React from 'react';
 
 import { cs } from '../utils';
 import { Text } from './text';
 
-export function ToggleBlock({ blockId, block, children }) {
+export function ToggleBlock({ blockId, block, children }: {
+  blockId: string
+  block: ToggleBlockType
+  children?: React.ReactNode
+}) {
     const [isOpen, setOpen] = React.useState(false);
 
     const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
