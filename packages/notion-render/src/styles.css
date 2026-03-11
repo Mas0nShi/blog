@@ -1639,6 +1639,18 @@ div[class*='language-mermaid'] {
   line-height: 1.5;
 }
 
+.notion-url-domain {
+  color: inherit;
+}
+
+.notion-url-path {
+  color: rgba(55, 53, 47, 0.45);
+}
+
+.dark-mode .notion-url-path {
+  color: rgba(255, 255, 255, 0.4);
+}
+
 .notion-table-cell-number {
   white-space: pre-wrap;
 }
