@@ -3,6 +3,7 @@ import React from 'react'
 
 import { useNotionContext } from '../context'
 import { cs } from '../utils'
+import { getBlockValue } from 'notion-utils'
 import { Text } from './text'
 
 interface AutomationValue {
@@ -78,10 +79,11 @@ export function Button({
     )
   }
 
-  // Get automation data
-  const automation = (recordMap as any).automation?.[automationId]?.value as
-    | AutomationValue
-    | undefined
+  // Get automation data — use getBlockValue to handle double-nested
+  // value.value format from the Notion API
+  const automation = getBlockValue(
+    (recordMap as any).automation?.[automationId]
+  ) as AutomationValue | undefined
 
   if (!automation) {
     // Fallback to title if no automation found
@@ -126,8 +128,9 @@ export function Button({
       return
     }
 
-    const actionData = (recordMap as any).automation_action?.[firstActionId]
-      ?.value as AutomationActionValue | undefined
+    const actionData = getBlockValue(
+      (recordMap as any).automation_action?.[firstActionId]
+    ) as AutomationActionValue | undefined
     if (!actionData) {
       console.warn('No action data found for ID:', firstActionId)
       return
