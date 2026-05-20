@@ -149,8 +149,9 @@ export class NotionAPI {
         allCollectionInstances,
         async (collectionInstance) => {
           const { collectionId, collectionViewId, spaceId } = collectionInstance
-          const collectionView =
-            recordMap.collection_view[collectionViewId]?.value
+          const collectionView = getBlockValue(
+            recordMap.collection_view[collectionViewId]
+          )
 
           try {
             const collectionData = await this.getCollectionData(
