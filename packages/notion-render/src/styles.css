@@ -2578,6 +2578,11 @@ div[class*='language-mermaid'] {
   height: 100%;
 }
 
+.notion-bookmark-image .lazy-image-wrapper {
+  padding: 0 !important;
+  height: 100%;
+}
+
 .notion-page-cover .lazy-image-preview,
 .notion-page-cover .lazy-image-real {
   will-change: unset !important;
