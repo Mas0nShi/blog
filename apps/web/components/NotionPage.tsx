@@ -2,7 +2,6 @@
 
 import cs from 'classnames'
 import dynamic from 'next/dynamic'
-import Image from 'next/image'
 import Link from 'next/link'
 import { formatDate, getBlockTitle, getBlockValue } from 'notion-utils'
 import * as React from 'react'
@@ -26,6 +25,7 @@ import { useDarkMode } from '@/lib/use-dark-mode'
 import { Waline, type WalineOptions } from './Comment'
 import { FloatingTableOfContents } from './FloatingTableOfContents'
 import { Footer } from './Footer'
+import { NotionImage } from './NotionImage'
 import { NotionPageHeader } from './NotionPageHeader'
 import { PageAside } from './PageAside'
 
@@ -204,7 +204,7 @@ const walineOptions = {
 } satisfies Partial<WalineOptions>
 
 const notionRendererComponents: Partial<NotionComponents> = {
-  nextImage: Image,
+  nextImage: NotionImage,
   nextLink: Link,
   Code,
   Collection,
