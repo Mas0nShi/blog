@@ -46,7 +46,7 @@ export function inlinePageIconClassName(isImage: boolean) {
 
 // the icon itself: an emoji, an image or the default page icon (svg)
 const pageIconGlyph =
-  'tw:font-emoji tw:text-[1.1em] tw:text-(--fg-color-icon) tw:fill-(--fg-color-6) tw:[.notion-search_&]:text-fg'
+  'tw:font-emoji tw:text-[1.1em] tw:text-(--fg-color-icon) tw:fill-(--fg-color-6)'
 
 /** Inline page icon content; hero icons use pageIconHeroContentClassName. */
 export const inlinePageIconContentClassName = cs(

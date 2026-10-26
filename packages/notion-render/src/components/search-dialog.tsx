@@ -7,7 +7,7 @@ import { NotionContextConsumer, NotionContextProvider } from '../context'
 import { ClearIcon } from '../icons/clear-icon'
 import { LoadingIcon } from '../icons/loading-icon'
 import { SearchIcon } from '../icons/search-icon'
-import { cs } from '../utils'
+import { searchClassNames } from '../search'
 import { PageTitle } from './page-title'
 
 export class SearchDialog extends React.Component<{
@@ -61,23 +61,23 @@ export class SearchDialog extends React.Component<{
             <components.Modal
               isOpen={isOpen}
               contentLabel='Search'
-              className='notion-search'
-              overlayClassName='notion-search-overlay'
+              className={searchClassNames.dialog}
+              overlayClassName={searchClassNames.overlay}
               onRequestClose={onClose}
               onAfterOpen={this._onAfterOpen}
             >
-              <div className='quickFindMenu'>
-                <div className='searchBar'>
-                  <div className='inlineIcon'>
+              <div className={searchClassNames.menu}>
+                <div className={searchClassNames.searchBar}>
+                  <div className={searchClassNames.inlineIcon}>
                     {isLoading ? (
-                      <LoadingIcon className='loadingIcon' />
+                      <LoadingIcon className={searchClassNames.loadingIcon} />
                     ) : (
                       <SearchIcon />
                     )}
                   </div>
 
                   <input
-                    className='searchInput'
+                    className={searchClassNames.input}
                     placeholder='Search'
                     value={query}
                     ref={this._inputRef}
@@ -87,10 +87,10 @@ export class SearchDialog extends React.Component<{
                   {query && (
                     <div
                       role='button'
-                      className='clearButton'
+                      className={searchClassNames.clearButton}
                       onClick={this._onClearQuery}
                     >
-                      <ClearIcon className='clearIcon' />
+                      <ClearIcon className={searchClassNames.clearIcon} />
                     </div>
                   )}
                 </div>
@@ -103,15 +103,11 @@ export class SearchDialog extends React.Component<{
                         // TODO
                         recordMap={searchResult.recordMap}
                       >
-                        <div className='resultsPane'>
+                        <div className={searchClassNames.resultsPane}>
                           {searchResult.results.map((result: any) => (
                             <components.PageLink
                               key={result.id}
-                              className={cs(
-                                'result',
-                                'notion-page-link',
-                                'tw:my-[1px] tw:w-full tw:transition-[background] tw:duration-[120ms] tw:ease-in'
-                              )}
+                              className={searchClassNames.result}
                               href={mapPageUrl(
                                 result.page.id,
                                 // TODO
@@ -119,14 +115,14 @@ export class SearchDialog extends React.Component<{
                               )}
                             >
                               <PageTitle
-                                className='tw:flex!'
+                                className={searchClassNames.resultTitle}
                                 block={result.page}
                                 defaultIcon={defaultPageIcon}
                               />
 
                               {result.highlight?.html && (
                                 <div
-                                  className='notion-search-result-highlight'
+                                  className={searchClassNames.resultHighlight}
                                   dangerouslySetInnerHTML={{
                                     __html: result.highlight.html
                                   }}
@@ -136,9 +132,9 @@ export class SearchDialog extends React.Component<{
                           ))}
                         </div>
 
-                        <footer className='resultsFooter'>
+                        <footer className={searchClassNames.footer}>
                           <div>
-                            <span className='resultsCount'>
+                            <span className={searchClassNames.count}>
                               {searchResult.total}
                             </span>
 
@@ -147,9 +143,11 @@ export class SearchDialog extends React.Component<{
                         </footer>
                       </NotionContextProvider>
                     ) : (
-                      <div className='noResultsPane'>
-                        <div className='noResults'>No results</div>
-                        <div className='noResultsDetail'>
+                      <div className={searchClassNames.noResultsPane}>
+                        <div className={searchClassNames.noResults}>
+                          No results
+                        </div>
+                        <div className={searchClassNames.noResultsDetail}>
                           Try different search terms
                         </div>
                       </div>
@@ -158,8 +156,10 @@ export class SearchDialog extends React.Component<{
                 )}
 
                 {hasQuery && !searchResult && searchError && (
-                  <div className='noResultsPane'>
-                    <div className='noResults'>Search error</div>
+                  <div className={searchClassNames.noResultsPane}>
+                    <div className={searchClassNames.noResults}>
+                      Search error
+                    </div>
                   </div>
                 )}
               </div>
