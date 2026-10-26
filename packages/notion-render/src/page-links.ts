@@ -1,3 +1,4 @@
+import { isBackgroundColor, notionColorClassName } from './colors'
 import { cs } from './utils'
 
 /**
@@ -14,6 +15,20 @@ export const pageLinkClassName = cs(
   'tw:mx-0 tw:my-[1px] tw:flex tw:h-[30px] tw:w-full tw:text-fg tw:no-underline tw:select-none',
   'tw:transition-[background] tw:duration-[120ms] tw:ease-in tw:[&:hover]:bg-bg-hover'
 )
+
+/**
+ * Block color of a page link: backgrounds get the usual highlight, while text
+ * colors don't apply (links keep the text color).
+ */
+export function pageLinkColorClassName(color?: string | null) {
+  if (!color) {
+    return undefined
+  }
+
+  return isBackgroundColor(color)
+    ? notionColorClassName(color)
+    : `notion-${color}`
+}
 
 export const pageTitleClassNames = {
   root: cs(

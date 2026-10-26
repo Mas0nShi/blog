@@ -64,7 +64,10 @@ export const pageShellClassNames = {
     'notion-page-cover',
     'tw:block tw:p-0 tw:object-cover tw:w-full! tw:max-w-[1200px]',
     'tw:h-[30vh]! tw:min-h-[30vh]! tw:max-h-[30vh]!',
-    'tw:rounded-[24px] tw:max-[1200px]:rounded-none'
+    'tw:rounded-[24px] tw:max-[1200px]:rounded-none',
+    // as a lazy image: no aspect-ratio padding, and the preview stays behind
+    'tw:[&.lazy-image-wrapper]:p-0! tw:[&_:is(.lazy-image-preview,.lazy-image-real)]:will-change-auto!',
+    'tw:[&.lazy-image-loaded_.lazy-image-preview]:opacity-100'
   ),
   title: cs(
     'notion-title',

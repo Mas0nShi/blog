@@ -281,7 +281,8 @@ export function collectionCardClassNames({
       cardCoverHeight(size, inBoard),
       'tw:relative tw:w-full tw:overflow-hidden tw:rounded-[16px] tw:shadow-[2px_2px_8px_4px_rgba(15,15,15,0.1)]',
       'tw:filter-none tw:transition-[filter] tw:duration-150 tw:ease-linear tw:[.notion-collection-card:hover_&]:brightness-100',
-      'tw:[&_img]:size-full tw:[&_img]:max-h-full! tw:[&_img]:min-h-full! tw:[&_img]:rounded-[16px]'
+      'tw:[&_img]:size-full tw:[&_img]:max-h-full! tw:[&_img]:min-h-full! tw:[&_img]:rounded-[16px]',
+      'tw:[&_.lazy-image-wrapper]:h-full tw:[&_.lazy-image-wrapper]:p-0!'
     ),
     coverEmpty: cs(
       'notion-collection-card-cover-empty',

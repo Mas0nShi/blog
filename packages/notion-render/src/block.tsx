@@ -41,7 +41,7 @@ import {
   tableOfContentsItemBodyClassName,
   tableOfContentsItemClassName
 } from './layout-blocks'
-import { pageLinkClassName } from './page-links'
+import { pageLinkClassName, pageLinkColorClassName } from './page-links'
 import { tweetClassName } from './media'
 import {
   embeddedRootClassName,
@@ -353,7 +353,7 @@ export function Block(props: BlockProps) {
           <components.PageLink
             className={cs(
               pageLinkClassName,
-              blockColor && `notion-${blockColor}`,
+              pageLinkColorClassName(blockColor),
               blockId
             )}
             href={mapPageUrl(block.id)}
