@@ -617,7 +617,8 @@
   border-radius: var(--waline-avatar-radius);
   box-shadow: var(--waline-box-shadow);
 }
-.wl-cards .wl-user .verified-icon {
+.wl-cards .wl-user .verified-icon,
+.wl-cards .wl-user .administrator-icon {
   position: absolute;
   top: calc(var(--avatar-size)*3/4);
   inset-inline-start: calc(var(--avatar-size)*3/4);
