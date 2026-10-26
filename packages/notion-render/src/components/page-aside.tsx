@@ -6,16 +6,18 @@ import { cs } from '../utils'
 
 export function PageAside({
   toc,
+  tocTitle,
   activeSection,
   setActiveSection,
-  pageAside,
   hasToc,
   hasAside,
+  pageAside,
   className
 }: {
   toc: Array<TableOfContentsEntry>
+  tocTitle?: string | null
   activeSection: string | null
-  setActiveSection: (activeSection: string | null) => unknown
+  setActiveSection: (activeSection: string | null) => void
   hasToc: boolean
   hasAside: boolean
   pageAside?: React.ReactNode
@@ -55,11 +57,10 @@ export function PageAside({
 
         setActiveSection(currentSectionId)
       }, throttleMs),
-     
-    [
-      // explicitly not taking a dependency on activeSection
-      setActiveSection
-    ]
+
+    // explicitly not taking a dependency on activeSection
+    // oxlint-disable-next-line react-hooks/exhaustive-deps
+    [setActiveSection]
   )
 
   React.useEffect(() => {
@@ -84,9 +85,11 @@ export function PageAside({
     <aside className={cs('notion-aside', className)}>
       {hasToc && (
         <div className='notion-aside-table-of-contents'>
-          <div className='notion-aside-table-of-contents-header'>
-            Table of Contents
-          </div>
+          {tocTitle !== null && (
+            <div className='notion-aside-table-of-contents-header'>
+              {tocTitle ?? 'Table of Contents'}
+            </div>
+          )}
 
           <nav className='notion-table-of-contents'>
             {toc.map((tocItem) => {

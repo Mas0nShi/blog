@@ -1,48 +1,40 @@
+'use client'
+
 import cs from 'classnames'
 import dynamic from 'next/dynamic'
-import Image from 'next/legacy/image'
+import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { formatDate, getBlockTitle, getBlockValue } from 'notion-utils'
+import * as React from 'react'
+import BodyClassName from 'react-body-classname'
 import {
   type NotionComponents,
   NotionRenderer,
   useNotionContext
 } from 'notion-render'
-import { type PageBlock } from 'notion-types'
-import {
-  formatDate,
-  getBlockTitle,
-  getBlockValue,
-  getPageProperty
-} from 'notion-utils'
-import * as React from 'react'
-import BodyClassName from 'react-body-classname'
+import { Collection } from 'notion-render/third-party/collection'
 import { EmbeddedTweet, TweetNotFound, TweetSkeleton } from 'react-tweet'
 import { useSearchParam } from 'react-use'
 
 import type * as types from '@/lib/types'
 import * as config from '@/lib/config'
 import { mapImageUrl } from '@/lib/map-image-url'
-import { getCanonicalPageUrl, mapPageUrl } from '@/lib/map-page-url'
+import { mapPageUrl } from '@/lib/map-page-url'
 import { searchNotion } from '@/lib/search-notion'
 import { useDarkMode } from '@/lib/use-dark-mode'
 
 import { Waline, type WalineOptions } from './Comment'
 import { FloatingTableOfContents } from './FloatingTableOfContents'
 import { Footer } from './Footer'
-import { Loading } from './Loading'
 import { NotionPageHeader } from './NotionPageHeader'
-import { Page404 } from './Page404'
 import { PageAside } from './PageAside'
-import { PageHead } from './PageHead'
-import styles from './styles.module.css'
 
 // -----------------------------------------------------------------------------
 // dynamic imports for optional components
 // -----------------------------------------------------------------------------
 
 const Code = dynamic(() =>
-  import('notion-render/build/third-party/code').then(async (m) => {
+  import('notion-render/third-party/code').then(async (m) => {
     // add / remove any prism syntaxes here
     await Promise.allSettled([
       // @ts-expect-error Ignore prisma types
@@ -112,23 +104,18 @@ const Code = dynamic(() =>
   })
 )
 
-const Collection = dynamic(() =>
-  import('notion-render/build/third-party/collection').then(
-    (m) => m.Collection
-  )
-)
 const Equation = dynamic(() =>
-  import('notion-render/build/third-party/equation').then((m) => m.Equation)
+  import('notion-render/third-party/equation').then((m) => m.Equation)
 )
 const Pdf = dynamic(
-  () => import('notion-render/build/third-party/pdf').then((m) => m.Pdf),
+  () => import('notion-render/third-party/pdf').then((m) => m.Pdf),
   {
     ssr: false
   }
 )
 const Modal = dynamic(
   () =>
-    import('notion-render/build/third-party/modal').then((m) => {
+    import('notion-render/third-party/modal').then((m) => {
       m.Modal.setAppElement('.notion-viewport')
       return m.Modal
     }),
@@ -147,33 +134,6 @@ function Tweet({ id }: { id: string }) {
     </React.Suspense>
   )
 }
-
-// static waline options; hoisted so they aren't recreated on every render
-const walineOptions = {
-  emoji: [
-    '//cdn.jsdelivr.net/gh/walinejs/emojis@1.4.0/tw-emoji',
-    '//cdn.jsdelivr.net/gh/walinejs/emojis@1.4.0/tieba',
-    '//cdn.jsdelivr.net/gh/walinejs/emojis@1.4.0/qq',
-    '//cdn.jsdelivr.net/gh/walinejs/emojis@1.4.0/weibo'
-  ],
-  meta: ['nick', 'mail'],
-  requiredMeta: ['nick', 'mail'],
-  imageUploader: false,
-  noCopyright: true,
-  reaction: [
-    '//npm.elemecdn.com/@waline/emojis/tieba/tieba_agree.png',
-    '//npm.elemecdn.com/@waline/emojis/tieba/tieba_look_down.png',
-    '//npm.elemecdn.com/@waline/emojis/tieba/tieba_sunglasses.png',
-    '//npm.elemecdn.com/@waline/emojis/tieba/tieba_pick_nose.png',
-    '//npm.elemecdn.com/@waline/emojis/tieba/tieba_awkward.png',
-    '//npm.elemecdn.com/@waline/emojis/tieba/tieba_sleep.png'
-  ],
-  locale: { reactionTitle: '🎉 文章到底啦' },
-  highlighter: true,
-  texRenderer: true,
-  login: 'disable',
-  wordLimit: 10_000
-} satisfies Partial<WalineOptions>
 
 const propertyLastEditedTimeValue = (
   { block, pageHeader }: any,
@@ -216,32 +176,54 @@ const propertyTextValue = (
   return defaultFn()
 }
 
+// static waline options; hoisted so they aren't recreated on every render
+const walineOptions = {
+  emoji: [
+    '//cdn.jsdelivr.net/gh/walinejs/emojis@1.4.0/tw-emoji',
+    '//cdn.jsdelivr.net/gh/walinejs/emojis@1.4.0/tieba',
+    '//cdn.jsdelivr.net/gh/walinejs/emojis@1.4.0/qq',
+    '//cdn.jsdelivr.net/gh/walinejs/emojis@1.4.0/weibo'
+  ],
+  meta: ['nick', 'mail'],
+  requiredMeta: ['nick', 'mail'],
+  imageUploader: false,
+  noCopyright: true,
+  reaction: [
+    '//npm.elemecdn.com/@waline/emojis/tieba/tieba_agree.png',
+    '//npm.elemecdn.com/@waline/emojis/tieba/tieba_look_down.png',
+    '//npm.elemecdn.com/@waline/emojis/tieba/tieba_sunglasses.png',
+    '//npm.elemecdn.com/@waline/emojis/tieba/tieba_pick_nose.png',
+    '//npm.elemecdn.com/@waline/emojis/tieba/tieba_awkward.png',
+    '//npm.elemecdn.com/@waline/emojis/tieba/tieba_sleep.png'
+  ],
+  locale: { reactionTitle: '🎉 文章到底啦' },
+  highlighter: true,
+  texRenderer: true,
+  login: 'disable',
+  wordLimit: 10_000
+} satisfies Partial<WalineOptions>
+
+const notionRendererComponents: Partial<NotionComponents> = {
+  nextImage: Image,
+  nextLink: Link,
+  Code,
+  Collection,
+  Equation,
+  Pdf,
+  Modal,
+  Tweet,
+  Header: NotionPageHeader,
+  propertyLastEditedTimeValue,
+  propertyTextValue,
+  propertyDateValue
+}
+
 export function NotionPage({
   site,
   recordMap,
-  error,
   pageId
-}: types.PageProps) {
-  const router = useRouter()
+}: Required<Pick<types.PageProps, 'site' | 'recordMap' | 'pageId'>>) {
   const lite = useSearchParam('lite')
-
-  const components = React.useMemo<Partial<NotionComponents>>(
-    () => ({
-      nextLegacyImage: Image,
-      nextLink: Link,
-      Code,
-      Collection,
-      Equation,
-      Pdf,
-      Modal,
-      Tweet,
-      Header: NotionPageHeader,
-      propertyLastEditedTimeValue,
-      propertyTextValue,
-      propertyDateValue
-    }),
-    []
-  )
 
   // lite mode is for oembed
   const isLiteMode = lite === 'true'
@@ -253,11 +235,11 @@ export function NotionPage({
     if (lite) params.lite = lite
 
     const searchParams = new URLSearchParams(params)
-    return site ? mapPageUrl(site, recordMap!, searchParams) : undefined
+    return mapPageUrl(site, recordMap, searchParams)
   }, [site, recordMap, lite])
 
   const keys = Object.keys(recordMap?.block || {})
-  const block = getBlockValue(recordMap?.block?.[keys[0]!])
+  const block = getBlockValue(recordMap?.block?.[keys[0]!])!
 
   // const isRootPage =
   //   parsePageId(block?.id) === parsePageId(site?.rootNotionPageId)
@@ -269,83 +251,40 @@ export function NotionPage({
 
   const pageAside = React.useMemo(
     () => (
-      <PageAside
-        block={block!}
-        recordMap={recordMap!}
-        isBlogPost={isBlogPost}
-      />
+      <PageAside block={block!} recordMap={recordMap} isBlogPost={isBlogPost} />
     ),
     [block, recordMap, isBlogPost]
   )
 
-  const footer = React.useMemo(() => <Footer />, [])
-
-  if (router.isFallback) {
-    return <Loading />
-  }
-
-  if (error || !site || !block || !recordMap) {
-    return <Page404 site={site} pageId={pageId} error={error} />
-  }
-
   const title = getBlockTitle(block, recordMap) || site.name
 
-  console.log('notion page', {
-    isDev: config.isDev,
-    title,
-    pageId,
-    rootNotionPageId: site.rootNotionPageId,
-    recordMap
-  })
+  React.useEffect(() => {
+    console.log('notion page', {
+      isDev: config.isDev,
+      title,
+      pageId,
+      rootNotionPageId: site.rootNotionPageId,
+      recordMap
+    })
 
-  if (!config.isServer) {
     // add important objects to the window global for easy debugging
     const g = window as any
     g.pageId = pageId
     g.recordMap = recordMap
     g.block = block
-  }
-
-  const canonicalPageUrl = config.isDev
-    ? undefined
-    : getCanonicalPageUrl(site, recordMap)(pageId)
-
-  const socialImage = mapImageUrl(
-    getPageProperty<string>('Social Image', block, recordMap) ||
-      (block as PageBlock).format?.page_cover ||
-      config.defaultPageCover,
-    block
-  )
-
-  const socialDescription =
-    getPageProperty<string>('Description', block, recordMap) ||
-    config.description
+  }, [block, pageId, recordMap, site.rootNotionPageId, title])
 
   return (
     <>
-      <PageHead
-        pageId={pageId}
-        site={site}
-        title={title}
-        description={socialDescription}
-        image={socialImage}
-        url={canonicalPageUrl}
-        isBlogPost={isBlogPost}
-      />
-
       {isLiteMode && <BodyClassName className='notion-lite' />}
-      {isDarkMode && <BodyClassName className='dark-mode' />}
 
       {/* 悬浮目录组件 */}
       {showTableOfContents && !isLiteMode && <FloatingTableOfContents />}
 
       <NotionRenderer
-        bodyClassName={cs(
-          styles.notion,
-          pageId === site.rootNotionPageId && 'index-page'
-        )}
+        bodyClassName={cs(pageId === site.rootNotionPageId && 'index-page')}
         darkMode={isDarkMode}
-        components={components}
+        components={notionRendererComponents}
         recordMap={recordMap}
         rootPageId={site.rootNotionPageId}
         rootDomain={site.domain}
@@ -361,7 +300,7 @@ export function NotionPage({
         mapImageUrl={mapImageUrl}
         searchNotion={config.isSearchEnabled ? searchNotion : undefined}
         pageAside={pageAside}
-        footer={footer}
+        footer={<Footer />}
         pageFooter={
           pageId === site.rootNotionPageId || !config.walineHost ? null : (
             <Waline
@@ -373,7 +312,6 @@ export function NotionPage({
           )
         }
       />
-
     </>
   )
 }

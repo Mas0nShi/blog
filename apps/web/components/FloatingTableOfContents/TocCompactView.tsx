@@ -13,7 +13,12 @@ interface TocCompactViewProps {
 /**
  * 紧凑线条视图
  */
-export function TocCompactView({ tocItems, activeId, minLevel, onItemClick }: TocCompactViewProps) {
+export function TocCompactView({
+  tocItems,
+  activeId,
+  minLevel,
+  onItemClick
+}: TocCompactViewProps) {
   return (
     <div className={styles.placeholderArea}>
       <div className={styles.compactView}>

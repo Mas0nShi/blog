@@ -12,6 +12,7 @@ export type CollectionViewType =
 export type CollectionCardCoverType =
   | 'page_cover'
   | 'page_content'
+  | 'page_content_first'
   | 'property'
   | 'none'
   | 'file'
@@ -48,6 +49,7 @@ export interface TableCollectionView extends BaseCollectionView {
       property: PropertyID
       visible: boolean
       width: number
+      wrap?: boolean
     }>
   }
   page_sort: ID[]

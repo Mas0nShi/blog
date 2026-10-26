@@ -1,4 +1,10 @@
-import { type RefObject,useCallback, useEffect, useLayoutEffect, useState } from 'react'
+import {
+  type RefObject,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useState
+} from 'react'
 
 interface UseSidebarPositionOptions {
   containerSelector: string
@@ -30,7 +36,9 @@ export function useSidebarPosition({
 
     const containerRect = container.getBoundingClientRect()
     const viewportHeight = window.innerHeight
-    const header = document.querySelector('header.notion-header') as HTMLElement | null
+    const header = document.querySelector(
+      'header.notion-header'
+    ) as HTMLElement | null
     const headerHeight = header?.getBoundingClientRect().height ?? 0
 
     const containerTop = Math.max(0, containerRect.top)

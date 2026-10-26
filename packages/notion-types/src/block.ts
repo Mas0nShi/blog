@@ -9,6 +9,7 @@ export type BlockType =
   | 'header'
   | 'sub_header'
   | 'sub_sub_header'
+  | 'header_4'
   | 'quote'
   | 'equation'
   | 'to_do'
@@ -45,8 +46,7 @@ export type BlockType =
   | 'breadcrumb'
   | 'button'
   | 'miro'
-  // fallback for unknown blocks
-  | string
+  | 'tab'
 
 /** The different block values a block can have. */
 export type Block =
@@ -57,6 +57,7 @@ export type Block =
   | HeaderBlock
   | SubHeaderBlock
   | SubSubHeaderBlock
+  | Header4HeaderBlock
   | TodoBlock
   | TableOfContentsBlock
   | DividerBlock
@@ -93,6 +94,7 @@ export type Block =
   | ExternalObjectInstance
   | BreadcrumbInstance
   | ButtonBlock
+  | TabBlock
 
 /**
  * Base properties shared by all blocks.
@@ -106,7 +108,7 @@ export interface BaseBlock {
 
   space_id?: ID
   parent_id: ID
-  parent_table: string | 'space' | 'block' | 'table'
+  parent_table: 'space' | 'block' | 'table' | 'collection' | (string & {})
 
   version: number
   created_time: number
@@ -223,6 +225,13 @@ export interface SubSubHeaderBlock extends BaseTextBlock {
     toggleable?: boolean
   }
 }
+export interface Header4HeaderBlock extends BaseTextBlock {
+  type: 'header_4'
+  format?: {
+    block_color: Color
+    toggleable?: boolean
+  }
+}
 
 export interface QuoteBlock extends BaseTextBlock {
   type: 'quote'
@@ -290,6 +299,10 @@ export interface ButtonBlock extends BaseBlock {
   properties?: {
     title?: Decoration[]
   }
+}
+
+export interface TabBlock extends BaseBlock {
+  type: 'tab'
 }
 
 export interface ImageBlock extends BaseContentBlock {
@@ -415,6 +428,7 @@ export interface CollectionViewPageBlock extends BasePageBlock {
   collection_id?: ID
   view_ids: ID[]
   format: BasePageBlock['format'] & {
+    hide_inline_collection_name?: boolean
     collection_pointer?: {
       id: ID
       spaceId: ID

@@ -60,11 +60,16 @@ export interface ExtendedRecordMap extends RecordMap {
 
   // added for convenience
   signed_urls: {
-    [blockId: string]: string
+    // Entries are keyed by original asset URL. Primary block assets are also
+    // keyed by block ID for backwards compatibility.
+    [blockIdOrAssetUrl: string]: string
   }
 
   // optional map of preview images
   preview_images?: PreviewImageMap
+
+  // custom emojis map
+  custom_emojis?: CustomEmojiMap
 }
 
 export interface PageChunk {
@@ -133,4 +138,8 @@ export interface PreviewImage {
 
 export interface PreviewImageMap {
   [url: string]: PreviewImage | null
+}
+
+export interface CustomEmojiMap {
+  [emojiId: string]: string | null
 }

@@ -16,16 +16,16 @@ export interface SiteConfig {
   newsletter?: string
   youtube?: string
   zhihu?: string
-  mastodon?: string;
+  mastodon?: string
 
-  icp?: string;
-  recordName?: string;
-  recordNumber?: string;
+  icp?: string
+  recordName?: string
+  recordNumber?: string
 
-  walineHost?: string;
+  walineHost?: string
 
-  googleAnalyticsId?: string;
-  
+  googleAnalyticsId?: string
+
   defaultPageIcon?: string | null
   defaultPageCover?: string | null
   defaultPageCoverPosition?: number | null

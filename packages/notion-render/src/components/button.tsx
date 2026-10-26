@@ -1,4 +1,5 @@
 import type * as types from 'notion-types'
+import { getBlockValue, notionImageProxyOrigin } from 'notion-utils'
 import React from 'react'
 
 import { useNotionContext } from '../context'
@@ -19,7 +20,7 @@ interface AutomationValue {
 
 interface AutomationActionValue {
   id: string
-  type: 'open_page' | 'send_webhook' | 'http_request' | string
+  type: string
   config?: {
     target?: {
       type?: 'url' | 'page'
@@ -78,10 +79,11 @@ export function Button({
     )
   }
 
-  // Get automation data
-  const automation = (recordMap as any).automation?.[automationId]?.value as
-    | AutomationValue
-    | undefined
+  // Get automation data — use getBlockValue to handle double-nested
+  // value.value format from the Notion API
+  const automation = getBlockValue(
+    (recordMap as any).automation?.[automationId]
+  ) as AutomationValue | undefined
 
   if (!automation) {
     // Fallback to title if no automation found
@@ -126,8 +128,9 @@ export function Button({
       return
     }
 
-    const actionData = (recordMap as any).automation_action?.[firstActionId]
-      ?.value as AutomationActionValue | undefined
+    const actionData = getBlockValue(
+      (recordMap as any).automation_action?.[firstActionId]
+    ) as AutomationActionValue | undefined
     if (!actionData) {
       console.warn('No action data found for ID:', firstActionId)
       return
@@ -204,7 +207,7 @@ export function Button({
                         type: 'external',
                         external: {
                           url: pageBlock.format.page_cover.startsWith('/')
-                            ? `https://www.notion.so${pageBlock.format.page_cover}`
+                            ? `${notionImageProxyOrigin}${pageBlock.format.page_cover}`
                             : pageBlock.format.page_cover
                         }
                       }
@@ -278,7 +281,7 @@ export function Button({
                 body: JSON.stringify({ url: webhookUrl, payload, headers })
               })
 
-              const result = await response.json()
+              const result: any = await response.json()
 
               if (!response.ok || !result.success) {
                 console.error('Webhook request failed:', result)

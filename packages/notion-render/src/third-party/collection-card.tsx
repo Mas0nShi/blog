@@ -1,4 +1,3 @@
-import type React from 'react'
 import { type ImageBlock } from 'notion-types'
 import { getBlockValue, getTextContent } from 'notion-utils'
 
@@ -33,7 +32,7 @@ export function CollectionCard({
   const coverPosition = (1 - page_cover_position) * 100
   const cardCoverPosition = (1 - card_cover_position) * 100
 
-  if (cover?.type === 'page_content') {
+  if (cover?.type === 'page_content' || cover?.type === 'page_content_first') {
     const contentBlockId = block.content?.find((blockId) => {
       const block = getBlockValue(recordMap.block[blockId])
 
@@ -61,6 +60,8 @@ export function CollectionCard({
           <LazyImage
             src={src}
             alt={caption || 'notion image'}
+            fill={true}
+            sizes='(max-width: 640px) 100vw, 33vw'
             style={{
               objectFit: coverAspect,
               objectPosition: `center ${cardCoverPosition}%`
@@ -83,6 +84,8 @@ export function CollectionCard({
         <LazyImage
           src={mapImageUrl(page_cover, block)}
           alt={getTextContent(block.properties?.title)}
+          fill={true}
+          sizes='(max-width: 640px) 100vw, 33vw'
           style={{
             objectFit: coverAspect,
             objectPosition: `center ${coverPosition}%`
@@ -110,6 +113,8 @@ export function CollectionCard({
               <LazyImage
                 alt={file[0] as string}
                 src={mapImageUrl(file[2] as string, block)}
+                fill={true}
+                sizes='(max-width: 640px) 100vw, 33vw'
                 style={{
                   objectFit: coverAspect,
                   objectPosition: `center ${coverPosition}%`

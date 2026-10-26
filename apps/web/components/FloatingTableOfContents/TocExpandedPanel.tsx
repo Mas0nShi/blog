@@ -13,7 +13,12 @@ interface TocExpandedPanelProps {
 /**
  * 展开的目录面板
  */
-export function TocExpandedPanel({ tocItems, activeId, minLevel, onItemClick }: TocExpandedPanelProps) {
+export function TocExpandedPanel({
+  tocItems,
+  activeId,
+  minLevel,
+  onItemClick
+}: TocExpandedPanelProps) {
   return (
     <div className={styles.contentContainer}>
       <div className={styles.interactiveArea}>
@@ -33,9 +38,14 @@ export function TocExpandedPanel({ tocItems, activeId, minLevel, onItemClick }: 
                         className={`${styles.tocItem} ${isActive ? styles.active : ''}`}
                         onClick={() => onItemClick(item.id)}
                       >
-                        <div className={styles.tocItemContent} style={{ marginInlineStart: `${indent}px` }}>
+                        <div
+                          className={styles.tocItemContent}
+                          style={{ marginInlineStart: `${indent}px` }}
+                        >
                           <div className={styles.tocItemText}>
-                            <span className={styles.tocItemTextSpan}>{item.text}</span>
+                            <span className={styles.tocItemTextSpan}>
+                              {item.text}
+                            </span>
                           </div>
                         </div>
                       </div>

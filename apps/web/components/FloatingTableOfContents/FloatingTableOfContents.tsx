@@ -33,7 +33,9 @@ export function FloatingTableOfContents({
   const activeId = useActiveHeading({ tocItems, rootMargin })
 
   // 容器可见性（分离渲染和显示状态，支持淡出动画）
-  const { shouldRender, isVisible } = useContainerVisibility({ containerSelector })
+  const { shouldRender, isVisible } = useContainerVisibility({
+    containerSelector
+  })
 
   // 边栏位置
   const { top: sidebarTop, isReady: isPositionReady } = useSidebarPosition({
@@ -56,7 +58,8 @@ export function FloatingTableOfContents({
       const item = tocItems.find((item) => item.id === id)
       if (item?.headerElement) {
         const elementPosition = item.headerElement.getBoundingClientRect().top
-        const offsetPosition = elementPosition + window.pageYOffset - SCROLL_OFFSET
+        const offsetPosition =
+          elementPosition + window.pageYOffset - SCROLL_OFFSET
 
         window.scrollTo({
           top: offsetPosition,

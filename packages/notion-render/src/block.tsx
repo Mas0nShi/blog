@@ -4,6 +4,9 @@ import {
   getBlockIcon,
   getBlockParentPage,
   getBlockValue,
+  getListNestingLevel,
+  getListNumber,
+  getListStyle,
   getPageTableOfContents,
   getTextContent,
   uuidToId
@@ -22,19 +25,14 @@ import { PageAside } from './components/page-aside'
 import { PageIcon } from './components/page-icon'
 import { PageTitle } from './components/page-title'
 import { SyncPointerBlock } from './components/sync-pointer-block'
+import { TabBlock } from './components/tab-block'
 import { Text } from './components/text'
 import { ToggleBlock } from './components/toggle-block'
 import { useNotionContext } from './context'
 import { LinkIcon } from './icons/link-icon'
-import {
-  cs,
-  getListNestingLevel,
-  getListNumber,
-  getListStyle,
-  isUrl
-} from './utils'
+import { cs, isUrl } from './utils'
 
-interface BlockProps {
+export interface BlockProps {
   block: types.Block
   level: number
 
@@ -73,6 +71,7 @@ export function Block(props: BlockProps) {
     mapImageUrl,
     showTableOfContents,
     minTableOfContentsItems,
+    tableOfContentsTitle,
     defaultPageIcon,
     defaultPageCover,
     defaultPageCoverPosition
@@ -182,6 +181,8 @@ export function Block(props: BlockProps) {
                           src={mapImageUrl(page_cover!, block)}
                           alt={getTextContent(properties?.title)}
                           priority={true}
+                          fill={true}
+                          sizes='100vw'
                           className='notion-page-cover'
                           style={pageCoverStyle}
                         />
@@ -243,6 +244,7 @@ export function Block(props: BlockProps) {
                         {hasAside && (
                           <PageAside
                             toc={toc}
+                            tocTitle={tableOfContentsTitle}
                             activeSection={activeSection}
                             setActiveSection={setActiveSection}
                             hasToc={hasToc}
@@ -312,7 +314,9 @@ export function Block(props: BlockProps) {
     // fallthrough
     case 'sub_header':
     // fallthrough
-    case 'sub_sub_header': {
+    case 'sub_sub_header':
+    // fallthrough
+    case 'header_4': {
       if (!block.properties) return null
 
       const blockColor = block.format?.block_color
@@ -345,11 +349,13 @@ export function Block(props: BlockProps) {
       const isH1 = block.type === 'header'
       const isH2 = block.type === 'sub_header'
       const isH3 = block.type === 'sub_sub_header'
+      const isH4 = block.type === 'header_4'
 
       const classNameStr = cs(
         isH1 && 'notion-h notion-h1',
         isH2 && 'notion-h notion-h2',
         isH3 && 'notion-h notion-h3',
+        isH4 && 'notion-h notion-h4',
         blockColor && `notion-${blockColor}`,
         indentLevelClass,
         blockId
@@ -384,11 +390,17 @@ export function Block(props: BlockProps) {
             {innerHeader}
           </h3>
         )
-      } else {
+      } else if (isH3) {
         headerBlock = (
           <h4 className={classNameStr} data-id={id}>
             {innerHeader}
           </h4>
+        )
+      } else {
+        headerBlock = (
+          <h5 className={classNameStr} data-id={id}>
+            {innerHeader}
+          </h5>
         )
       }
 
@@ -461,21 +473,37 @@ export function Block(props: BlockProps) {
         block.type !== getBlockValue(recordMap.block[block.parent_id])?.type
       const start = getListNumber(block.id, recordMap.block)
 
-      const props = block.type === 'bulleted_list' ? {} : {
-        'block-list-numbered-counter': start,
-      }
+      const props =
+        block.type === 'bulleted_list'
+          ? {}
+          : {
+              'block-list-numbered-counter': start
+            }
 
       if (block.content) {
         output = (
           <>
             {block.properties && (
-              <div className="notion-block-list-item" {...props}>
-
-                <div className="notion-block-list-item-content">
-                  <div style={{ maxWidth: '100%', width: '100%', whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
+              <div className='notion-block-list-item' {...props}>
+                <div className='notion-block-list-item-content'>
+                  <div
+                    style={{
+                      maxWidth: '100%',
+                      width: '100%',
+                      whiteSpace: 'pre-wrap',
+                      wordBreak: 'break-word'
+                    }}
+                  >
                     <Text value={block.properties.title} block={block} />
                   </div>
-                  <div style={{ maxWidth: '100%', width: '100%', whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
+                  <div
+                    style={{
+                      maxWidth: '100%',
+                      width: '100%',
+                      whiteSpace: 'pre-wrap',
+                      wordBreak: 'break-word'
+                    }}
+                  >
                     {children}
                   </div>
                 </div>
@@ -485,13 +513,19 @@ export function Block(props: BlockProps) {
         )
       } else {
         output = block.properties ? (
-          <div className="notion-block-list-item" {...props}>
-            <div className="notion-block-list-item-content">
-              <div style={{ maxWidth: '100%', width: '100%', whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
+          <div className='notion-block-list-item' {...props}>
+            <div className='notion-block-list-item-content'>
+              <div
+                style={{
+                  maxWidth: '100%',
+                  width: '100%',
+                  whiteSpace: 'pre-wrap',
+                  wordBreak: 'break-word'
+                }}
+              >
                 <Text value={block.properties.title} block={block} />
               </div>
             </div>
-
           </div>
         ) : null
       }
@@ -696,6 +730,10 @@ export function Block(props: BlockProps) {
                     <LazyImage
                       src={mapImageUrl(block.format?.bookmark_icon, block)}
                       alt={title}
+                      fill={true}
+                      sizes='16px'
+                      // this image is likely to be hot-linked from a third-party, so we can't optimize it
+                      unoptimized={true}
                     />
                   </div>
                 )}
@@ -711,6 +749,10 @@ export function Block(props: BlockProps) {
                 <LazyImage
                   src={mapImageUrl(block.format?.bookmark_cover, block)}
                   alt={getTextContent(block.properties?.title)}
+                  fill={true}
+                  sizes='(max-width: 640px) 0px, 25vw'
+                  // this image is likely to be hot-linked from a third-party, so we can't optimize it
+                  unoptimized={true}
                   style={{
                     objectFit: 'cover'
                   }}
@@ -723,7 +765,11 @@ export function Block(props: BlockProps) {
     }
 
     case 'toggle':
-      return <ToggleBlock blockId={blockId} block={block} children={children} />
+      return (
+        <ToggleBlock blockId={blockId} block={block}>
+          {children}
+        </ToggleBlock>
+      )
 
     case 'button': {
       const ButtonComponent = components.Button || Button
@@ -885,6 +931,18 @@ export function Block(props: BlockProps) {
             )
           })}
         </tr>
+      )
+    }
+
+    case 'tab': {
+      const { children: _tabChildren, ...tabBlockProps } = props
+      return (
+        <TabBlock
+          {...tabBlockProps}
+          block={block}
+          blockId={blockId}
+          level={level}
+        />
       )
     }
 

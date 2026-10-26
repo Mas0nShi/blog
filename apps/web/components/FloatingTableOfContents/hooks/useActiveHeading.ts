@@ -23,7 +23,8 @@ export function useActiveHeading({
       (entries) => {
         for (const entry of entries) {
           if (entry.isIntersecting) {
-            const id = (entry.target as HTMLElement).dataset.id || entry.target.id
+            const id =
+              (entry.target as HTMLElement).dataset.id || entry.target.id
             if (id) {
               setActiveId(id)
             }

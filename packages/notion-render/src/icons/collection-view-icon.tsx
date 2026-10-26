@@ -1,4 +1,4 @@
-import type { CollectionViewType } from 'notion-types'
+import { type CollectionViewType } from 'notion-types'
 
 import CollectionViewBoardIcon from './collection-view-board'
 import CollectionViewCalendarIcon from './collection-view-calendar'
@@ -19,11 +19,8 @@ const iconMap = {
   calendar: CollectionViewCalendarIcon
 }
 
-export function CollectionViewIcon({
-  type,
-  ...rest
-}: CollectionViewIconProps) {
-  const icon = iconMap[type] as any
+export function CollectionViewIcon({ type, ...rest }: CollectionViewIconProps) {
+  const icon = iconMap[type as keyof typeof iconMap]
   if (!icon) {
     return null
   }

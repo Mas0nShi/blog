@@ -1,5 +1,6 @@
-import type { PropertyType } from 'notion-types'
+import { type PropertyType } from 'notion-types'
 
+import AutoIncrementIdIcon from './type-auto-increment-id'
 import CheckboxIcon from './type-checkbox'
 import DateIcon from './type-date'
 import EmailIcon from './type-email'
@@ -42,13 +43,11 @@ const iconMap = {
   created_time: TimestampIcon,
   last_edited_time: TimestampIcon,
   created_by: Person2Icon,
-  last_edited_by: Person2Icon
+  last_edited_by: Person2Icon,
+  auto_increment_id: AutoIncrementIdIcon
 }
 
-export function PropertyIcon({
-  type,
-  ...rest
-}: PropertyIconProps) {
+export function PropertyIcon({ type, ...rest }: PropertyIconProps) {
   const icon = iconMap[type] as any
   if (!icon) return null
 

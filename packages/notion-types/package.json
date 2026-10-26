@@ -1,28 +1,40 @@
 {
   "name": "notion-types",
-  "version": "7.7.1",
-  "type": "module",
+  "version": "8.0.8",
   "description": "TypeScript types for core Notion data structures.",
-  "repository": "NotionX/react-notion-x",
-  "author": "Travis Fischer <travis@transitivebullsh.it>",
   "license": "MIT",
-  "main": "./build/index.js",
-  "module": "./build/index.js",
-  "types": "./build/index.d.ts",
-  "sideEffects": false,
+  "author": "Travis Fischer <travis@transitivebullsh.it>",
+  "repository": "NotionX/react-notion-x",
+  "source": "./src/index.ts",
   "files": [
     "build"
   ],
-  "engines": {
-    "node": ">=18"
+  "type": "module",
+  "sideEffects": false,
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "publishConfig": {
+    "types": "./build/index.d.ts",
+    "exports": {
+      ".": {
+        "types": "./build/index.d.ts",
+        "import": "./build/index.js",
+        "default": "./build/index.js"
+      }
+    },
+    "access": "public"
   },
   "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch",
-    "watch": "tsup --watch --silent --onSuccess 'echo build successful'",
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "watch": "tsdown --watch --silent --onSuccess 'echo build successful'",
     "clean": "del build",
     "test": "run-s test:*",
-    "test:lint": "eslint .",
     "test:typecheck": "tsc --noEmit"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }

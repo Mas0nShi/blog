@@ -16,7 +16,10 @@ interface UseTocItemsOptions {
 /**
  * 解析页面标题，生成 TOC 项目列表
  */
-export function useTocItems({ containerSelector, parseDelay = 500 }: UseTocItemsOptions) {
+export function useTocItems({
+  containerSelector,
+  parseDelay = 500
+}: UseTocItemsOptions) {
   const [tocItems, setTocItems] = useState<TocItem[]>([])
 
   useEffect(() => {
@@ -48,7 +51,8 @@ export function useTocItems({ containerSelector, parseDelay = 500 }: UseTocItems
 
         const text = element.textContent?.replace('​', '').trim() || ''
 
-        const headerElement = (element.closest('h1, h2, h3, h4, h5, h6') || element) as HTMLElement
+        const headerElement = (element.closest('h1, h2, h3, h4, h5, h6') ||
+          element) as HTMLElement
         if (!headerElement.dataset.id) {
           headerElement.dataset.id = id
         }
@@ -66,7 +70,8 @@ export function useTocItems({ containerSelector, parseDelay = 500 }: UseTocItems
   }, [containerSelector, parseDelay])
 
   const minLevel = useMemo(
-    () => (tocItems.length > 0 ? Math.min(...tocItems.map((item) => item.level)) : 1),
+    () =>
+      tocItems.length > 0 ? Math.min(...tocItems.map((item) => item.level)) : 1,
     [tocItems]
   )
 

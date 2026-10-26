@@ -52,7 +52,6 @@ export function Code({
   })()
   const caption = block.properties.caption
 
-
   const codeRef = React.useRef<HTMLElement | null>(null)
   React.useEffect(() => {
     if (codeRef.current) {
@@ -66,16 +65,19 @@ export function Code({
             },
             fontFamily: `SFMono-Regular, Consolas, 'Liberation Mono', Menlo, Courier, monospace;`,
             htmlLabels: true,
-            securityLevel: "strict"
+            securityLevel: 'strict'
           })
 
-          const { svg, bindFunctions } = await mermaid.render(`mermaid-${block.id}`, content)
-          codeRef.current!.innerHTML = svg;
+          const { svg, bindFunctions } = await mermaid.render(
+            `mermaid-${block.id}`,
+            content
+          )
+          codeRef.current!.innerHTML = svg
           bindFunctions?.(codeRef.current!)
         }
         mermaidRender().catch((err) => {
           console.error('mermaid render error', err)
-        });
+        })
       } else {
         try {
           prism.highlightElement(codeRef.current)
@@ -108,29 +110,29 @@ export function Code({
 
   return (
     <>
-    <div style={{position: 'relative', width: '100%'}}>
-      <div className={cs('notion-code', className)}>
-        <div className='notion-code-copy'>
-          {copyButton}
+      <div style={{ position: 'relative', width: '100%' }}>
+        <div className={cs('notion-code', className)}>
+          <div className='notion-code-copy'>
+            {copyButton}
 
-          {isCopied && (
-            <div className='notion-code-copy-tooltip'>
-              <div>{isCopied ? 'Copied' : 'Copy'}</div>
-            </div>
-          )}
+            {isCopied && (
+              <div className='notion-code-copy-tooltip'>
+                <div>{isCopied ? 'Copied' : 'Copy'}</div>
+              </div>
+            )}
+          </div>
+
+          <div className={`language-${language}`} ref={codeRef as any}>
+            {content}
+          </div>
         </div>
 
-        <div className={`language-${language}`} ref={codeRef as any}>
-          {content}
-        </div>
+        {caption && (
+          <figcaption className='notion-asset-caption'>
+            <Text value={caption} block={block} />
+          </figcaption>
+        )}
       </div>
-
-      {caption && (
-        <figcaption className='notion-asset-caption'>
-          <Text value={caption} block={block} />
-        </figcaption>
-      )}
-    </div>
     </>
   )
 }

@@ -9,12 +9,13 @@ export default siteConfig({
   rootNotionSpaceId: null,
 
   // basic site info (required)
-  name: 'Mas0n\'s blog',
+  name: "Mas0n's blog",
   domain: 'mas0n.org',
   author: 'Mas0n',
 
   // open graph metadata (optional)
-  description: '資訊安全從業者、二進制安全菜鳥、專業醬油 CTFer；思考 everything',
+  description:
+    '資訊安全從業者、二進制安全菜鳥、專業醬油 CTFer；思考 everything',
 
   // social usernames (optional)
   twitter: 'Mas0nShi',
@@ -57,7 +58,7 @@ export default siteConfig({
   //
   pageUrlOverrides: {
     '/about': '15cb182beebe432f829e69f1171c5922',
-    '/links': '3fa438474af645fa859f28bb58f641be',
+    '/links': '3fa438474af645fa859f28bb58f641be'
   },
   // pageUrlOverrides: null,
 
@@ -73,6 +74,6 @@ export default siteConfig({
     {
       title: 'Links',
       pageId: '3fa438474af645fa859f28bb58f641be'
-    },
+    }
   ]
 })

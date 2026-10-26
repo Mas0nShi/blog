@@ -1,5 +1,3 @@
-import * as React from 'react'
-
 function SvgTypePerson2(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox='0 0 14 14' {...props}>

@@ -11,5 +11,19 @@ export interface PermissionRecord {
 }
 
 export interface SignedUrlResponse {
-  signedUrls: string[]
+  signedUrls: Array<string | null>
+}
+
+export interface CustomEmoji {
+  id: string
+  name: string
+  url: string
+}
+
+export interface ListCustomEmojisResponse {
+  object: 'list'
+  type: 'custom_emoji'
+  results: CustomEmoji[]
+  has_more: boolean
+  next_cursor: string | null
 }

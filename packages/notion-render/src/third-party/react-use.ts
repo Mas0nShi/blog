@@ -64,15 +64,13 @@ export const useWindowSize = (
         off(globalThis.window, 'resize', handler)
       }
     }
-     
-  }, [])
+  })
 
   return state
 }
 
 export const useEffectOnce = (effect: EffectCallback) => {
-   
-  useEffect(effect, [])
+  useEffect(effect)
 }
 
 export const useUnmount = (fn: () => any): void => {
@@ -134,7 +132,6 @@ export const useLocalStorage = <T>(
       : options.deserializer
     : JSON.parse
 
-   
   const initializer = useRef((key: string) => {
     try {
       const serializer = options
@@ -160,15 +157,12 @@ export const useLocalStorage = <T>(
     }
   })
 
-   
   const [state, setState] = useState<T | undefined>(() =>
     initializer.current(key)
   )
 
-   
   useLayoutEffect(() => setState(initializer.current(key)), [key])
 
-   
   const set: Dispatch<SetStateAction<T | undefined>> = useCallback(
     (valOrFunc) => {
       try {
@@ -194,11 +188,11 @@ export const useLocalStorage = <T>(
         // localStorage can throw. Also JSON.stringify can throw.
       }
     },
-     
+
+    // oxlint-disable-next-line react-hooks/exhaustive-deps
     [key, setState]
   )
 
-   
   const remove = useCallback(() => {
     try {
       localStorage.removeItem(key)
@@ -223,6 +217,7 @@ export const useClientStyle = (
 ) => {
   const [isMounted, setIsMounted] = useState(false)
   useEffect(() => {
+    // oxlint-disable-next-line react/set-state-in-effect
     setIsMounted(true)
   }, [])
 
