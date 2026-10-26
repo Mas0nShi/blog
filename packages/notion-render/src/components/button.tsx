@@ -3,6 +3,7 @@ import { getBlockValue, notionImageProxyOrigin } from 'notion-utils'
 import React from 'react'
 
 import { useNotionContext } from '../context'
+import { buttonBlockClassName, buttonClassName } from '../layout-blocks'
 import { cs } from '../utils'
 import { Text } from './text'
 
@@ -68,10 +69,10 @@ export function Button({
   // If no automation, render a simple static button
   if (!automationId) {
     return (
-      <div className={cs('notion-button-block', blockId)}>
+      <div className={cs(buttonBlockClassName, blockId)}>
         <button
           type='button'
-          className={cs('notion-button', `notion-${blockColor}`, className)}
+          className={cs(buttonClassName({ color: blockColor }), className)}
         >
           {title ? <Text value={title} block={block} /> : 'Button'}
         </button>
@@ -89,10 +90,10 @@ export function Button({
     // Fallback to title if no automation found
     const buttonText = title ? getTextContent(title) : 'Button'
     return (
-      <div className={cs('notion-button-block', blockId)}>
+      <div className={cs(buttonBlockClassName, blockId)}>
         <button
           type='button'
-          className={cs('notion-button', `notion-${blockColor}`, className)}
+          className={cs(buttonClassName({ color: blockColor }), className)}
         >
           {buttonText}
         </button>
@@ -308,13 +309,11 @@ export function Button({
   }
 
   return (
-    <div className={cs('notion-button-block', blockId)}>
+    <div className={cs(buttonBlockClassName, blockId)}>
       <button
         type='button'
         className={cs(
-          'notion-button',
-          `notion-${blockColor}`,
-          isSuccess ? 'notion-success' : '',
+          buttonClassName({ color: blockColor, success: isSuccess }),
           className
         )}
         onClick={handleClick}

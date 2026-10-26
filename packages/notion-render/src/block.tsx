@@ -31,6 +31,16 @@ import { ToggleBlock } from './components/toggle-block'
 import { useNotionContext } from './context'
 import { LinkIcon } from './icons/link-icon'
 import { calloutColorClassName } from './colors'
+import {
+  columnClassName,
+  columnSpacerClassName,
+  rowClassName,
+  simpleTableClassNames,
+  syncBlockClassName,
+  tableOfContentsClassName,
+  tableOfContentsItemBodyClassName,
+  tableOfContentsItemClassName
+} from './layout-blocks'
 import { tweetClassName } from './media'
 import {
   embeddedRootClassName,
@@ -617,7 +627,7 @@ export function Block(props: BlockProps) {
       return <components.Code block={block as types.CodeBlock} />
 
     case 'column_list':
-      return <div className={cs('notion-row', blockId)}>{children}</div>
+      return <div className={cs(rowClassName, blockId)}>{children}</div>
 
     case 'column': {
       // note: notion uses 46px
@@ -634,19 +644,11 @@ export function Block(props: BlockProps) {
 
       return (
         <>
-          <div
-            className={cs(
-              'notion-column',
-              // the column owns the outer spacing of its first and last block
-              'tw:*:first:mx-0! tw:*:first:mt-0! tw:*:last:mx-0! tw:*:last:mb-0!',
-              blockId
-            )}
-            style={style}
-          >
+          <div className={cs(columnClassName, blockId)} style={style}>
             {children}
           </div>
 
-          <div className='notion-spacer' />
+          <div className={columnSpacerClassName} />
         </>
       )
     }
@@ -716,7 +718,7 @@ export function Block(props: BlockProps) {
       }
 
       return (
-        <div className='notion-row'>
+        <div className={rowClassName}>
           <components.Link
             target='_blank'
             rel='noopener noreferrer'
@@ -806,21 +808,15 @@ export function Block(props: BlockProps) {
       const blockColor = block.format?.block_color
 
       return (
-        <div
-          className={cs(
-            'notion-table-of-contents',
-            blockColor && `notion-${blockColor}`,
-            blockId
-          )}
-        >
+        <div className={cs(tableOfContentsClassName(blockColor), blockId)}>
           {toc.map((tocItem) => (
             <a
               key={tocItem.id}
               href={`#${uuidToId(tocItem.id)}`}
-              className='notion-table-of-contents-item'
+              className={tableOfContentsItemClassName}
             >
               <span
-                className='notion-table-of-contents-item-body'
+                className={tableOfContentsItemBodyClassName}
                 style={{
                   display: 'inline-block',
                   marginLeft: tocItem.indentLevel * 24
@@ -858,7 +854,7 @@ export function Block(props: BlockProps) {
     }
 
     case 'transclusion_container':
-      return <div className={cs('notion-sync-block', blockId)}>{children}</div>
+      return <div className={cs(syncBlockClassName, blockId)}>{children}</div>
 
     case 'transclusion_reference':
       return <SyncPointerBlock {...props} level={level + 1} />
@@ -883,8 +879,8 @@ export function Block(props: BlockProps) {
 
     case 'table':
       return (
-        <div className={cs('notion-simple-table-container', blockId)}>
-          <table className={cs('notion-simple-table', blockId)}>
+        <div className={cs(simpleTableClassNames.container, blockId)}>
+          <table className={cs(simpleTableClassNames.table, blockId)}>
             <tbody>{children}</tbody>
           </table>
         </div>
@@ -914,9 +910,7 @@ export function Block(props: BlockProps) {
       return (
         <tr
           className={cs(
-            'notion-simple-table-row',
-            backgroundColor && `notion-${backgroundColor}`,
-            isHeaderRow && 'notion-simple-table-header-row',
+            simpleTableClassNames.row(backgroundColor, isHeaderRow),
             blockId
           )}
         >
@@ -928,10 +922,11 @@ export function Block(props: BlockProps) {
             return (
               <td
                 key={column}
-                className={cs(
-                  color ? `notion-${color}` : '',
-                  isHeaderColumn && 'notion-simple-table-header-cell'
-                )}
+                className={simpleTableClassNames.cell({
+                  color,
+                  isHeaderRow,
+                  isHeaderColumn
+                })}
                 style={{
                   width: formatMap?.[column]?.width || 120
                 }}

@@ -4,6 +4,7 @@ import React from 'react'
 
 import { Block, type BlockProps } from '../block'
 import { useNotionContext } from '../context'
+import { tabClassNames } from '../layout-blocks'
 import { blankBlockClassName } from '../text-blocks'
 import { cs } from '../utils'
 
@@ -71,7 +72,7 @@ export function TabBlock(props: TabBlockProps) {
 
   if (!tabIds.length) {
     return (
-      <div className={cs('notion-tab-block', blankBlockClassName, blockId)} />
+      <div className={cs(tabClassNames.block, blankBlockClassName, blockId)} />
     )
   }
 
@@ -79,7 +80,7 @@ export function TabBlock(props: TabBlockProps) {
   const activeTabId = tabIds[safeIndex]
   if (!activeTabId) {
     return (
-      <div className={cs('notion-tab-block', blankBlockClassName, blockId)} />
+      <div className={cs(tabClassNames.block, blankBlockClassName, blockId)} />
     )
   }
   const activeTabBlock = getBlockValue(recordMap.block[activeTabId])
@@ -89,22 +90,22 @@ export function TabBlock(props: TabBlockProps) {
 
   return (
     <div
-      className={cs('notion-selectable', 'notion-tab-block', blockId)}
+      className={cs('notion-selectable', tabClassNames.block, blockId)}
       data-block-id={uuidToId(block.id)}
       dir='ltr'
     >
-      <div className='notion-tab-block-inner'>
-        <div className='notion-tab-header-row'>
-          <div className='notion-tab-scroll-host'>
+      <div className={tabClassNames.inner}>
+        <div className={tabClassNames.headerRow}>
+          <div className={tabClassNames.scrollHost}>
             <div
               ref={tabScrollRef}
-              className='notion-tab-scroll'
+              className={tabClassNames.scroll}
               onScroll={updateTabScrollFades}
             >
               <div
                 role='tablist'
                 aria-label='Tab block'
-                className='notion-tab-list-inner'
+                className={tabClassNames.list}
               >
                 {tabIds.map((tabId, i) => {
                   const tabLabelBlock = getBlockValue(recordMap.block[tabId])
@@ -116,7 +117,7 @@ export function TabBlock(props: TabBlockProps) {
                   const isSelected = i === safeIndex
 
                   return (
-                    <div key={tabId} className='notion-tab-pill-wrap'>
+                    <div key={tabId} className={tabClassNames.pillWrap}>
                       <button
                         type='button'
                         role='tab'
@@ -127,12 +128,9 @@ export function TabBlock(props: TabBlockProps) {
                         aria-setsize={tabIds.length}
                         tabIndex={isSelected ? 0 : -1}
                         onClick={() => setActiveIndex(i)}
-                        className={cs(
-                          'notion-tab-button',
-                          isSelected && 'notion-tab-button-active'
-                        )}
+                        className={tabClassNames.button(isSelected)}
                       >
-                        <span className='notion-tab-button-label notranslate'>
+                        <span className={tabClassNames.buttonLabel}>
                           {label}
                         </span>
                       </button>
@@ -142,28 +140,22 @@ export function TabBlock(props: TabBlockProps) {
               </div>
             </div>
             <div
-              className={cs(
-                'notion-tab-scroll-fade notion-tab-scroll-fade-left',
-                scrollFadeLeft && 'notion-tab-scroll-fade-visible'
-              )}
+              className={tabClassNames.fade('left', scrollFadeLeft)}
               aria-hidden
             />
             <div
-              className={cs(
-                'notion-tab-scroll-fade notion-tab-scroll-fade-right',
-                scrollFadeRight && 'notion-tab-scroll-fade-visible'
-              )}
+              className={tabClassNames.fade('right', scrollFadeRight)}
               aria-hidden
             />
           </div>
-          <div className='notion-tab-add-placeholder' aria-hidden />
+          <div className={tabClassNames.addPlaceholder} aria-hidden />
         </div>
 
         <div
           role='tabpanel'
           id={`${baseId}-panel`}
           aria-labelledby={`${baseId}-tab-${safeIndex}`}
-          className='notion-tab-panel'
+          className={tabClassNames.panel}
         >
           {panelBlocks.map((childId: string) =>
             renderSubtree(childId, level + 1)
