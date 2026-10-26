@@ -10,14 +10,54 @@ import { cs } from '../utils'
 import { PageIcon } from './page-icon'
 import { SearchDialog } from './search-dialog'
 
+/**
+ * Header styles, exported so custom headers (e.g. the site's navigation
+ * header) share them instead of re-implementing the markup's CSS.
+ */
+export const headerClassNames = {
+  // sticky, translucent bar above the page; stacks above page content
+  header: cs(
+    'notion-header',
+    'tw:sticky tw:top-0 tw:left-0 tw:z-(--z-header) tw:w-full tw:max-w-screen tw:overflow-hidden',
+    'tw:h-(--notion-header-height) tw:min-h-(--notion-header-height)',
+    'tw:bg-[hsla(0,0%,100%,0.8)] tw:backdrop-blur-[16px] tw:backdrop-saturate-[180%]',
+    'tw:dark:bg-transparent tw:dark:shadow-[inset_0_-1px_0_0_rgba(0,0,0,0.1)] tw:dark:backdrop-blur-[20px]',
+    // Firefox renders a transparent bar poorly; give it a tinted background
+    'tw:supports-[-moz-appearance:none]:dark:bg-[hsla(203,8%,20%,0.8)]'
+  ),
+  nav: cs(
+    'notion-nav-header',
+    'tw:absolute tw:inset-x-0 tw:top-0 tw:mx-auto tw:flex tw:h-full tw:w-full tw:max-w-[1100px]',
+    'tw:flex-row tw:items-center tw:justify-between tw:gap-[12px] tw:overflow-x-auto tw:px-[12px]',
+    'tw:text-[14px] tw:leading-[1.2] tw:[text-size-adjust:100%]'
+  ),
+  breadcrumbs: cs(
+    'breadcrumbs',
+    'tw:flex tw:h-full tw:min-w-0 tw:grow-0 tw:flex-row tw:items-center'
+  ),
+  // link-like item in the header: breadcrumb, nav link or icon button
+  breadcrumb: cs(
+    'breadcrumb',
+    'tw:my-[1px] tw:inline-flex tw:cursor-pointer tw:flex-row tw:items-center tw:justify-center',
+    'tw:rounded-[3px] tw:bg-transparent tw:px-[6px] tw:py-[4px] tw:whitespace-nowrap tw:text-ellipsis',
+    'tw:text-fg tw:no-underline tw:select-none tw:transition-[background] tw:duration-[120ms] tw:ease-in',
+    'tw:[&:not(.active):hover]:bg-bg-hover tw:[&:not(.active):active]:bg-bg-subtle tw:[&.active]:cursor-default'
+  ),
+  // icon buttons and nav links get a larger hit area than breadcrumbs
+  button: cs('button', 'tw:p-[12px]!'),
+  spacer: cs('spacer', 'tw:mx-[2px] tw:text-fg-subtle'),
+  // labels collapse on narrow screens, leaving icons only
+  title: cs('title', 'tw:max-[600px]:hidden')
+}
+
 export function Header({
   block
 }: {
   block: types.CollectionViewPageBlock | types.PageBlock
 }) {
   return (
-    <header className='notion-header'>
-      <div className='notion-nav-header'>
+    <header className={headerClassNames.header}>
+      <div className={headerClassNames.nav}>
         <Breadcrumbs block={block} />
         <Search block={block} />
       </div>
@@ -44,7 +84,7 @@ export function Breadcrumbs({
   }, [recordMap, block.id, rootOnly])
 
   return (
-    <div className='breadcrumbs' key='breadcrumbs'>
+    <div className={headerClassNames.breadcrumbs} key='breadcrumbs'>
       {breadcrumbs?.map((breadcrumb, index: number) => {
         if (!breadcrumb) {
           return null
@@ -64,7 +104,10 @@ export function Breadcrumbs({
         return (
           <React.Fragment key={breadcrumb.pageId}>
             <componentMap.pageLink
-              className={cs('breadcrumb', breadcrumb.active && 'active')}
+              className={cs(
+                headerClassNames.breadcrumb,
+                breadcrumb.active && 'active'
+              )}
               {...pageLinkProps}
             >
               {breadcrumb.icon && (
@@ -72,12 +115,14 @@ export function Breadcrumbs({
               )}
 
               {breadcrumb.title && (
-                <span className='title'>{breadcrumb.title}</span>
+                <span className={headerClassNames.title}>
+                  {breadcrumb.title}
+                </span>
               )}
             </componentMap.pageLink>
 
             {index < breadcrumbs.length - 1 && (
-              <span className='spacer'>/</span>
+              <span className={headerClassNames.spacer}>/</span>
             )}
           </React.Fragment>
         )
@@ -134,12 +179,17 @@ export function Search({
       {hasSearch && (
         <div
           role='button'
-          className={cs('breadcrumb', 'button', 'notion-search-button')}
+          className={cs(
+            headerClassNames.breadcrumb,
+            headerClassNames.button,
+            'notion-search-button',
+            'tw:gap-[8px] tw:max-[600px]:hidden!'
+          )}
           onClick={onOpenSearch}
         >
-          <SearchIcon className='searchIcon' />
+          <SearchIcon className='searchIcon tw:size-[14px] tw:fill-fg tw:text-fg' />
 
-          {title && <span className='title'>{title}</span>}
+          {title && <span className={headerClassNames.title}>{title}</span>}
         </div>
       )}
 

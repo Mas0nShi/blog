@@ -2,6 +2,7 @@ import throttle from 'lodash.throttle'
 import { type TableOfContentsEntry, uuidToId } from 'notion-utils'
 import React from 'react'
 
+import { pageShellClassNames } from '../page-shell'
 import { cs } from '../utils'
 
 export function PageAside({
@@ -82,7 +83,7 @@ export function PageAside({
   }
 
   return (
-    <aside className={cs('notion-aside', className)}>
+    <aside className={cs(pageShellClassNames.aside, className)}>
       {hasToc && (
         <div className='notion-aside-table-of-contents'>
           {tocTitle !== null && (
