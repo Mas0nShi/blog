@@ -52,39 +52,62 @@ export function Code({
   })()
   const caption = block.properties.caption
 
-  const codeRef = React.useRef<HTMLElement | null>(null)
-  React.useEffect(() => {
-    if (codeRef.current) {
-      if (language === 'mermaid') {
-        const mermaidRender = async () => {
-          mermaid.initialize({
-            startOnLoad: true,
-            theme: darkMode ? 'dark' : 'neutral',
-            themeVariables: {
-              // fontSize: '14px'
-            },
-            fontFamily: `SFMono-Regular, Consolas, 'Liberation Mono', Menlo, Courier, monospace;`,
-            htmlLabels: true,
-            securityLevel: 'strict'
-          })
+  // Highlight during render instead of mutating React-owned DOM afterwards:
+  // re-renders (theme switch, copy state) used to reset it to plain text.
+  const highlighted = React.useMemo(() => {
+    const grammar = prism.languages[language]
+    if (language === 'mermaid' || !grammar) {
+      return undefined
+    }
 
-          const { svg, bindFunctions } = await mermaid.render(
-            `mermaid-${block.id}`,
-            content
-          )
-          codeRef.current!.innerHTML = svg
-          bindFunctions?.(codeRef.current!)
-        }
-        mermaidRender().catch((err) => {
-          console.error('mermaid render error', err)
-        })
-      } else {
-        try {
-          prism.highlightElement(codeRef.current)
-        } catch (err) {
-          console.warn('prismjs highlight error', err)
-        }
+    try {
+      return prism.highlight(content, grammar, language)
+    } catch (err) {
+      console.warn('prismjs highlight error', err)
+      return undefined
+    }
+  }, [content, language])
+
+  const [mermaidSvg, setMermaidSvg] = React.useState<string>()
+  const mermaidRef = React.useRef<HTMLDivElement | null>(null)
+  React.useEffect(() => {
+    if (language !== 'mermaid') {
+      return
+    }
+
+    let cancelled = false
+    const mermaidRender = async () => {
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: darkMode ? 'dark' : 'neutral',
+        fontFamily: `SFMono-Regular, Consolas, 'Liberation Mono', Menlo, Courier, monospace;`,
+        htmlLabels: true,
+        securityLevel: 'strict'
+      })
+
+      const { svg, bindFunctions } = await mermaid.render(
+        `mermaid-${block.id}`,
+        content
+      )
+      if (cancelled) {
+        return
       }
+
+      setMermaidSvg(svg)
+      // bind after React has committed the svg
+      requestAnimationFrame(() => {
+        if (!cancelled && mermaidRef.current) {
+          bindFunctions?.(mermaidRef.current)
+        }
+      })
+    }
+
+    mermaidRender().catch((err) => {
+      console.error('mermaid render error', err)
+    })
+
+    return () => {
+      cancelled = true
     }
   }, [language, darkMode, block.id, content])
 
@@ -122,9 +145,22 @@ export function Code({
             )}
           </div>
 
-          <div className={`language-${language}`} ref={codeRef as any}>
-            {content}
-          </div>
+          {language === 'mermaid' ? (
+            <div
+              className={`language-${language}`}
+              ref={mermaidRef}
+              {...(mermaidSvg
+                ? { dangerouslySetInnerHTML: { __html: mermaidSvg } }
+                : { children: content })}
+            />
+          ) : highlighted === undefined ? (
+            <div className={`language-${language}`}>{content}</div>
+          ) : (
+            <div
+              className={`language-${language}`}
+              dangerouslySetInnerHTML={{ __html: highlighted }}
+            />
+          )}
         </div>
 
         {caption && (
