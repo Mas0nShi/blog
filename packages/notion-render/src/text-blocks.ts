@@ -61,7 +61,9 @@ export const headingAnchorClassName = cs(
 export const headingHashLinkClassName = cs(
   'notion-hash-link',
   'tw:float-left tw:-ml-[20px] tw:pr-[4px] tw:no-underline tw:opacity-0',
-  'tw:fill-(--fg-color-icon) tw:[.notion-h:hover_&]:opacity-100'
+  'tw:fill-(--fg-color-icon) tw:[.notion-h:hover_&]:opacity-100',
+  // the icon sits on the heading's baseline
+  'tw:[&>svg]:inline tw:[&>svg]:align-baseline'
 )
 
 export function listClassName(type: 'bulleted' | 'numbered') {

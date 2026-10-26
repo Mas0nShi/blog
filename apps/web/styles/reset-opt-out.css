@@ -1,0 +1,15 @@
+/*
+ * Waline and react-tweet style their markup against browser defaults, not
+ * against Tailwind's reset: give their subtrees the browser defaults back.
+ * Their own CSS (third-party layer) and our base styles still apply on top.
+ */
+:is([data-waline], .react-tweet-theme),
+:is([data-waline], .react-tweet-theme)::before,
+:is([data-waline], .react-tweet-theme)::after,
+:is([data-waline], .react-tweet-theme) *,
+:is([data-waline], .react-tweet-theme) ::before,
+:is([data-waline], .react-tweet-theme) ::after,
+:is([data-waline], .react-tweet-theme) ::placeholder,
+:is([data-waline], .react-tweet-theme) ::file-selector-button {
+  all: revert;
+}

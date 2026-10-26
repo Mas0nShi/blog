@@ -5,13 +5,13 @@
  * and !important:
  *
  * - theme: Tailwind and notion-render design tokens
+ * - reset: Tailwind's preflight
+ * - reset-opt-out: third-party widgets keep browser defaults (see below)
  * - base: element defaults of the site and the renderer root
  * - third-party: library CSS (KaTeX, Prism, Waline) and our adjustments
  * - components / utilities: Tailwind; everything on elements lives here
- *
- * Tailwind's preflight reset is not included yet.
  */
-@layer theme, base, third-party, components, utilities;
+@layer theme, reset, reset-opt-out, base, third-party, components, utilities;
 
 /*
  * Utilities use the `tw:` prefix (e.g. `tw:flex`): the site renders a lot of
@@ -20,7 +20,11 @@
  * own class names, ...).
  */
 @import 'tailwindcss/theme.css' layer(theme) prefix(tw);
+@import 'tailwindcss/preflight.css' layer(reset);
 @import 'tailwindcss/utilities.css' layer(utilities);
+
+/* third-party widgets opt out of the reset */
+@import './reset-opt-out.css' layer(reset-opt-out);
 
 /* used for rendering equations */
 @import 'katex/dist/katex.min.css' layer(third-party);
