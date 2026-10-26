@@ -20,22 +20,23 @@ for (const pageId of testPageIds) {
     `NotionCompatAPI test page ${pageId}`,
     { timeout: 30_000 },
     async () => {
-    const client = new Client({ auth })
-    const compatAPI = new NotionCompatAPI(client)
-    const api = new NotionAPI()
+      const client = new Client({ auth })
+      const compatAPI = new NotionCompatAPI(client)
+      const api = new NotionAPI()
 
-    const page = await api.getPage(pageId)
-    const compatPage = await compatAPI.getPage(pageId)
+      const page = await api.getPage(pageId)
+      const compatPage = await compatAPI.getPage(pageId)
 
-    expect(page).toBeTruthy()
-    expect(compatPage).toBeTruthy()
+      expect(page).toBeTruthy()
+      expect(compatPage).toBeTruthy()
 
-    if (debug) {
-      await fs.writeFile(`${pageId}.json`, JSON.stringify(page, null, 2))
-      await fs.writeFile(
-        `${pageId}.compat.json`,
-        JSON.stringify(compatPage, null, 2)
-      )
+      if (debug) {
+        await fs.writeFile(`${pageId}.json`, JSON.stringify(page, null, 2))
+        await fs.writeFile(
+          `${pageId}.compat.json`,
+          JSON.stringify(compatPage, null, 2)
+        )
+      }
     }
-  })
+  )
 }

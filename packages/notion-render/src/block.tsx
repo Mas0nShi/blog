@@ -473,21 +473,37 @@ export function Block(props: BlockProps) {
         block.type !== getBlockValue(recordMap.block[block.parent_id])?.type
       const start = getListNumber(block.id, recordMap.block)
 
-      const props = block.type === 'bulleted_list' ? {} : {
-        'block-list-numbered-counter': start,
-      }
+      const props =
+        block.type === 'bulleted_list'
+          ? {}
+          : {
+              'block-list-numbered-counter': start
+            }
 
       if (block.content) {
         output = (
           <>
             {block.properties && (
-              <div className="notion-block-list-item" {...props}>
-
-                <div className="notion-block-list-item-content">
-                  <div style={{ maxWidth: '100%', width: '100%', whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
+              <div className='notion-block-list-item' {...props}>
+                <div className='notion-block-list-item-content'>
+                  <div
+                    style={{
+                      maxWidth: '100%',
+                      width: '100%',
+                      whiteSpace: 'pre-wrap',
+                      wordBreak: 'break-word'
+                    }}
+                  >
                     <Text value={block.properties.title} block={block} />
                   </div>
-                  <div style={{ maxWidth: '100%', width: '100%', whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
+                  <div
+                    style={{
+                      maxWidth: '100%',
+                      width: '100%',
+                      whiteSpace: 'pre-wrap',
+                      wordBreak: 'break-word'
+                    }}
+                  >
                     {children}
                   </div>
                 </div>
@@ -497,13 +513,19 @@ export function Block(props: BlockProps) {
         )
       } else {
         output = block.properties ? (
-          <div className="notion-block-list-item" {...props}>
-            <div className="notion-block-list-item-content">
-              <div style={{ maxWidth: '100%', width: '100%', whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
+          <div className='notion-block-list-item' {...props}>
+            <div className='notion-block-list-item-content'>
+              <div
+                style={{
+                  maxWidth: '100%',
+                  width: '100%',
+                  whiteSpace: 'pre-wrap',
+                  wordBreak: 'break-word'
+                }}
+              >
                 <Text value={block.properties.title} block={block} />
               </div>
             </div>
-
           </div>
         ) : null
       }
@@ -743,7 +765,11 @@ export function Block(props: BlockProps) {
     }
 
     case 'toggle':
-      return <ToggleBlock blockId={blockId} block={block} children={children} />
+      return (
+        <ToggleBlock blockId={blockId} block={block}>
+          {children}
+        </ToggleBlock>
+      )
 
     case 'button': {
       const ButtonComponent = components.Button || Button
