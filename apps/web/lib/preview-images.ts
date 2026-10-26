@@ -11,6 +11,7 @@ import pMemoize from 'p-memoize'
 
 import { defaultPageCover, defaultPageIcon } from './config'
 import { db } from './db'
+import { withFixture } from './fixtures'
 import { mapImageUrl } from './map-image-url'
 
 export async function getPreviewImageMap(
@@ -83,4 +84,9 @@ async function createPreviewImage(
   }
 }
 
-export const getPreviewImage = pMemoize(createPreviewImage)
+export const getPreviewImage = pMemoize(
+  (url: string, opts: { cacheKey: string }) =>
+    withFixture('preview-image', opts.cacheKey, () =>
+      createPreviewImage(url, opts)
+    )
+)

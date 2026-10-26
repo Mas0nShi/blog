@@ -7,6 +7,8 @@ export default {
     '**/next-env.d.ts',
     'packages/notion-utils/fixtures',
     'packages/notion-x-to-md/examples',
-    'apps/web/public'
+    'apps/web/public',
+    'apps/web/e2e/fixtures',
+    'apps/web/e2e/__screenshots__'
   ]
 }

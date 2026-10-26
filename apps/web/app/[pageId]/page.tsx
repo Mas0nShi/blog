@@ -4,6 +4,7 @@ import { NotionPageRoute } from '@/components/NotionPageRoute'
 import { getPageData } from '@/lib/get-page-data'
 import { getSiteMap } from '@/lib/get-site-map'
 import { isDev, pageUrlOverrides } from '@/lib/config'
+import { fixturesMode } from '@/lib/fixtures'
 import { createPageMetadata } from '@/lib/page-metadata'
 
 interface DynamicPageProps {
@@ -16,7 +17,8 @@ export const revalidate = 10
 export const dynamicParams = true
 
 export async function generateStaticParams() {
-  if (isDev) {
+  // fixture runs render only the pages under test, on demand
+  if (isDev || fixturesMode) {
     return []
   }
 

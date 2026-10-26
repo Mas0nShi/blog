@@ -6,6 +6,7 @@ import { getTweet as getTweetData, type Tweet } from 'react-tweet/api'
 
 import type { ExtendedTweetRecordMap } from './types'
 import { db } from './db'
+import { withFixture } from './fixtures'
 
 export async function getTweetsMap(
   recordMap: ExtendedRecordMap
@@ -59,4 +60,6 @@ async function getTweetImpl(tweetId: string): Promise<Tweet | null> {
   }
 }
 
-export const getTweet = pMemoize(getTweetImpl)
+export const getTweet = pMemoize((tweetId: string) =>
+  withFixture('tweet', tweetId, () => getTweetImpl(tweetId))
+)

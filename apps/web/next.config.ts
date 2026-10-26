@@ -9,6 +9,8 @@ export default {
       protocol: 'https' as const,
       hostname
     })),
+    // visual regression runs replay original image URLs (see e2e/README.md)
+    unoptimized: !!process.env.NOTION_FIXTURES,
     formats: ['image/avif', 'image/webp'],
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;"
