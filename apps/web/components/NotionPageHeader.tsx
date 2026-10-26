@@ -1,14 +1,18 @@
 import type * as types from 'notion-types'
 import cs from 'classnames'
-import { Breadcrumbs, Header, Search, useNotionContext } from 'notion-render'
+import {
+  Breadcrumbs,
+  Header,
+  headerClassNames,
+  Search,
+  useNotionContext
+} from 'notion-render'
 import * as React from 'react'
 
 import { isSearchEnabled, navigationLinks, navigationStyle } from '@/lib/config'
 import { MoonIcon } from '@/lib/icons/moon'
 import { SunIcon } from '@/lib/icons/sun'
 import { useDarkMode } from '@/lib/use-dark-mode'
-
-import styles from './styles.module.css'
 
 function ToggleThemeButton() {
   const { hasMounted, isDarkMode, toggleDarkMode } = useDarkMode()
@@ -19,7 +23,11 @@ function ToggleThemeButton() {
 
   return (
     <div
-      className={cs('breadcrumb', 'button', !hasMounted && styles.hidden)}
+      className={cs(
+        headerClassNames.breadcrumb,
+        headerClassNames.button,
+        !hasMounted && 'tw:invisible'
+      )}
       onClick={onToggleTheme}
     >
       {hasMounted && isDarkMode ? <MoonIcon /> : <SunIcon />}
@@ -39,11 +47,17 @@ export function NotionPageHeader({
   }
 
   return (
-    <header className='notion-header'>
-      <div className='notion-nav-header'>
+    <header className={headerClassNames.header}>
+      <div className={headerClassNames.nav}>
         <Breadcrumbs block={block} rootOnly={true} />
 
-        <div className='notion-nav-header-rhs breadcrumbs'>
+        <div
+          className={cs(
+            'notion-nav-header-rhs',
+            headerClassNames.breadcrumbs,
+            'tw:gap-[0.5rem]'
+          )}
+        >
           {navigationLinks
             ?.map((link, index) => {
               if (!link?.pageId && !link?.url) {
@@ -55,7 +69,10 @@ export function NotionPageHeader({
                   <components.PageLink
                     href={mapPageUrl(link.pageId)}
                     key={index}
-                    className={cs(styles.navLink, 'breadcrumb', 'button')}
+                    className={cs(
+                      headerClassNames.breadcrumb,
+                      headerClassNames.button
+                    )}
                   >
                     {link.title}
                   </components.PageLink>
@@ -65,7 +82,10 @@ export function NotionPageHeader({
                   <components.Link
                     href={link.url}
                     key={index}
-                    className={cs(styles.navLink, 'breadcrumb', 'button')}
+                    className={cs(
+                      headerClassNames.breadcrumb,
+                      headerClassNames.button
+                    )}
                   >
                     {link.title}
                   </components.Link>

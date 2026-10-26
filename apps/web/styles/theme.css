@@ -11,6 +11,9 @@
 
 @theme inline {
   --font-sans: var(--notion-font);
+  --font-emoji:
+    'Apple Color Emoji', 'Segoe UI Emoji', NotoColorEmoji, 'Noto Color Emoji',
+    'Segoe UI Symbol', 'Android Emoji', EmojiSymbols;
   --font-mono:
     'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier,
     monospace;

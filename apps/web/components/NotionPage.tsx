@@ -282,7 +282,13 @@ export function NotionPage({
       {showTableOfContents && !isLiteMode && <FloatingTableOfContents />}
 
       <NotionRenderer
-        bodyClassName={cs(pageId === site.rootNotionPageId && 'index-page')}
+        bodyClassName={cs(
+          pageId === site.rootNotionPageId && [
+            'index-page',
+            // the home page's gallery gets a wider content column
+            'tw:[--notion-max-width:900px] tw:max-[920px]:px-[2vw]'
+          ]
+        )}
         darkMode={isDarkMode}
         components={notionRendererComponents}
         recordMap={recordMap}

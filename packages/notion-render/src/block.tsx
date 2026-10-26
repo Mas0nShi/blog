@@ -30,6 +30,12 @@ import { Text } from './components/text'
 import { ToggleBlock } from './components/toggle-block'
 import { useNotionContext } from './context'
 import { LinkIcon } from './icons/link-icon'
+import {
+  embeddedRootClassName,
+  notionRootClassName,
+  pageClassName,
+  pageShellClassNames
+} from './page-shell'
 import { cs, isUrl } from './utils'
 
 export interface BlockProps {
@@ -160,30 +166,30 @@ export function Block(props: BlockProps) {
           return (
             <div
               className={cs(
-                'notion',
-                'notion-app',
+                notionRootClassName,
+                pageShellClassNames.app,
                 darkMode ? 'dark-mode' : 'light-mode',
                 blockId,
                 className
               )}
             >
-              <div className='notion-viewport' />
+              <div className={pageShellClassNames.viewport} />
 
-              <div className='notion-frame'>
+              <div className={pageShellClassNames.frame}>
                 {!disableHeader && <components.Header block={block} />}
                 {header}
 
-                <div className='notion-page-scroller'>
+                <div className={pageShellClassNames.scroller}>
                   {hasPageCover &&
                     (pageCover ?? (
-                      <div className='notion-page-cover-wrapper'>
+                      <div className={pageShellClassNames.coverWrapper}>
                         <LazyImage
                           src={mapImageUrl(page_cover!, block)}
                           alt={getTextContent(properties?.title)}
                           priority={true}
                           fill={true}
                           sizes='100vw'
-                          className='notion-page-cover'
+                          className={pageShellClassNames.cover}
                           style={pageCoverStyle}
                         />
                       </div>
@@ -191,7 +197,14 @@ export function Block(props: BlockProps) {
 
                   <main
                     className={cs(
-                      'notion-page',
+                      pageClassName({
+                        fullPage: true,
+                        fullWidth: !!page_full_width,
+                        smallText: !!page_small_text,
+                        hasCover: hasPageCover,
+                        hasIcon: !!page_icon,
+                        isImageIcon: !!isPageIconUrl
+                      }),
                       hasPageCover
                         ? 'notion-page-has-cover'
                         : 'notion-page-no-cover',
@@ -212,12 +225,13 @@ export function Block(props: BlockProps) {
                         block={block}
                         defaultIcon={defaultPageIcon}
                         inline={false}
+                        hasCover={hasPageCover}
                       />
                     )}
 
                     {pageHeader}
 
-                    <h1 className='notion-title'>
+                    <h1 className={pageShellClassNames.title}>
                       {pageTitle ?? (
                         <Text value={properties?.title} block={block} />
                       )}
@@ -232,12 +246,12 @@ export function Block(props: BlockProps) {
                     {block.type !== 'collection_view_page' && (
                       <div
                         className={cs(
-                          'notion-page-content',
+                          pageShellClassNames.content,
                           hasAside && 'notion-page-content-has-aside',
                           hasToc && 'notion-page-content-has-toc'
                         )}
                       >
-                        <article className='notion-page-content-inner'>
+                        <article className={pageShellClassNames.article}>
                           {children}
                         </article>
 
@@ -267,9 +281,16 @@ export function Block(props: BlockProps) {
           return (
             <main
               className={cs(
-                'notion',
+                embeddedRootClassName({ smallText: !!page_small_text }),
                 darkMode ? 'dark-mode' : 'light-mode',
-                'notion-page',
+                pageClassName({
+                  fullPage: false,
+                  fullWidth: !!page_full_width,
+                  smallText: !!page_small_text,
+                  hasCover: false,
+                  hasIcon: false,
+                  isImageIcon: false
+                }),
                 page_full_width && 'notion-full-width',
                 page_small_text && 'notion-small-text',
                 blockId,
@@ -277,7 +298,7 @@ export function Block(props: BlockProps) {
                 bodyClassName
               )}
             >
-              <div className='notion-viewport' />
+              <div className={pageShellClassNames.viewport} />
 
               {pageHeader}
 

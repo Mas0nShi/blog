@@ -7,24 +7,6 @@
  * places to add some flare.
  */
 
-.notion {
-  --notion-max-width: 720px;
-  --notion-header-height: 54px;
-}
-
-.notion-frame {
-  padding: 0;
-}
-
-.notion-page {
-  padding-bottom: calc(max(5vh, 32px)) !important;
-  line-height: 1.65;
-}
-
-.index-page {
-  --notion-max-width: 900px;
-}
-
 .notion-text {
   padding: 0.5em 2px;
 }
@@ -41,17 +23,6 @@
 .notion-asset-wrapper-video > div,
 .notion-asset-wrapper-video video {
   width: 100% !important;
-}
-
-.notion-header .notion-nav-header {
-  max-width: 1100px;
-  width: 100%;
-  margin: 0 auto;
-  overflow-x: auto;
-}
-
-.notion-nav-header-rhs {
-  gap: 0.5rem;
 }
 
 .notion-gallery-grid {
@@ -142,36 +113,6 @@
   border-radius: 0.25em;
 }
 
-@media only screen and (max-width: 920px) {
-  .index-page.notion-page {
-    padding-left: 2vw;
-    padding-right: 2vw;
-  }
-}
-
-@media only screen and (max-width: 720px) {
-  .notion-page {
-    padding-left: 2vw;
-    padding-right: 2vw;
-  }
-}
-
-@media only screen and (max-width: 600px) {
-  .notion-search-button {
-    display: none !important;
-  }
-}
-
-.notion .notion-page-icon-cover {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.notion-title {
-  display: block;
-  text-align: center;
-}
-
 .notion-collection-row {
   padding-bottom: 1em;
 }
@@ -190,25 +131,6 @@
   align-items: center;
   padding: 0;
   min-height: 23px;
-}
-
-.notion-page-cover-wrapper,
-.notion-page-cover-wrapper span,
-.notion-page-cover-wrapper img {
-  max-width: 1200px !important;
-  border-radius: 24px;
-}
-
-.notion-page-cover-wrapper {
-  box-shadow: 2px 2px 8px 4px rgba(15, 15, 15, 0.1);
-}
-
-@media only screen and (max-width: 1200px) {
-  .notion-page-cover-wrapper,
-  .notion-page-cover-wrapper span,
-  .notion-page-cover-wrapper img {
-    border-radius: 0;
-  }
 }
 
 .notion-block-ab9a258d6cf444f3bb40dc2600feae91 .notion-page-link {
@@ -377,32 +299,8 @@
 }
 
 /* if you don't want rounded page icon images, remove this */
-.notion-page-icon-hero.notion-page-icon-image .notion-page-icon {
-  border-radius: 50%;
-  box-shadow: 0 8px 40px 0 rgb(0 0 0 / 21%);
-}
-.notion-page-icon-hero.notion-page-icon-image span,
-.notion-page-icon-hero.notion-page-icon-image img {
-  border-radius: 50%;
-}
-
-.notion-header {
-  background: hsla(0, 0%, 100%, 0.8);
-  backdrop-filter: saturate(180%) blur(16px);
-}
-
-.dark-mode .notion-header {
-  background: transparent;
-  box-shadow: inset 0 -1px 0 0 rgba(0, 0, 0, 0.1);
-  backdrop-filter: saturate(180%) blur(20px);
-}
 
 /* Workaround for Firefox not supporting backdrop-filter yet */
-@-moz-document url-prefix() {
-  .dark-mode .notion-header {
-    background: hsla(203, 8%, 20%, 0.8);
-  }
-}
 
 .notion-bookmark:hover {
   border-image: linear-gradient(90.68deg, #b439df 0.26%, #e5337e 102.37%);
@@ -449,10 +347,6 @@
   /* .notion-header .notion-nav-header {
     justify-content: space-around;
   } */
-
-  .notion-header .notion-nav-header .title {
-    display: none;
-  }
 }
 
 /* todo: not check: fixes notion row auto layout */
