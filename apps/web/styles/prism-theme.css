@@ -99,10 +99,13 @@ pre[class*='language-'] {
 .dark-mode pre[class*='language-'] {
   color: rgba(249, 250, 251, 1);
 }
-pre::-webkit-scrollbar {
+/* code blocks render as `div.notion-code` (see notion-render code.tsx) */
+pre::-webkit-scrollbar,
+.notion-code::-webkit-scrollbar {
   display: none;
 }
-pre {
+pre,
+.notion-code {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
