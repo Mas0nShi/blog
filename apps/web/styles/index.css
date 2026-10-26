@@ -34,8 +34,9 @@
 @import 'notion-render/styles.css';
 /* global styles shared across the entire site */
 @import './global.css' layer(base);
-/* global style overrides for waline */
-@import './waline.css' layer(third-party);
+/* comments: stock Waline styles, themed with the site's tokens */
+@import '@waline/client/waline.css' layer(third-party);
+@import './waline-theme.css' layer(third-party);
 /* global style overrides for the prism theme */
 @import './prism-theme.css' layer(third-party);
 /* waline comment metadata (browser/OS badges) */

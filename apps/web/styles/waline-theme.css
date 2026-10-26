@@ -1,0 +1,89 @@
+/*
+ * Waline (comments): the stock v3 stylesheet, themed with the site's design
+ * tokens so it follows light / dark mode with the rest of the page.
+ *
+ * The accent is the site's original comment purple.
+ *
+ * Tokens are set on the widget itself rather than on :root, so they win over
+ * the `:root` palette Waline injects for its `dark` option.
+ */
+[data-waline] {
+  --waline-theme-color: #5682ee;
+  --waline-active-color: #7598f1;
+  --waline-badge-color: #5682ee;
+  /* text on the accent (Waline's dark palette sets it to black) */
+  --waline-white: #fff;
+
+  --waline-color: var(--fg-color);
+  --waline-light-grey: rgba(55, 53, 47, 0.5);
+  --waline-dark-grey: rgba(55, 53, 47, 0.75);
+  --waline-info-color: rgba(55, 53, 47, 0.5);
+  --waline-disable-color: rgba(55, 53, 47, 0.4);
+
+  --waline-bg-color: var(--bg-color);
+  --waline-bg-color-light: var(--bg-color-1);
+  --waline-bg-color-hover: var(--bg-color-0);
+  --waline-info-bg-color: var(--bg-color-1);
+  --waline-disable-bg-color: var(--bg-color-1);
+  --waline-bq-color: var(--bg-color-1);
+
+  --waline-border-color: rgba(55, 53, 47, 0.16);
+  /* re-declared so it picks up the border color above (custom properties
+     that reference others are resolved where they are declared) */
+  --waline-border: 1px solid var(--waline-border-color);
+  --waline-box-shadow: none;
+}
+
+/* the site's dark foreground tokens are all full strength, so be explicit */
+.dark-mode [data-waline] {
+  --waline-theme-color: #7aa2ff;
+  --waline-active-color: #9bb8ff;
+  --waline-badge-color: #7aa2ff;
+  --waline-light-grey: rgba(255, 255, 255, 0.5);
+  --waline-dark-grey: rgba(255, 255, 255, 0.7);
+  --waline-info-color: rgba(255, 255, 255, 0.5);
+  --waline-disable-color: rgba(255, 255, 255, 0.4);
+  --waline-border-color: rgba(255, 255, 255, 0.14);
+}
+
+/*
+ * Links are inline-blocks, so `overflow-wrap` alone can't break a long URL;
+ * without this a long link widens the page on phones.
+ */
+[data-waline] a {
+  word-break: break-word;
+}
+
+/*
+ * @mentions link to the comment they reply to (`#<comment id>`): land below
+ * the sticky header, and briefly point out the comment that was jumped to.
+ */
+[data-waline] .wl-card-item {
+  scroll-margin-top: calc(var(--notion-header-height) + 16px);
+}
+
+/*
+ * The highlight box is grown by trading margin for padding (the layout
+ * doesn't move): 4px below the meta row, 8px around the text.
+ */
+[data-waline] .wl-card-item:target > .wl-card > .wl-content {
+  margin: 4px -8px calc(0.75em - 4px);
+  padding: calc(0.625em - 4px) 8px 4px;
+  border-radius: 6px;
+  animation: wl-target-highlight 2.4s ease-out;
+}
+
+@keyframes wl-target-highlight {
+  0%,
+  30% {
+    background-color: color-mix(
+      in srgb,
+      var(--waline-theme-color) 12%,
+      transparent
+    );
+  }
+
+  100% {
+    background-color: transparent;
+  }
+}
