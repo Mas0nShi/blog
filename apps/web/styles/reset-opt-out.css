@@ -2,14 +2,61 @@
  * Waline and react-tweet style their markup against browser defaults, not
  * against Tailwind's reset: give their subtrees the browser defaults back.
  * Their own CSS (third-party layer) and our base styles still apply on top.
+ *
+ * Only the properties preflight sets are reverted, never `all`: reverting
+ * also drops presentational attributes (an svg's width / height, a path's
+ * `d` and `fill`, an iframe's height), which would erase icons. SVG
+ * internals are left alone for the same reason.
  */
 :is([data-waline], .react-tweet-theme),
-:is([data-waline], .react-tweet-theme)::before,
-:is([data-waline], .react-tweet-theme)::after,
-:is([data-waline], .react-tweet-theme) *,
+:is([data-waline], .react-tweet-theme) :not(svg *),
 :is([data-waline], .react-tweet-theme) ::before,
 :is([data-waline], .react-tweet-theme) ::after,
 :is([data-waline], .react-tweet-theme) ::placeholder,
 :is([data-waline], .react-tweet-theme) ::file-selector-button {
-  all: revert;
+  box-sizing: revert;
+  margin: revert;
+  padding: revert;
+  border: revert;
+  border-radius: revert;
+  outline: revert;
+  box-shadow: revert;
+  font: revert;
+  font-feature-settings: revert;
+  font-variation-settings: revert;
+  letter-spacing: revert;
+  line-height: revert;
+  color: revert;
+  background-color: revert;
+  opacity: revert;
+  text-decoration: revert;
+  -webkit-text-decoration: revert;
+  text-indent: revert;
+  tab-size: revert;
+  list-style: revert;
+  border-collapse: revert;
+  display: revert;
+  vertical-align: revert;
+  max-width: revert;
+  appearance: revert;
+  -webkit-appearance: revert;
+  -webkit-text-size-adjust: revert;
+  -webkit-tap-highlight-color: revert;
+}
+
+:is([data-waline], .react-tweet-theme) :is(sub, sup) {
+  position: revert;
+  top: revert;
+  bottom: revert;
+}
+
+:is([data-waline], .react-tweet-theme) hr {
+  height: revert;
+}
+
+:is([data-waline], .react-tweet-theme)
+  :is(button, input, select, optgroup, textarea, ::file-selector-button) {
+  text-align: revert;
+  resize: revert;
+  min-height: revert;
 }
