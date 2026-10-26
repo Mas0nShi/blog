@@ -62,7 +62,13 @@
   scroll-margin-top: calc(var(--notion-header-height) + 16px);
 }
 
+/*
+ * The highlight box is grown by trading margin for padding (the layout
+ * doesn't move): 4px below the meta row, 8px around the text.
+ */
 [data-waline] .wl-card-item:target > .wl-card > .wl-content {
+  margin: 4px -8px calc(0.75em - 4px);
+  padding: calc(0.625em - 4px) 8px 4px;
   border-radius: 6px;
   animation: wl-target-highlight 2.4s ease-out;
 }
@@ -75,12 +81,9 @@
       var(--waline-theme-color) 12%,
       transparent
     );
-    box-shadow: 0 0 0 6px
-      color-mix(in srgb, var(--waline-theme-color) 12%, transparent);
   }
 
   100% {
     background-color: transparent;
-    box-shadow: 0 0 0 6px transparent;
   }
 }
