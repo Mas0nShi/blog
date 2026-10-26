@@ -13,6 +13,10 @@ export default siteConfig({
   domain: 'mas0n.org',
   author: 'Mas0n',
 
+  // page and RSS language; content is Simplified Chinese, and `zh-Hant` would
+  // render it with Traditional Chinese glyphs (e.g. PingFang TC)
+  language: 'zh-CN',
+
   // open graph metadata (optional)
   description:
     '資訊安全從業者、二進制安全菜鳥、專業醬油 CTFer；思考 everything',

@@ -84,7 +84,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang='zh-Hant' suppressHydrationWarning>
+    <html lang={config.language} suppressHydrationWarning>
       <body>
         <Providers>{children}</Providers>
       </body>
