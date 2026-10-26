@@ -1,12 +1,14 @@
 import cs from 'classnames'
 
-import styles from './styles.module.css'
-
 export function LoadingIcon(props: any) {
   const { className, ...rest } = props
   return (
     <svg
-      className={cs(styles.loadingIcon, className)}
+      className={cs(
+        // keyframes: `spinner` in notion-render's styles.css
+        'tw:block tw:size-[24px] tw:animate-[spinner_0.6s_linear_infinite] tw:text-fg-subtle',
+        className
+      )}
       {...rest}
       viewBox='0 0 24 24'
     >

@@ -1,6 +1,6 @@
 import React, { useCallback, useRef } from 'react'
 
-import styles from './FloatingTableOfContents.module.css'
+import { floatingTocClassName, hoverWrapperClassName } from './styles'
 import {
   useActiveHeading,
   useContainerVisibility,
@@ -81,21 +81,23 @@ export function FloatingTableOfContents({
   return (
     <div
       ref={sidebarRef}
-      className={`${styles.floatingToc} ${isReady ? styles.visible : ''}`}
+      className={floatingTocClassName(isReady)}
       style={{ top: sidebarTop !== null ? `${sidebarTop}px` : undefined }}
     >
       <div
-        className={`${styles.hoverWrapper} ${isHovered ? styles.hovered : ''}`}
+        className={hoverWrapperClassName}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
         <TocCompactView
+          isHovered={isHovered}
           tocItems={tocItems}
           activeId={activeId}
           minLevel={minLevel}
           onItemClick={handleItemClick}
         />
         <TocExpandedPanel
+          isHovered={isHovered}
           tocItems={tocItems}
           activeId={activeId}
           minLevel={minLevel}

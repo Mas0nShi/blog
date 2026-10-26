@@ -41,7 +41,7 @@ for (const { name, path, har = name, localStorage } of pages as Array<
     await expect(page).toHaveScreenshot(`${name}.png`, {
       fullPage: true,
       // the copyright year comes from the server clock
-      mask: [page.locator('footer [class*="copyright"]')]
+      mask: [page.locator('footer .copyright')]
     })
   })
 }

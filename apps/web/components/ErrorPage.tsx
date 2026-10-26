@@ -1,4 +1,4 @@
-import styles from './styles.module.css'
+import { statusPageClassNames } from './page-styles'
 
 export function ErrorPage({
   statusCode,
@@ -8,8 +8,8 @@ export function ErrorPage({
   onRetry?: () => void
 }) {
   return (
-    <div className={styles.container}>
-      <main className={styles.main}>
+    <div className={statusPageClassNames.container}>
+      <main className={statusPageClassNames.main}>
         <h1>Oops, Not Found or Deleted :(</h1>
 
         {statusCode && <p>Error code: {statusCode}</p>}
@@ -20,7 +20,11 @@ export function ErrorPage({
           </button>
         )}
 
-        <img src='/error.png' alt='Error' className={styles.errorImage} />
+        <img
+          src='/error.png'
+          alt='Error'
+          className={statusPageClassNames.image}
+        />
       </main>
     </div>
   )
