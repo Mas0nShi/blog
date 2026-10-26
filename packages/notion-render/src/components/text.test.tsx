@@ -7,6 +7,7 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { expect, test } from 'vitest'
 
 import { NotionContextProvider } from '../context'
+import { customEmojiClassName } from '../media'
 import { Text } from './text'
 
 test('renders custom emojis with stable native image markup', () => {
@@ -24,6 +25,6 @@ test('renders custom emojis with stable native image markup', () => {
   )
 
   expect(html).toContain(
-    '<img class="notion-custom-emoji" src="https://example.com/custom-emoji.svg" alt="custom emoji"/>'
+    `<img class="${customEmojiClassName}" src="https://example.com/custom-emoji.svg" alt="custom emoji"/>`
   )
 })

@@ -2,6 +2,7 @@ import { type BaseContentBlock, type Block } from 'notion-types'
 import { getSignedFileUrl, getTextContent } from 'notion-utils'
 
 import { useNotionContext } from '../context'
+import { assetObjectFitClassName } from '../media'
 import { getUrlParams, getYoutubeId } from '../utils'
 import { LazyImage } from './lazy-image'
 import { LiteYouTubeEmbed } from './lite-youtube-embed'
@@ -223,7 +224,7 @@ export function Asset({
             <LiteYouTubeEmbed
               id={youtubeVideoId}
               style={assetStyle}
-              className='notion-asset-object-fit'
+              className={assetObjectFitClassName}
               params={params}
             />
           )
@@ -239,7 +240,7 @@ export function Asset({
           content = (
             <iframe
               style={assetStyle}
-              className='notion-asset-object-fit'
+              className={assetObjectFitClassName}
               src={src}
               title='GitHub Gist'
               frameBorder='0'
@@ -255,7 +256,7 @@ export function Asset({
 
           content = (
             <iframe
-              className='notion-asset-object-fit'
+              className={assetObjectFitClassName}
               style={assetStyle}
               src={src}
               title={`iframe ${block.type}`}

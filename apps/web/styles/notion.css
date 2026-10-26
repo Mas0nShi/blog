@@ -7,20 +7,6 @@
  * places to add some flare.
  */
 
-.notion-asset-caption {
-  text-align: center;
-}
-
-.notion-asset-wrapper {
-  margin-top: 1em;
-  margin-bottom: 1em;
-}
-
-.notion-asset-wrapper-video > div,
-.notion-asset-wrapper-video video {
-  width: 100% !important;
-}
-
 .notion-gallery-grid {
   grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
   grid-gap: 6vmin;
