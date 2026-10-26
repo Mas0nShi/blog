@@ -3,6 +3,7 @@ import React from 'react'
 
 import { useNotionContext } from '../../context'
 import SvgTypeGitHub from '../../icons/type-github'
+import { externalClassNames } from '../../rich-blocks'
 import { cs, formatNotionDateTime } from '../../utils'
 import { MentionPreviewCard } from '../mention-preview-card'
 
@@ -53,21 +54,17 @@ export function GitHubEOI({
       target='_blank'
       rel='noopener noreferrer'
       href={original_url}
-      className={cs(
-        'notion-external',
-        inline ? 'notion-external-mention' : 'notion-external-block', // notion-row
-        className
-      )}
+      className={cs(externalClassNames.link(!!inline), className)}
     >
       {inline ? (
         <>
-          <div className='notion-external-mention-flex'>
-            <div className='notion-external-mention-wrap'>
-              <SvgTypeGitHub className='notion-external-mention-image-left' />
-              <span className='notion-external-mention-text'>{title}</span>
+          <div className={externalClassNames.mentionFlex}>
+            <div className={externalClassNames.mentionWrap}>
+              <SvgTypeGitHub className={externalClassNames.mentionImageLeft} />
+              <span className={externalClassNames.mentionText}>{title}</span>
               {ownerAvatar && (
                 <img
-                  className='notion-external-mention-image-right'
+                  className={externalClassNames.mentionImageRight}
                   width={16}
                   height={16}
                   src={ownerAvatar}
@@ -90,12 +87,12 @@ export function GitHubEOI({
                   alt={owner || ''}
                   width={30.192}
                   height={30.192}
-                  className='notion-external-block-avatar'
+                  className={externalClassNames.avatar}
                 />
               ) : (
-                <div className='notion-external-block-avatar-placeholder' />
+                <div className={externalClassNames.avatarPlaceholder} />
               )}
-              <SvgTypeGitHub className='notion-external-block-github-icon' />
+              <SvgTypeGitHub className={externalClassNames.githubIcon} />
             </>
           }
         />

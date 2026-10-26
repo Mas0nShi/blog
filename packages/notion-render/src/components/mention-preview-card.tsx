@@ -1,5 +1,7 @@
 import type React from 'react'
 
+import { externalClassNames } from '../rich-blocks'
+
 export function MentionPreviewCard({
   title,
   owner,
@@ -14,26 +16,24 @@ export function MentionPreviewCard({
   return (
     <>
       {externalImage && (
-        <div className='notion-external-block-image'>
+        <div className={externalClassNames.blockImage}>
           <div>
-            <div style={{ width: '100%', height: '100%' }}>{externalImage}</div>
+            <div className='tw:size-full'>{externalImage}</div>
           </div>
         </div>
       )}
 
-      <div className='notion-external-block-description'>
+      <div className={externalClassNames.description}>
         {(owner || lastUpdated) && (
           <>
-            <div className='notion-external-block-title-wrap'>
-              <div className='notion-external-block-title'>{title}</div>
+            <div className={externalClassNames.titleWrap}>
+              <div className={externalClassNames.title}>{title}</div>
             </div>
-            <div className='notion-external-block-item-wrap'>
-              {owner && (
-                <div className='notion-external-block-item'>{owner}</div>
-              )}
-              <div style={{ marginLeft: '3px', marginRight: '3px' }}>•</div>
+            <div className={externalClassNames.itemWrap}>
+              {owner && <div className={externalClassNames.item}>{owner}</div>}
+              <div className='tw:mx-[3px]'>•</div>
               {lastUpdated && (
-                <div className='notion-external-block-item'>
+                <div className={externalClassNames.item}>
                   Updated in {lastUpdated}
                 </div>
               )}

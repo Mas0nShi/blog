@@ -3,6 +3,7 @@ import { type EquationBlock } from 'notion-types'
 import { getBlockTitle } from 'notion-utils'
 
 import { useNotionContext } from '../context'
+import { equationClassName } from '../rich-blocks'
 import { cs } from '../utils'
 
 const katexSettings = {
@@ -29,11 +30,7 @@ export function Equation({
   return (
     <div
       // tabIndex={0}
-      className={cs(
-        'notion-equation',
-        inline ? 'notion-equation-inline' : 'notion-equation-block',
-        className
-      )}
+      className={cs(equationClassName(inline), className)}
     >
       <Katex math={math} settings={katexSettings} {...rest} />
     </div>
