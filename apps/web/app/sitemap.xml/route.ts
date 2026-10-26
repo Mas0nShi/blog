@@ -1,10 +1,16 @@
 import { host } from '@/lib/config'
+import { fixturesMode } from '@/lib/fixtures'
 import { getSiteMap } from '@/lib/get-site-map'
 import type { SiteMap } from '@/lib/types'
 
 export const revalidate = 28_800
 
 export async function GET() {
+  // fixture runs only cover the pages under test, not the whole site
+  if (fixturesMode) {
+    return new Response(null, { status: 404 })
+  }
+
   const siteMap = await getSiteMap()
 
   return new Response(createSitemap(siteMap), {

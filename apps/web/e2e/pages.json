@@ -1,0 +1,22 @@
+[
+  { "name": "home", "path": "/" },
+  {
+    "name": "hello-world",
+    "path": "/hello-world-116e1f214e9e4f72a3555ccb35e76d1d",
+    "note": "kitchen-sink test page: code, mermaid, toggles, lists, tables, callouts, equations, quotes, tweet, GitHub embeds, to-dos, columns"
+  },
+  { "name": "about", "path": "/about" },
+  {
+    "name": "links",
+    "path": "/links",
+    "note": "link cards and Waline comments with admin replies"
+  },
+  {
+    "name": "lambda-calculus",
+    "path": "/lambda-calculus-116efd714331808c914dd5da0d367977"
+  },
+  {
+    "name": "cve-2025-32715",
+    "path": "/cve-2025-32715-21eefd71433180d18b32d42861feef13"
+  }
+]

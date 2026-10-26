@@ -1,0 +1,14 @@
+{
+  "errno": 0,
+  "errmsg": "",
+  "data": [
+    {
+      "reaction0": 1,
+      "reaction1": 0,
+      "reaction2": 0,
+      "reaction3": 0,
+      "reaction4": 0,
+      "reaction5": 0
+    }
+  ]
+}

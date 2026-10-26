@@ -20,3 +20,39 @@ jobs:
       - run: pnpm test:lint
       - run: pnpm test:typecheck
       - run: pnpm test:unit
+
+  visual:
+    name: Visual regression
+    runs-on: ubuntu-latest
+    # same image the baselines are captured in (see apps/web/e2e/README.md);
+    # keep the tag in sync with @playwright/test
+    container:
+      image: mcr.microsoft.com/playwright:v1.64.1-noble
+      options: --user 1001
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: 'pnpm'
+
+      - run: pnpm install --frozen-lockfile
+      - name: Build with replayed Notion fixtures
+        run: pnpm --filter @blog/web exec next build
+        env:
+          NOTION_FIXTURES: replay
+      - name: Compare screenshots
+        run: pnpm --filter @blog/web exec playwright test
+        env:
+          NOTION_FIXTURES: replay
+
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: visual-regression-report
+          path: |
+            apps/web/e2e/.report
+            apps/web/e2e/.results
+          retention-days: 14

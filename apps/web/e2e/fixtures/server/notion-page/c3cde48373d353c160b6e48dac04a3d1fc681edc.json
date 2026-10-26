@@ -1,0 +1,2769 @@
+{
+  "__version__": 3,
+  "block": {
+    "21eefd71-4331-80d1-8b32-d42861feef13": {
+      "spaceId": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+      "value": {
+        "value": {
+          "id": "21eefd71-4331-80d1-8b32-d42861feef13",
+          "version": 200,
+          "type": "page",
+          "properties": {
+            "==~K": [["Yes"]],
+            "BN]P": [["Vulnerability,RDP"]],
+            "a<ql": [
+              ["‣", [["d", { "type": "date", "start_date": "2025-06-26" }]]]
+            ],
+            "}nqi": [["Mas0n"]],
+            "~]S<": [["RDC OOB-R 漏洞分析"]],
+            "title": [["CVE-2025-32715"]]
+          },
+          "content": [
+            "21eefd71-4331-8047-8b7c-fd1ad610a370",
+            "21eefd71-4331-8063-89fd-d277a782e7ea",
+            "21eefd71-4331-8032-a48f-c1b1503f5144",
+            "21eefd71-4331-80ae-b640-d72eef3900ed",
+            "21eefd71-4331-8041-bbe8-df96c3cea97e",
+            "21eefd71-4331-806a-8366-cb8741aa8734",
+            "21eefd71-4331-80f6-8c18-c80a246224ce",
+            "21eefd71-4331-808f-af77-ceda54d2f70b",
+            "21eefd71-4331-8072-88a3-e3b7ace2753a",
+            "21eefd71-4331-80c9-bbe6-e8f6d6be0e96",
+            "21eefd71-4331-8062-8297-c71b6c7cd39c",
+            "21eefd71-4331-8027-b570-ff8441f996e7",
+            "21eefd71-4331-80ad-af63-d25e4fb19274",
+            "21eefd71-4331-80d3-b569-c0dbfa5e8cf0",
+            "21eefd71-4331-8010-acf8-d0bd41c8df2f",
+            "21eefd71-4331-80ca-9fb2-f92279c2d0e2",
+            "21eefd71-4331-803d-9786-ceb425e7a456",
+            "21eefd71-4331-80c5-9528-f35beaf722bd",
+            "21eefd71-4331-80e5-964d-f537003c4076",
+            "21eefd71-4331-8038-ac75-e9682fc6e9d6",
+            "21eefd71-4331-80e3-b4e2-d17401f9fe65",
+            "21eefd71-4331-8018-821a-f20f9a0ad175",
+            "21eefd71-4331-8060-a989-eba24a0440ba",
+            "21eefd71-4331-803e-8c55-f3b7398e0166",
+            "21eefd71-4331-80c3-a206-dcc37175d9ce",
+            "21eefd71-4331-80b3-b720-f54f8b6d98c2",
+            "21eefd71-4331-80dc-8486-dc7e88b49036",
+            "21eefd71-4331-807f-a60a-e9bd4638a94a",
+            "21eefd71-4331-80c3-8fac-fef25755a96a",
+            "21eefd71-4331-8058-841f-e21d5f16e9fd",
+            "21eefd71-4331-8086-ad70-f99a999905fc"
+          ],
+          "format": {
+            "page_icon": "🚒",
+            "page_cover": "/images/page-cover/webb4.jpg",
+            "block_locked": false,
+            "block_locked_by": "da486ff3-bb41-4ceb-a9f4-7326629c2158",
+            "copied_from_pointer": {
+              "id": "b28235b9-a802-4d24-aa54-ced2264207e0",
+              "table": "block",
+              "spaceId": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1"
+            },
+            "social_media_image_preview_url": "attachment:708aef65-0243-416c-9fa5-3e4b8d3082d5:SocialMediaPreviewImage.png"
+          },
+          "created_time": 1750925452655,
+          "last_edited_time": 1757069629040,
+          "parent_id": "cdac06a1-1820-40f4-ac65-786bd02c8cf0",
+          "parent_table": "collection",
+          "alive": true,
+          "copied_from": "b28235b9-a802-4d24-aa54-ced2264207e0",
+          "file_ids": [
+            "1b9ac2af-18a3-4863-b0e3-75d6300ac620",
+            "df704801-634e-4b25-b265-efaccbdc54da",
+            "708aef65-0243-416c-9fa5-3e4b8d3082d5"
+          ],
+          "space_id": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+          "crdt_format_version": 1,
+          "crdt_data": {
+            "title": {
+              "r": "cwiqw3LTWtojjGxeoGju_w,\"start\",\"end\"",
+              "n": {
+                "cwiqw3LTWtojjGxeoGju_w,\"start\",\"end\"": {
+                  "s": {
+                    "x": "cwiqw3LTWtojjGxeoGju_w",
+                    "i": [
+                      { "t": "s" },
+                      {
+                        "t": "t",
+                        "i": ["L0r3Sfi5CChB", 25],
+                        "o": "start",
+                        "l": 14,
+                        "c": "CVE-2025-32715"
+                      },
+                      {
+                        "t": "t",
+                        "i": ["L0r3Sfi5CChB", 39],
+                        "o": ["L0r3Sfi5CChB", 38],
+                        "l": -6
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 10],
+                        "o": "start",
+                        "l": -14,
+                        "b": [
+                          {
+                            "t": "a",
+                            "x": "cwiqw3LTWtojjGxeoGju_w",
+                            "l": "",
+                            "i": ["hyYL0TjtFfY9", 24],
+                            "s": { "i": ["hyYL0TjtFfY9", 10], "a": "b" },
+                            "e": { "i": ["hyYL0TjtFfY9", 1], "a": "b" },
+                            "a": ["b"]
+                          }
+                        ]
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 1],
+                        "o": "start",
+                        "l": -9,
+                        "b": []
+                      },
+                      { "t": "e" }
+                    ],
+                    "l": ""
+                  },
+                  "c": []
+                }
+              }
+            }
+          }
+        },
+        "role": "reader"
+      }
+    },
+    "c718d831-fff2-482f-88c9-588d485e23be": {
+      "spaceId": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+      "value": {
+        "value": {
+          "id": "c718d831-fff2-482f-88c9-588d485e23be",
+          "version": 34,
+          "type": "collection_view",
+          "view_ids": [
+            "d64a1634-7483-4757-affb-66671bea0f14",
+            "05adfa89-6edc-4eab-a723-5fbff5d574da"
+          ],
+          "collection_id": "cdac06a1-1820-40f4-ac65-786bd02c8cf0",
+          "format": {
+            "collection_pointer": {
+              "id": "cdac06a1-1820-40f4-ac65-786bd02c8cf0",
+              "table": "collection",
+              "spaceId": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1"
+            },
+            "database_agent_ids": ["321efd71-4331-8180-a840-00921656bea2"],
+            "copied_from_pointer": {
+              "id": "4d72523e-41d9-420a-a9c9-ec3197e4638e",
+              "table": "block",
+              "spaceId": "1f2ae9ef-16a4-47ab-b03c-03dd2c48bfc3"
+            },
+            "hide_inline_collection_name": false
+          },
+          "permissions": [],
+          "created_time": 1714823188677,
+          "last_edited_time": 1767165593075,
+          "parent_id": "e5f91fac-c6ed-44d9-9810-451958362259",
+          "parent_table": "block",
+          "alive": true,
+          "copied_from": "4d72523e-41d9-420a-a9c9-ec3197e4638e",
+          "space_id": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+          "crdt_format_version": 1,
+          "crdt_data": {
+            "title": {
+              "r": "xlRxkkr71zE9OHCZkZ0wPw,\"start\",\"end\"",
+              "n": {
+                "xlRxkkr71zE9OHCZkZ0wPw,\"start\",\"end\"": {
+                  "s": {
+                    "x": "xlRxkkr71zE9OHCZkZ0wPw",
+                    "i": [{ "t": "s" }, { "t": "e" }],
+                    "l": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "role": "reader"
+      }
+    },
+    "e5f91fac-c6ed-44d9-9810-451958362259": {
+      "spaceId": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+      "value": {
+        "value": {
+          "id": "e5f91fac-c6ed-44d9-9810-451958362259",
+          "version": 51,
+          "type": "page",
+          "properties": { "title": [["翻车鱼 - 观化游无垠"]] },
+          "content": [
+            "8b476d3e-141f-441c-874b-62ecda85ba2e",
+            "c718d831-fff2-482f-88c9-588d485e23be",
+            "f89b6225-6f4b-4233-a133-c677d670ee69",
+            "edfcb93f-c1c6-4f14-af66-77c4e1c56174",
+            "c1a54bde-f8ce-403c-a554-d93caf40dfce"
+          ],
+          "format": {
+            "site_id": "1b4eb7f1-a067-812f-8341-0079818272b5",
+            "page_icon": "attachment:71f92548-327e-4938-8394-5fcd9b716a81:Mas0n.png",
+            "page_cover": "attachment:723a6173-863b-4d86-bce2-0ef4663a4a38:image.jpeg",
+            "copied_from_pointer": {
+              "id": "6ad1588d-fd2b-4479-a14f-a14356d174c4",
+              "table": "block",
+              "spaceId": "1f2ae9ef-16a4-47ab-b03c-03dd2c48bfc3"
+            },
+            "page_cover_position": 0.5,
+            "social_media_image_preview_url": "attachment:201b7be2-2bac-4b8e-8380-a651e6b410e0:SocialMediaPreviewImage.png"
+          },
+          "permissions": [
+            {
+              "role": "reader",
+              "type": "public_permission",
+              "is_site": true,
+              "added_timestamp": 1714823440618,
+              "allow_duplicate": false
+            }
+          ],
+          "created_time": 1714823195876,
+          "last_edited_time": 1757071837784,
+          "parent_id": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+          "parent_table": "space",
+          "alive": true,
+          "copied_from": "6ad1588d-fd2b-4479-a14f-a14356d174c4",
+          "file_ids": [
+            "a5781eba-1a40-4cbe-be32-e2e57f30887f",
+            "4df41e46-590a-4acc-8704-5edd120fb161",
+            "11deb0e8-b705-4e6e-9492-08d90919a1e6",
+            "654a4fd1-92f3-4a03-8914-cd30122bfba1",
+            "22083cde-b900-47a6-9d04-c018700b3429",
+            "71f92548-327e-4938-8394-5fcd9b716a81",
+            "723a6173-863b-4d86-bce2-0ef4663a4a38",
+            "201b7be2-2bac-4b8e-8380-a651e6b410e0"
+          ],
+          "space_id": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+          "crdt_format_version": 1,
+          "crdt_data": {
+            "title": {
+              "r": "bZA4JA-Y9vBZ0LoiaLvgbw,\"start\",\"end\"",
+              "n": {
+                "bZA4JA-Y9vBZ0LoiaLvgbw,\"start\",\"end\"": {
+                  "s": {
+                    "x": "bZA4JA-Y9vBZ0LoiaLvgbw",
+                    "i": [
+                      { "t": "s" },
+                      {
+                        "t": "t",
+                        "i": ["chXqPpizxsjp", 1],
+                        "o": "start",
+                        "l": 11,
+                        "c": "翻车鱼 - 观化游无垠"
+                      },
+                      { "t": "e" }
+                    ],
+                    "l": ""
+                  },
+                  "c": []
+                }
+              }
+            }
+          }
+        },
+        "role": "reader"
+      }
+    },
+    "21eefd71-4331-8047-8b7c-fd1ad610a370": {
+      "value": {
+        "value": {
+          "id": "21eefd71-4331-8047-8b7c-fd1ad610a370",
+          "version": 450,
+          "type": "text",
+          "properties": {
+            "title": [
+              ["近日关注到 MSRC 发布了一个RDC组件的CVE，花了点时间看了看。"]
+            ]
+          },
+          "created_time": 1750925536575,
+          "last_edited_time": 1750925642640,
+          "parent_id": "21eefd71-4331-80d1-8b32-d42861feef13",
+          "parent_table": "block",
+          "alive": true,
+          "space_id": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+          "crdt_format_version": 1,
+          "crdt_data": {
+            "title": {
+              "r": "UlALf12I8NZU-WJyxUFY5Q,\"start\",\"end\"",
+              "n": {
+                "UlALf12I8NZU-WJyxUFY5Q,\"start\",\"end\"": {
+                  "s": {
+                    "x": "UlALf12I8NZU-WJyxUFY5Q",
+                    "i": [
+                      { "t": "s" },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 18],
+                        "o": "start",
+                        "l": 2,
+                        "c": "近日"
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 32],
+                        "o": ["hyYL0TjtFfY9", 19],
+                        "l": 2,
+                        "c": "关注"
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 185],
+                        "o": ["hyYL0TjtFfY9", 33],
+                        "l": -1
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 34],
+                        "o": ["hyYL0TjtFfY9", 33],
+                        "l": 1,
+                        "c": "到"
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 194],
+                        "o": ["hyYL0TjtFfY9", 34],
+                        "l": 1,
+                        "c": " "
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 190],
+                        "o": ["hyYL0TjtFfY9", 34],
+                        "l": 4,
+                        "c": "MSRC"
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 186],
+                        "o": ["hyYL0TjtFfY9", 34],
+                        "l": -4
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 35],
+                        "o": ["hyYL0TjtFfY9", 34],
+                        "l": 1,
+                        "c": " "
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 203],
+                        "o": ["hyYL0TjtFfY9", 35],
+                        "l": 3,
+                        "c": "发布了"
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 211],
+                        "o": ["hyYL0TjtFfY9", 205],
+                        "l": 2,
+                        "c": "一个"
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 220],
+                        "o": ["hyYL0TjtFfY9", 212],
+                        "l": 3,
+                        "c": "RDC"
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 230],
+                        "o": ["hyYL0TjtFfY9", 222],
+                        "l": 2,
+                        "c": "组件"
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 233],
+                        "o": ["hyYL0TjtFfY9", 231],
+                        "l": 1,
+                        "c": "的"
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 237],
+                        "o": ["hyYL0TjtFfY9", 233],
+                        "l": 3,
+                        "c": "CVE"
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 234],
+                        "o": ["hyYL0TjtFfY9", 233],
+                        "l": -3
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 232],
+                        "o": ["hyYL0TjtFfY9", 231],
+                        "l": -1
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 223],
+                        "o": ["hyYL0TjtFfY9", 222],
+                        "l": -7
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 217],
+                        "o": ["hyYL0TjtFfY9", 212],
+                        "l": -3
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 216],
+                        "o": ["hyYL0TjtFfY9", 212],
+                        "l": -1
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 213],
+                        "o": ["hyYL0TjtFfY9", 212],
+                        "l": -1
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 206],
+                        "o": ["hyYL0TjtFfY9", 205],
+                        "l": -5
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 195],
+                        "o": ["hyYL0TjtFfY9", 35],
+                        "l": -8
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 43],
+                        "o": ["hyYL0TjtFfY9", 35],
+                        "l": -7
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 55],
+                        "o": ["hyYL0TjtFfY9", 49],
+                        "l": -2
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 68],
+                        "o": ["hyYL0TjtFfY9", 56],
+                        "l": -6
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 82],
+                        "o": ["hyYL0TjtFfY9", 73],
+                        "l": -7
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 215],
+                        "o": ["hyYL0TjtFfY9", 88],
+                        "l": -1
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 214],
+                        "o": ["hyYL0TjtFfY9", 88],
+                        "l": -1
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 94],
+                        "o": ["hyYL0TjtFfY9", 88],
+                        "l": -1
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 107],
+                        "o": ["hyYL0TjtFfY9", 94],
+                        "l": -2
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 110],
+                        "o": ["hyYL0TjtFfY9", 108],
+                        "l": -1
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 126],
+                        "o": ["hyYL0TjtFfY9", 110],
+                        "l": -2
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 133],
+                        "o": ["hyYL0TjtFfY9", 127],
+                        "l": 1,
+                        "c": "，"
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 154],
+                        "o": ["hyYL0TjtFfY9", 133],
+                        "l": 3,
+                        "c": "花了点"
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 169],
+                        "o": ["hyYL0TjtFfY9", 156],
+                        "l": 2,
+                        "c": "时间"
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 181],
+                        "o": ["hyYL0TjtFfY9", 170],
+                        "l": 4,
+                        "c": "看了看。"
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 171],
+                        "o": ["hyYL0TjtFfY9", 170],
+                        "l": -10
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 161],
+                        "o": ["hyYL0TjtFfY9", 156],
+                        "l": -8
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 157],
+                        "o": ["hyYL0TjtFfY9", 156],
+                        "l": -4
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 134],
+                        "o": ["hyYL0TjtFfY9", 133],
+                        "l": -20
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 128],
+                        "o": ["hyYL0TjtFfY9", 127],
+                        "l": -1
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 132],
+                        "o": ["hyYL0TjtFfY9", 128],
+                        "l": -1
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 129],
+                        "o": ["hyYL0TjtFfY9", 128],
+                        "l": -3
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 118],
+                        "o": ["hyYL0TjtFfY9", 110],
+                        "l": -8
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 116],
+                        "o": ["hyYL0TjtFfY9", 110],
+                        "l": -2
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 111],
+                        "o": ["hyYL0TjtFfY9", 110],
+                        "l": -5
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 109],
+                        "o": ["hyYL0TjtFfY9", 108],
+                        "l": -1
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 99],
+                        "o": ["hyYL0TjtFfY9", 94],
+                        "l": -8
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 98],
+                        "o": ["hyYL0TjtFfY9", 94],
+                        "l": -1
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 95],
+                        "o": ["hyYL0TjtFfY9", 94],
+                        "l": -3
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 89],
+                        "o": ["hyYL0TjtFfY9", 88],
+                        "l": -5
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 74],
+                        "o": ["hyYL0TjtFfY9", 73],
+                        "l": -4
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 78],
+                        "o": ["hyYL0TjtFfY9", 77],
+                        "l": -4
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 59],
+                        "o": ["hyYL0TjtFfY9", 56],
+                        "l": -1
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 65],
+                        "o": ["hyYL0TjtFfY9", 59],
+                        "l": -1
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 60],
+                        "o": ["hyYL0TjtFfY9", 59],
+                        "l": -5
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 66],
+                        "o": ["hyYL0TjtFfY9", 64],
+                        "l": -2
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 57],
+                        "o": ["hyYL0TjtFfY9", 56],
+                        "l": -2
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 50],
+                        "o": ["hyYL0TjtFfY9", 49],
+                        "l": -5
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 36],
+                        "o": ["hyYL0TjtFfY9", 35],
+                        "l": -7
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 20],
+                        "o": ["hyYL0TjtFfY9", 19],
+                        "l": -12
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 12],
+                        "o": "start",
+                        "l": -6
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 10],
+                        "o": "start",
+                        "l": -2
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 4],
+                        "o": "start",
+                        "l": -6
+                      },
+                      {
+                        "t": "t",
+                        "i": ["hyYL0TjtFfY9", 1],
+                        "o": "start",
+                        "l": -3
+                      },
+                      { "t": "e" }
+                    ],
+                    "l": ""
+                  },
+                  "c": ["TihGxBYo05ia5tfmtqioEg,[\"hyYL0TjtFfY9\",21],\"end\""]
+                },
+                "TihGxBYo05ia5tfmtqioEg,[\"hyYL0TjtFfY9\",21],\"end\"": {
+                  "s": {
+                    "x": "TihGxBYo05ia5tfmtqioEg",
+                    "i": [
+                      { "t": "p", "i": ["hyYL0TjtFfY9", 21], "o": "start" },
+                      { "t": "e" }
+                    ],
+                    "l": "l"
+                  },
+                  "c": ["CBPhCCrUYFlccVN8iR59tA,[\"qNqJrHAw0gDz\",21],\"end\""]
+                },
+                "CBPhCCrUYFlccVN8iR59tA,[\"qNqJrHAw0gDz\",21],\"end\"": {
+                  "s": {
+                    "x": "CBPhCCrUYFlccVN8iR59tA",
+                    "i": [
+                      { "t": "p", "i": ["qNqJrHAw0gDz", 21], "o": "start" },
+                      { "t": "e" }
+                    ],
+                    "l": "l"
+                  },
+                  "c": []
+                }
+              }
+            }
+          }
+        },
+        "role": "reader"
+      }
+    },
+    "21eefd71-4331-8063-89fd-d277a782e7ea": {
+      "value": {
+        "value": {
+          "id": "21eefd71-4331-8063-89fd-d277a782e7ea",
+          "version": 7,
+          "type": "code",
+          "properties": {
+            "title": [
+              [
+                "Remote Desktop Protocol Client Information Disclosure Vulnerability\nCWE-125: Out-of-bounds Read"
+              ]
+            ],
+            "language": [["Plain Text"]]
+          },
+          "format": { "code_wrap": true },
+          "created_time": 1750925487146,
+          "last_edited_time": 1750925495808,
+          "parent_id": "21eefd71-4331-80d1-8b32-d42861feef13",
+          "parent_table": "block",
+          "alive": true,
+          "space_id": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+          "crdt_format_version": 1,
+          "crdt_data": {
+            "title": {
+              "r": "3ShsDFuospjJVjnnm4ghIA,\"start\",\"end\"",
+              "n": {
+                "3ShsDFuospjJVjnnm4ghIA,\"start\",\"end\"": {
+                  "s": {
+                    "x": "3ShsDFuospjJVjnnm4ghIA",
+                    "i": [
+                      { "t": "s" },
+                      {
+                        "t": "t",
+                        "i": ["tEUT3lse4q6S", 1],
+                        "o": "start",
+                        "l": 68,
+                        "c": "Remote Desktop Protocol Client Information Disclosure Vulnerability\n"
+                      },
+                      {
+                        "t": "t",
+                        "i": ["tEUT3lse4q6S", 69],
+                        "o": ["tEUT3lse4q6S", 68],
+                        "l": -10
+                      },
+                      {
+                        "t": "t",
+                        "i": ["tEUT3lse4q6S", 79],
+                        "o": ["tEUT3lse4q6S", 78],
+                        "l": 27,
+                        "c": "CWE-125: Out-of-bounds Read"
+                      },
+                      {
+                        "t": "t",
+                        "i": ["tEUT3lse4q6S", 106],
+                        "o": ["tEUT3lse4q6S", 105],
+                        "l": -1
+                      },
+                      { "t": "e" }
+                    ],
+                    "l": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "role": "reader"
+      }
+    },
+    "21eefd71-4331-8032-a48f-c1b1503f5144": {
+      "value": {
+        "value": {
+          "id": "21eefd71-4331-8032-a48f-c1b1503f5144",
+          "version": 3,
+          "type": "text",
+          "properties": {
+            "title": [["漏洞在 CCO::OnSaveSessionInfoPDU 上，"]]
+          },
+          "created_time": 1750925487151,
+          "last_edited_time": 1750925487211,
+          "parent_id": "21eefd71-4331-80d1-8b32-d42861feef13",
+          "parent_table": "block",
+          "alive": true,
+          "space_id": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+          "crdt_format_version": 1,
+          "crdt_data": {
+            "title": {
+              "r": "glILkybHGhTl73qH2xJs7A,\"start\",\"end\"",
+              "n": {
+                "glILkybHGhTl73qH2xJs7A,\"start\",\"end\"": {
+                  "s": {
+                    "x": "glILkybHGhTl73qH2xJs7A",
+                    "i": [
+                      { "t": "s" },
+                      {
+                        "t": "t",
+                        "i": ["6XEcdSSYakWm", 1],
+                        "o": "start",
+                        "l": 32,
+                        "c": "漏洞在 CCO::OnSaveSessionInfoPDU 上，"
+                      },
+                      { "t": "e" }
+                    ],
+                    "l": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "role": "reader"
+      }
+    },
+    "21eefd71-4331-80ae-b640-d72eef3900ed": {
+      "value": {
+        "value": {
+          "id": "21eefd71-4331-80ae-b640-d72eef3900ed",
+          "version": 3,
+          "type": "code",
+          "properties": {
+            "title": [
+              [
+                "CCO::OnSaveSessionInfoPDU(CCO *this, tagTS_SAVE_SESSION_INFO_PDU_DATA *pData, ULONG cbData)\n"
+              ]
+            ],
+            "language": [["C++"]]
+          },
+          "format": { "code_wrap": true },
+          "created_time": 1750925487152,
+          "last_edited_time": 1750925487211,
+          "parent_id": "21eefd71-4331-80d1-8b32-d42861feef13",
+          "parent_table": "block",
+          "alive": true,
+          "space_id": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+          "crdt_format_version": 1,
+          "crdt_data": {
+            "title": {
+              "r": "UgWq_BsgZDI8O5LXsjLyUw,\"start\",\"end\"",
+              "n": {
+                "UgWq_BsgZDI8O5LXsjLyUw,\"start\",\"end\"": {
+                  "s": {
+                    "x": "UgWq_BsgZDI8O5LXsjLyUw",
+                    "i": [
+                      { "t": "s" },
+                      {
+                        "t": "t",
+                        "i": ["_1K0BQB5PCA1", 1],
+                        "o": "start",
+                        "l": 92,
+                        "c": "CCO::OnSaveSessionInfoPDU(CCO *this, tagTS_SAVE_SESSION_INFO_PDU_DATA *pData, ULONG cbData)\n"
+                      },
+                      { "t": "e" }
+                    ],
+                    "l": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "role": "reader"
+      }
+    },
+    "21eefd71-4331-8041-bbe8-df96c3cea97e": {
+      "value": {
+        "value": {
+          "id": "21eefd71-4331-8041-bbe8-df96c3cea97e",
+          "version": 4,
+          "type": "text",
+          "properties": {
+            "title": [
+              ["pData 实际对应于消息结构 "],
+              ["tagTS_SAVE_SESSION_INFO_PDU_DATA", [["c"]]]
+            ]
+          },
+          "created_time": 1750925487153,
+          "last_edited_time": 1750925487211,
+          "parent_id": "21eefd71-4331-80d1-8b32-d42861feef13",
+          "parent_table": "block",
+          "alive": true,
+          "space_id": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+          "crdt_format_version": 1,
+          "crdt_data": {
+            "title": {
+              "r": "iurN6w5f6t--lQux4ljTew,\"start\",\"end\"",
+              "n": {
+                "iurN6w5f6t--lQux4ljTew,\"start\",\"end\"": {
+                  "s": {
+                    "x": "iurN6w5f6t--lQux4ljTew",
+                    "i": [
+                      { "t": "s" },
+                      {
+                        "t": "t",
+                        "i": ["XsJFPdsNM-Lf", 1],
+                        "o": "start",
+                        "l": 16,
+                        "c": "pData 实际对应于消息结构 "
+                      },
+                      {
+                        "t": "t",
+                        "i": ["XsJFPdsNM-Lf", 17],
+                        "o": ["XsJFPdsNM-Lf", 16],
+                        "l": 32,
+                        "c": "tagTS_SAVE_SESSION_INFO_PDU_DATA",
+                        "b": [
+                          {
+                            "t": "a",
+                            "x": "iurN6w5f6t--lQux4ljTew",
+                            "l": "",
+                            "i": ["XsJFPdsNM-Lf", 49],
+                            "s": { "i": ["XsJFPdsNM-Lf", 17], "a": "b" },
+                            "e": { "i": ["XsJFPdsNM-Lf", 48], "a": "a" },
+                            "a": ["c"]
+                          }
+                        ],
+                        "a": []
+                      },
+                      { "t": "e" }
+                    ],
+                    "l": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "role": "reader"
+      }
+    },
+    "21eefd71-4331-806a-8366-cb8741aa8734": {
+      "value": {
+        "value": {
+          "id": "21eefd71-4331-806a-8366-cb8741aa8734",
+          "version": 3,
+          "type": "text",
+          "properties": { "title": [["参考 spec"]] },
+          "created_time": 1750925487155,
+          "last_edited_time": 1750925487211,
+          "parent_id": "21eefd71-4331-80d1-8b32-d42861feef13",
+          "parent_table": "block",
+          "alive": true,
+          "space_id": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+          "crdt_format_version": 1,
+          "crdt_data": {
+            "title": {
+              "r": "aNaBg3MTkhFPA5YYf51qWA,\"start\",\"end\"",
+              "n": {
+                "aNaBg3MTkhFPA5YYf51qWA,\"start\",\"end\"": {
+                  "s": {
+                    "x": "aNaBg3MTkhFPA5YYf51qWA",
+                    "i": [
+                      { "t": "s" },
+                      {
+                        "t": "t",
+                        "i": ["nvUYp9axrL63", 1],
+                        "o": "start",
+                        "l": 7,
+                        "c": "参考 spec"
+                      },
+                      { "t": "e" }
+                    ],
+                    "l": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "role": "reader"
+      }
+    },
+    "21eefd71-4331-80f6-8c18-c80a246224ce": {
+      "value": {
+        "value": {
+          "id": "21eefd71-4331-80f6-8c18-c80a246224ce",
+          "version": 4,
+          "type": "text",
+          "properties": {
+            "title": [
+              [
+                "https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-rdpbcgr/d892bc5b-aecd-4aee-99b6-5f43b5a63d75",
+                [
+                  [
+                    "a",
+                    "https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-rdpbcgr/d892bc5b-aecd-4aee-99b6-5f43b5a63d75"
+                  ]
+                ]
+              ]
+            ]
+          },
+          "created_time": 1750925487156,
+          "last_edited_time": 1750925487211,
+          "parent_id": "21eefd71-4331-80d1-8b32-d42861feef13",
+          "parent_table": "block",
+          "alive": true,
+          "space_id": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+          "crdt_format_version": 1,
+          "crdt_data": {
+            "title": {
+              "r": "4UdjdwAbwfL3VHqaV9wWSA,\"start\",\"end\"",
+              "n": {
+                "4UdjdwAbwfL3VHqaV9wWSA,\"start\",\"end\"": {
+                  "s": {
+                    "x": "4UdjdwAbwfL3VHqaV9wWSA",
+                    "i": [
+                      { "t": "s" },
+                      {
+                        "t": "t",
+                        "i": ["wwwPg0Da0Mvv", 1],
+                        "o": "start",
+                        "l": 109,
+                        "c": "https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-rdpbcgr/d892bc5b-aecd-4aee-99b6-5f43b5a63d75",
+                        "b": [
+                          {
+                            "t": "a",
+                            "x": "4UdjdwAbwfL3VHqaV9wWSA",
+                            "l": "",
+                            "i": ["wwwPg0Da0Mvv", 110],
+                            "s": { "i": ["wwwPg0Da0Mvv", 1], "a": "b" },
+                            "e": { "i": ["wwwPg0Da0Mvv", 109], "a": "a" },
+                            "a": [
+                              "a",
+                              "https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-rdpbcgr/d892bc5b-aecd-4aee-99b6-5f43b5a63d75"
+                            ]
+                          }
+                        ],
+                        "a": []
+                      },
+                      { "t": "e" }
+                    ],
+                    "l": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "role": "reader"
+      }
+    },
+    "21eefd71-4331-808f-af77-ceda54d2f70b": {
+      "value": {
+        "value": {
+          "id": "21eefd71-4331-808f-af77-ceda54d2f70b",
+          "version": 3,
+          "type": "text",
+          "properties": { "title": [["得到以下"]] },
+          "created_time": 1750925487157,
+          "last_edited_time": 1750925487211,
+          "parent_id": "21eefd71-4331-80d1-8b32-d42861feef13",
+          "parent_table": "block",
+          "alive": true,
+          "space_id": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+          "crdt_format_version": 1,
+          "crdt_data": {
+            "title": {
+              "r": "6M2qnG3CMIppUgu8PzkSLQ,\"start\",\"end\"",
+              "n": {
+                "6M2qnG3CMIppUgu8PzkSLQ,\"start\",\"end\"": {
+                  "s": {
+                    "x": "6M2qnG3CMIppUgu8PzkSLQ",
+                    "i": [
+                      { "t": "s" },
+                      {
+                        "t": "t",
+                        "i": ["9JvvpdmFZlYQ", 1],
+                        "o": "start",
+                        "l": 4,
+                        "c": "得到以下"
+                      },
+                      { "t": "e" }
+                    ],
+                    "l": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "role": "reader"
+      }
+    },
+    "21eefd71-4331-8072-88a3-e3b7ace2753a": {
+      "value": {
+        "value": {
+          "id": "21eefd71-4331-8072-88a3-e3b7ace2753a",
+          "version": 5,
+          "type": "code",
+          "properties": {
+            "title": [
+              [
+                "struct __unaligned tagTS_SAVE_SESSION_INFO_PDU_DATA\n{\n  UINT32 infoType;\n  union {\n    struct __unaligned tagTS_LOGON_INFO_VERSION_2\n    {\n      UINT16 Version;\n      UINT32 Size;\n      UINT32 SessionId;\n      UINT32 cbDomain;\n      UINT32 cbUserName;\n      CHAR Pad[558];\n      // WCHAR Domain[cbDomain/sizeof(WCHAR)];\n      // WCHAR UserName[cbUserName/sizeof(WCHAR)];\n    } LogonLongData;\n\n    struct __unaligned tagTS_LOGON_INFO_VERSION_1\n    {\n      UINT32 cbDomain;\n      WCHAR Domain[26];\n      UINT32 cbUserName;\n      WCHAR UserName[256];\n      UINT32 SessionId;\n    } LogonData;\n  };\n};"
+              ]
+            ],
+            "language": [["C++"]]
+          },
+          "format": { "code_wrap": true },
+          "created_time": 1750925487158,
+          "last_edited_time": 1750925521214,
+          "parent_id": "21eefd71-4331-80d1-8b32-d42861feef13",
+          "parent_table": "block",
+          "alive": true,
+          "space_id": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+          "crdt_format_version": 1,
+          "crdt_data": {
+            "title": {
+              "r": "2FwcPNAhrk2b7TZiNPDXng,\"start\",\"end\"",
+              "n": {
+                "2FwcPNAhrk2b7TZiNPDXng,\"start\",\"end\"": {
+                  "s": {
+                    "x": "2FwcPNAhrk2b7TZiNPDXng",
+                    "i": [
+                      { "t": "s" },
+                      {
+                        "t": "t",
+                        "i": ["fDsfyM8yRZVv", 1],
+                        "o": "start",
+                        "l": 596,
+                        "c": "struct __unaligned tagTS_SAVE_SESSION_INFO_PDU_DATA\n{\n  UINT32 infoType;\n  union {\n    struct __unaligned tagTS_LOGON_INFO_VERSION_2\n    {\n      UINT16 Version;\n      UINT32 Size;\n      UINT32 SessionId;\n      UINT32 cbDomain;\n      UINT32 cbUserName;\n      CHAR Pad[558];\n      // WCHAR Domain[cbDomain/sizeof(WCHAR)];\n      // WCHAR UserName[cbUserName/sizeof(WCHAR)];\n    } LogonLongData;\n\n    struct __unaligned tagTS_LOGON_INFO_VERSION_1\n    {\n      UINT32 cbDomain;\n      WCHAR Domain[26];\n      UINT32 cbUserName;\n      WCHAR UserName[256];\n      UINT32 SessionId;\n    } LogonData;\n  };\n};"
+                      },
+                      {
+                        "t": "t",
+                        "i": ["fDsfyM8yRZVv", 597],
+                        "o": ["fDsfyM8yRZVv", 596],
+                        "l": -1
+                      },
+                      { "t": "e" }
+                    ],
+                    "l": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "role": "reader"
+      }
+    },
+    "21eefd71-4331-80c9-bbe6-e8f6d6be0e96": {
+      "value": {
+        "value": {
+          "id": "21eefd71-4331-80c9-bbe6-e8f6d6be0e96",
+          "version": 3,
+          "type": "text",
+          "properties": {
+            "title": [["当 infoType == 1 时，有以下处理逻辑："]]
+          },
+          "created_time": 1750925487159,
+          "last_edited_time": 1750925487211,
+          "parent_id": "21eefd71-4331-80d1-8b32-d42861feef13",
+          "parent_table": "block",
+          "alive": true,
+          "space_id": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+          "crdt_format_version": 1,
+          "crdt_data": {
+            "title": {
+              "r": "Y8BLgG95baXk4GtWy3sMhQ,\"start\",\"end\"",
+              "n": {
+                "Y8BLgG95baXk4GtWy3sMhQ,\"start\",\"end\"": {
+                  "s": {
+                    "x": "Y8BLgG95baXk4GtWy3sMhQ",
+                    "i": [
+                      { "t": "s" },
+                      {
+                        "t": "t",
+                        "i": ["SfWydT7qE5XK", 1],
+                        "o": "start",
+                        "l": 26,
+                        "c": "当 infoType == 1 时，有以下处理逻辑："
+                      },
+                      { "t": "e" }
+                    ],
+                    "l": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "role": "reader"
+      }
+    },
+    "21eefd71-4331-8062-8297-c71b6c7cd39c": {
+      "value": {
+        "value": {
+          "id": "21eefd71-4331-8062-8297-c71b6c7cd39c",
+          "version": 5,
+          "type": "code",
+          "properties": {
+            "title": [
+              [
+                "CCO::OnSaveSessionInfoPDU(CCO *this, tagTS_SAVE_SESSION_INFO_PDU_DATA *pData, ULONG cbData)\n{\n  // ...\n  WCHAR wszDomain[256];\n\t  size_t cbDomain;\n  WCHAR wszUserName[256];\n  size_t cbUserName;\n\n  cbDomain = pData->LogonLongData.cbDomain;\n  cbUserName = pData->LogonLongData.cbUserName;\n  if ( cbUserName + cbDomain + 0x16 > cbData || (uint32_t)cbDomain > 0x200 || (uint32_t)cbUserName > 0x200 )\n  {\n    // ...\n    goto FAILED;\n  }\n\n  memset(wszDomain, 0, sizeof(wszDomain));\n  memset(wszUserName, 0, sizeof(wszUserName));\n\n  memcpy(wszDomain, (char*)pData + 0x224, cbDomain);\n  memcpy(wszUserName, (char*)pData + 0x224 + cbDomain, cbUserName);\n}"
+              ]
+            ],
+            "language": [["C++"]]
+          },
+          "format": { "code_wrap": true },
+          "created_time": 1750925487160,
+          "last_edited_time": 1750925518235,
+          "parent_id": "21eefd71-4331-80d1-8b32-d42861feef13",
+          "parent_table": "block",
+          "alive": true,
+          "space_id": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+          "crdt_format_version": 1,
+          "crdt_data": {
+            "title": {
+              "r": "U656tqWR1PLRwbhxEG8_mg,\"start\",\"end\"",
+              "n": {
+                "U656tqWR1PLRwbhxEG8_mg,\"start\",\"end\"": {
+                  "s": {
+                    "x": "U656tqWR1PLRwbhxEG8_mg",
+                    "i": [
+                      { "t": "s" },
+                      {
+                        "t": "t",
+                        "i": ["RMgvgf3ZOBa6", 1],
+                        "o": "start",
+                        "l": 646,
+                        "c": "CCO::OnSaveSessionInfoPDU(CCO *this, tagTS_SAVE_SESSION_INFO_PDU_DATA *pData, ULONG cbData)\n{\n  // ...\n  WCHAR wszDomain[256];\n\t  size_t cbDomain;\n  WCHAR wszUserName[256];\n  size_t cbUserName;\n\n  cbDomain = pData->LogonLongData.cbDomain;\n  cbUserName = pData->LogonLongData.cbUserName;\n  if ( cbUserName + cbDomain + 0x16 > cbData || (uint32_t)cbDomain > 0x200 || (uint32_t)cbUserName > 0x200 )\n  {\n    // ...\n    goto FAILED;\n  }\n\n  memset(wszDomain, 0, sizeof(wszDomain));\n  memset(wszUserName, 0, sizeof(wszUserName));\n\n  memcpy(wszDomain, (char*)pData + 0x224, cbDomain);\n  memcpy(wszUserName, (char*)pData + 0x224 + cbDomain, cbUserName);\n}"
+                      },
+                      {
+                        "t": "t",
+                        "i": ["RMgvgf3ZOBa6", 647],
+                        "o": ["RMgvgf3ZOBa6", 646],
+                        "l": -1
+                      },
+                      { "t": "e" }
+                    ],
+                    "l": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "role": "reader"
+      }
+    },
+    "21eefd71-4331-8027-b570-ff8441f996e7": {
+      "value": {
+        "value": {
+          "id": "21eefd71-4331-8027-b570-ff8441f996e7",
+          "version": 3,
+          "type": "text",
+          "properties": {
+            "title": [
+              [
+                "这里的 0x224 对应于 tagTS_LOGON_INFO_VERSION_2 中的 Domain 字段的偏移位置。"
+              ]
+            ]
+          },
+          "created_time": 1750925487161,
+          "last_edited_time": 1750925487211,
+          "parent_id": "21eefd71-4331-80d1-8b32-d42861feef13",
+          "parent_table": "block",
+          "alive": true,
+          "space_id": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+          "crdt_format_version": 1,
+          "crdt_data": {
+            "title": {
+              "r": "GaLD1Z6vM8EyUWeBakwDfA,\"start\",\"end\"",
+              "n": {
+                "GaLD1Z6vM8EyUWeBakwDfA,\"start\",\"end\"": {
+                  "s": {
+                    "x": "GaLD1Z6vM8EyUWeBakwDfA",
+                    "i": [
+                      { "t": "s" },
+                      {
+                        "t": "t",
+                        "i": ["8GjdiHLIHCoH", 1],
+                        "o": "start",
+                        "l": 59,
+                        "c": "这里的 0x224 对应于 tagTS_LOGON_INFO_VERSION_2 中的 Domain 字段的偏移位置。"
+                      },
+                      { "t": "e" }
+                    ],
+                    "l": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "role": "reader"
+      }
+    },
+    "21eefd71-4331-80ad-af63-d25e4fb19274": {
+      "value": {
+        "value": {
+          "id": "21eefd71-4331-80ad-af63-d25e4fb19274",
+          "version": 3,
+          "type": "text",
+          "properties": {
+            "title": [
+              [
+                "乍一看似乎很正常，对 cbDomain cbUserName 进行了约束，同时也校验了数据包的大小。"
+              ]
+            ]
+          },
+          "created_time": 1750925487162,
+          "last_edited_time": 1750925487211,
+          "parent_id": "21eefd71-4331-80d1-8b32-d42861feef13",
+          "parent_table": "block",
+          "alive": true,
+          "space_id": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+          "crdt_format_version": 1,
+          "crdt_data": {
+            "title": {
+              "r": "HfrHv8_uIIBJal4iX_eMXg,\"start\",\"end\"",
+              "n": {
+                "HfrHv8_uIIBJal4iX_eMXg,\"start\",\"end\"": {
+                  "s": {
+                    "x": "HfrHv8_uIIBJal4iX_eMXg",
+                    "i": [
+                      { "t": "s" },
+                      {
+                        "t": "t",
+                        "i": ["u6dU4blZDoIH", 1],
+                        "o": "start",
+                        "l": 50,
+                        "c": "乍一看似乎很正常，对 cbDomain cbUserName 进行了约束，同时也校验了数据包的大小。"
+                      },
+                      { "t": "e" }
+                    ],
+                    "l": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "role": "reader"
+      }
+    },
+    "21eefd71-4331-80d3-b569-c0dbfa5e8cf0": {
+      "value": {
+        "value": {
+          "id": "21eefd71-4331-80d3-b569-c0dbfa5e8cf0",
+          "version": 4,
+          "type": "text",
+          "properties": {
+            "title": [
+              ["但是问题恰恰出在校验上："],
+              ["cbUserName + cbDomain + 0x16 > cbData", [["i"]]]
+            ]
+          },
+          "created_time": 1750925487163,
+          "last_edited_time": 1750925487211,
+          "parent_id": "21eefd71-4331-80d1-8b32-d42861feef13",
+          "parent_table": "block",
+          "alive": true,
+          "space_id": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+          "crdt_format_version": 1,
+          "crdt_data": {
+            "title": {
+              "r": "cagvjRATucMqHn0CNqZ4jA,\"start\",\"end\"",
+              "n": {
+                "cagvjRATucMqHn0CNqZ4jA,\"start\",\"end\"": {
+                  "s": {
+                    "x": "cagvjRATucMqHn0CNqZ4jA",
+                    "i": [
+                      { "t": "s" },
+                      {
+                        "t": "t",
+                        "i": ["Jun6p51oYG7t", 1],
+                        "o": "start",
+                        "l": 12,
+                        "c": "但是问题恰恰出在校验上："
+                      },
+                      {
+                        "t": "t",
+                        "i": ["Jun6p51oYG7t", 13],
+                        "o": ["Jun6p51oYG7t", 12],
+                        "l": 37,
+                        "c": "cbUserName + cbDomain + 0x16 > cbData",
+                        "b": [
+                          {
+                            "t": "a",
+                            "x": "cagvjRATucMqHn0CNqZ4jA",
+                            "l": "",
+                            "i": ["Jun6p51oYG7t", 50],
+                            "s": { "i": ["Jun6p51oYG7t", 13], "a": "b" },
+                            "e": { "i": "end", "a": "b" },
+                            "a": ["i"]
+                          }
+                        ]
+                      },
+                      { "t": "e", "b": [] }
+                    ],
+                    "l": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "role": "reader"
+      }
+    },
+    "21eefd71-4331-8010-acf8-d0bd41c8df2f": {
+      "value": {
+        "value": {
+          "id": "21eefd71-4331-8010-acf8-d0bd41c8df2f",
+          "version": 3,
+          "type": "text",
+          "properties": {
+            "title": [
+              [
+                "这里的 0x16 实际并不是 tagTS_LOGON_INFO_VERSION_2 除 variables 外所有字段的固定大小，而是 tagTS_LOGON_INFO_VERSION_1 的大小。"
+              ]
+            ]
+          },
+          "created_time": 1750925487164,
+          "last_edited_time": 1750925487211,
+          "parent_id": "21eefd71-4331-80d1-8b32-d42861feef13",
+          "parent_table": "block",
+          "alive": true,
+          "space_id": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+          "crdt_format_version": 1,
+          "crdt_data": {
+            "title": {
+              "r": "KYk_8UjFPYcgToPMSGpaiA,\"start\",\"end\"",
+              "n": {
+                "KYk_8UjFPYcgToPMSGpaiA,\"start\",\"end\"": {
+                  "s": {
+                    "x": "KYk_8UjFPYcgToPMSGpaiA",
+                    "i": [
+                      { "t": "s" },
+                      {
+                        "t": "t",
+                        "i": ["t2vPol4sFNxz", 1],
+                        "o": "start",
+                        "l": 99,
+                        "c": "这里的 0x16 实际并不是 tagTS_LOGON_INFO_VERSION_2 除 variables 外所有字段的固定大小，而是 tagTS_LOGON_INFO_VERSION_1 的大小。"
+                      },
+                      { "t": "e" }
+                    ],
+                    "l": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "role": "reader"
+      }
+    },
+    "21eefd71-4331-80ca-9fb2-f92279c2d0e2": {
+      "value": {
+        "value": {
+          "id": "21eefd71-4331-80ca-9fb2-f92279c2d0e2",
+          "version": 3,
+          "type": "text",
+          "properties": { "title": [["这导致校验存在一个内存空域，"]] },
+          "created_time": 1750925487165,
+          "last_edited_time": 1750925487211,
+          "parent_id": "21eefd71-4331-80d1-8b32-d42861feef13",
+          "parent_table": "block",
+          "alive": true,
+          "space_id": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+          "crdt_format_version": 1,
+          "crdt_data": {
+            "title": {
+              "r": "_vs4E0g-6-7IjDBlljVhYQ,\"start\",\"end\"",
+              "n": {
+                "_vs4E0g-6-7IjDBlljVhYQ,\"start\",\"end\"": {
+                  "s": {
+                    "x": "_vs4E0g-6-7IjDBlljVhYQ",
+                    "i": [
+                      { "t": "s" },
+                      {
+                        "t": "t",
+                        "i": ["2UbB4wBVpM8D", 1],
+                        "o": "start",
+                        "l": 14,
+                        "c": "这导致校验存在一个内存空域，"
+                      },
+                      { "t": "e" }
+                    ],
+                    "l": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "role": "reader"
+      }
+    },
+    "21eefd71-4331-803d-9786-ceb425e7a456": {
+      "value": {
+        "value": {
+          "id": "21eefd71-4331-803d-9786-ceb425e7a456",
+          "version": 3,
+          "type": "text",
+          "properties": { "title": [["指定："]] },
+          "created_time": 1750925487165,
+          "last_edited_time": 1750925487211,
+          "parent_id": "21eefd71-4331-80d1-8b32-d42861feef13",
+          "parent_table": "block",
+          "alive": true,
+          "space_id": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+          "crdt_format_version": 1,
+          "crdt_data": {
+            "title": {
+              "r": "NsCM52hFSqMDk3PKfWtI6g,\"start\",\"end\"",
+              "n": {
+                "NsCM52hFSqMDk3PKfWtI6g,\"start\",\"end\"": {
+                  "s": {
+                    "x": "NsCM52hFSqMDk3PKfWtI6g",
+                    "i": [
+                      { "t": "s" },
+                      {
+                        "t": "t",
+                        "i": ["xN2e9OcVG2EH", 1],
+                        "o": "start",
+                        "l": 3,
+                        "c": "指定："
+                      },
+                      { "t": "e" }
+                    ],
+                    "l": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "role": "reader"
+      }
+    },
+    "21eefd71-4331-80c5-9528-f35beaf722bd": {
+      "value": {
+        "value": {
+          "id": "21eefd71-4331-80c5-9528-f35beaf722bd",
+          "version": 5,
+          "type": "code",
+          "properties": {
+            "title": [
+              [
+                "infoType = 1;\ncbDomain = 0x200;\ncbUserName = 0x200;\n// ...\nDomain[0x200/sizeof(WCHAR)];\nUserName[0x8/sizeof(WCHAR)];"
+              ]
+            ],
+            "language": [["C++"]]
+          },
+          "format": { "code_wrap": true },
+          "created_time": 1750925487166,
+          "last_edited_time": 1750925516251,
+          "parent_id": "21eefd71-4331-80d1-8b32-d42861feef13",
+          "parent_table": "block",
+          "alive": true,
+          "space_id": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+          "crdt_format_version": 1,
+          "crdt_data": {
+            "title": {
+              "r": "L-QFWC1hPj8Thy0q53su1A,\"start\",\"end\"",
+              "n": {
+                "L-QFWC1hPj8Thy0q53su1A,\"start\",\"end\"": {
+                  "s": {
+                    "x": "L-QFWC1hPj8Thy0q53su1A",
+                    "i": [
+                      { "t": "s" },
+                      {
+                        "t": "t",
+                        "i": ["LLHa_zXnTjN3", 1],
+                        "o": "start",
+                        "l": 116,
+                        "c": "infoType = 1;\ncbDomain = 0x200;\ncbUserName = 0x200;\n// ...\nDomain[0x200/sizeof(WCHAR)];\nUserName[0x8/sizeof(WCHAR)];"
+                      },
+                      {
+                        "t": "t",
+                        "i": ["LLHa_zXnTjN3", 117],
+                        "o": ["LLHa_zXnTjN3", 116],
+                        "l": -1
+                      },
+                      { "t": "e" }
+                    ],
+                    "l": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "role": "reader"
+      }
+    },
+    "21eefd71-4331-80e5-964d-f537003c4076": {
+      "value": {
+        "value": {
+          "id": "21eefd71-4331-80e5-964d-f537003c4076",
+          "version": 4,
+          "type": "text",
+          "properties": {
+            "title": [
+              ["此时 "],
+              ["cbData", [["c"]]],
+              [" 为 0x244 + 0x200 + 0x8 = 0x44c"]
+            ]
+          },
+          "created_time": 1750925487167,
+          "last_edited_time": 1750925487211,
+          "parent_id": "21eefd71-4331-80d1-8b32-d42861feef13",
+          "parent_table": "block",
+          "alive": true,
+          "space_id": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+          "crdt_format_version": 1,
+          "crdt_data": {
+            "title": {
+              "r": "52hUazx_6bLxezwSXFth4g,\"start\",\"end\"",
+              "n": {
+                "52hUazx_6bLxezwSXFth4g,\"start\",\"end\"": {
+                  "s": {
+                    "x": "52hUazx_6bLxezwSXFth4g",
+                    "i": [
+                      { "t": "s" },
+                      {
+                        "t": "t",
+                        "i": ["AlEwV3ro-k2I", 1],
+                        "o": "start",
+                        "l": 3,
+                        "c": "此时 "
+                      },
+                      {
+                        "t": "t",
+                        "i": ["AlEwV3ro-k2I", 4],
+                        "o": ["AlEwV3ro-k2I", 3],
+                        "l": 6,
+                        "c": "cbData",
+                        "b": [
+                          {
+                            "t": "a",
+                            "x": "52hUazx_6bLxezwSXFth4g",
+                            "l": "",
+                            "i": ["AlEwV3ro-k2I", 40],
+                            "s": { "i": ["AlEwV3ro-k2I", 4], "a": "b" },
+                            "e": { "i": ["AlEwV3ro-k2I", 9], "a": "a" },
+                            "a": ["c"]
+                          }
+                        ],
+                        "a": []
+                      },
+                      {
+                        "t": "t",
+                        "i": ["AlEwV3ro-k2I", 10],
+                        "o": ["AlEwV3ro-k2I", 9],
+                        "l": 30,
+                        "c": " 为 0x244 + 0x200 + 0x8 = 0x44c"
+                      },
+                      { "t": "e" }
+                    ],
+                    "l": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "role": "reader"
+      }
+    },
+    "21eefd71-4331-8038-ac75-e9682fc6e9d6": {
+      "value": {
+        "value": {
+          "id": "21eefd71-4331-8038-ac75-e9682fc6e9d6",
+          "version": 3,
+          "type": "text",
+          "properties": { "title": [["带入校验"]] },
+          "created_time": 1750925487168,
+          "last_edited_time": 1750925487211,
+          "parent_id": "21eefd71-4331-80d1-8b32-d42861feef13",
+          "parent_table": "block",
+          "alive": true,
+          "space_id": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+          "crdt_format_version": 1,
+          "crdt_data": {
+            "title": {
+              "r": "QyvPxDzpC4XkoXIUpyztfw,\"start\",\"end\"",
+              "n": {
+                "QyvPxDzpC4XkoXIUpyztfw,\"start\",\"end\"": {
+                  "s": {
+                    "x": "QyvPxDzpC4XkoXIUpyztfw",
+                    "i": [
+                      { "t": "s" },
+                      {
+                        "t": "t",
+                        "i": ["8xAwr1Pb8lv7", 1],
+                        "o": "start",
+                        "l": 4,
+                        "c": "带入校验"
+                      },
+                      { "t": "e" }
+                    ],
+                    "l": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "role": "reader"
+      }
+    },
+    "21eefd71-4331-80e3-b4e2-d17401f9fe65": {
+      "value": {
+        "value": {
+          "id": "21eefd71-4331-80e3-b4e2-d17401f9fe65",
+          "version": 5,
+          "type": "code",
+          "properties": {
+            "title": [
+              [
+                "cbUserName + cbDomain + 0x16 > cbData\n  => 0x200 + 0x200 + 0x16 > 0x44c\n  => true\n(uint32_t)cbDomain > 0x200\n  => 0x200 > 0x200\n  => true\n(uint32_t)cbUserName > 0x200\n  => 0x200 > 0x200\n  => true"
+              ]
+            ],
+            "language": [["C++"]]
+          },
+          "format": { "code_wrap": true },
+          "created_time": 1750925487169,
+          "last_edited_time": 1750925513211,
+          "parent_id": "21eefd71-4331-80d1-8b32-d42861feef13",
+          "parent_table": "block",
+          "alive": true,
+          "space_id": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+          "crdt_format_version": 1,
+          "crdt_data": {
+            "title": {
+              "r": "8AxVdtFCpJkr6Q7drJJnaA,\"start\",\"end\"",
+              "n": {
+                "8AxVdtFCpJkr6Q7drJJnaA,\"start\",\"end\"": {
+                  "s": {
+                    "x": "8AxVdtFCpJkr6Q7drJJnaA",
+                    "i": [
+                      { "t": "s" },
+                      {
+                        "t": "t",
+                        "i": ["HX_9jn3yEnoE", 1],
+                        "o": "start",
+                        "l": 195,
+                        "c": "cbUserName + cbDomain + 0x16 > cbData\n  => 0x200 + 0x200 + 0x16 > 0x44c\n  => true\n(uint32_t)cbDomain > 0x200\n  => 0x200 > 0x200\n  => true\n(uint32_t)cbUserName > 0x200\n  => 0x200 > 0x200\n  => true"
+                      },
+                      {
+                        "t": "t",
+                        "i": ["HX_9jn3yEnoE", 196],
+                        "o": ["HX_9jn3yEnoE", 195],
+                        "l": -1
+                      },
+                      { "t": "e" }
+                    ],
+                    "l": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "role": "reader"
+      }
+    },
+    "21eefd71-4331-8018-821a-f20f9a0ad175": {
+      "value": {
+        "value": {
+          "id": "21eefd71-4331-8018-821a-f20f9a0ad175",
+          "version": 3,
+          "type": "text",
+          "properties": { "title": [["满足条件，接下来进入复制阶段"]] },
+          "created_time": 1750925487170,
+          "last_edited_time": 1750925487211,
+          "parent_id": "21eefd71-4331-80d1-8b32-d42861feef13",
+          "parent_table": "block",
+          "alive": true,
+          "space_id": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+          "crdt_format_version": 1,
+          "crdt_data": {
+            "title": {
+              "r": "98Q4AszIL5-xHBroArK2RQ,\"start\",\"end\"",
+              "n": {
+                "98Q4AszIL5-xHBroArK2RQ,\"start\",\"end\"": {
+                  "s": {
+                    "x": "98Q4AszIL5-xHBroArK2RQ",
+                    "i": [
+                      { "t": "s" },
+                      {
+                        "t": "t",
+                        "i": ["if0zhx9sRfj1", 1],
+                        "o": "start",
+                        "l": 14,
+                        "c": "满足条件，接下来进入复制阶段"
+                      },
+                      { "t": "e" }
+                    ],
+                    "l": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "role": "reader"
+      }
+    },
+    "21eefd71-4331-8060-a989-eba24a0440ba": {
+      "value": {
+        "value": {
+          "id": "21eefd71-4331-8060-a989-eba24a0440ba",
+          "version": 5,
+          "type": "code",
+          "properties": {
+            "title": [
+              [
+                "memcpy(wszUserName, (char*)pData + 0x224 + cbDomain, cbUserName);"
+              ]
+            ],
+            "language": [["C++"]]
+          },
+          "format": { "code_wrap": true },
+          "created_time": 1750925487170,
+          "last_edited_time": 1750925511584,
+          "parent_id": "21eefd71-4331-80d1-8b32-d42861feef13",
+          "parent_table": "block",
+          "alive": true,
+          "space_id": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+          "crdt_format_version": 1,
+          "crdt_data": {
+            "title": {
+              "r": "AaSQU1fczF6vvU16GB5DmA,\"start\",\"end\"",
+              "n": {
+                "AaSQU1fczF6vvU16GB5DmA,\"start\",\"end\"": {
+                  "s": {
+                    "x": "AaSQU1fczF6vvU16GB5DmA",
+                    "i": [
+                      { "t": "s" },
+                      {
+                        "t": "t",
+                        "i": ["qAuw9zP3_5W8", 1],
+                        "o": "start",
+                        "l": 65,
+                        "c": "memcpy(wszUserName, (char*)pData + 0x224 + cbDomain, cbUserName);"
+                      },
+                      {
+                        "t": "t",
+                        "i": ["qAuw9zP3_5W8", 66],
+                        "o": ["qAuw9zP3_5W8", 65],
+                        "l": -1
+                      },
+                      { "t": "e" }
+                    ],
+                    "l": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "role": "reader"
+      }
+    },
+    "21eefd71-4331-803e-8c55-f3b7398e0166": {
+      "value": {
+        "value": {
+          "id": "21eefd71-4331-803e-8c55-f3b7398e0166",
+          "version": 3,
+          "type": "text",
+          "properties": { "title": [["此时有以下事实"]] },
+          "created_time": 1750925487171,
+          "last_edited_time": 1750925487211,
+          "parent_id": "21eefd71-4331-80d1-8b32-d42861feef13",
+          "parent_table": "block",
+          "alive": true,
+          "space_id": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+          "crdt_format_version": 1,
+          "crdt_data": {
+            "title": {
+              "r": "O0MMqmxVxMxMuVy1nmiv2g,\"start\",\"end\"",
+              "n": {
+                "O0MMqmxVxMxMuVy1nmiv2g,\"start\",\"end\"": {
+                  "s": {
+                    "x": "O0MMqmxVxMxMuVy1nmiv2g",
+                    "i": [
+                      { "t": "s" },
+                      {
+                        "t": "t",
+                        "i": ["jObEGUDURoa5", 1],
+                        "o": "start",
+                        "l": 7,
+                        "c": "此时有以下事实"
+                      },
+                      { "t": "e" }
+                    ],
+                    "l": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "role": "reader"
+      }
+    },
+    "21eefd71-4331-80c3-a206-dcc37175d9ce": {
+      "value": {
+        "value": {
+          "id": "21eefd71-4331-80c3-a206-dcc37175d9ce",
+          "version": 5,
+          "type": "code",
+          "properties": {
+            "title": [
+              [
+                "cbDomain = 0x200;\ncbUserName = 0x200;\n\n(char*)pData + 0x224 + 0x200\n  => (char*)pData + 0x424"
+              ]
+            ],
+            "language": [["C++"]]
+          },
+          "format": { "code_wrap": true },
+          "created_time": 1750925487171,
+          "last_edited_time": 1750925508669,
+          "parent_id": "21eefd71-4331-80d1-8b32-d42861feef13",
+          "parent_table": "block",
+          "alive": true,
+          "space_id": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+          "crdt_format_version": 1,
+          "crdt_data": {
+            "title": {
+              "r": "nS2sw0wtulWikOwX3Gj9nA,\"start\",\"end\"",
+              "n": {
+                "nS2sw0wtulWikOwX3Gj9nA,\"start\",\"end\"": {
+                  "s": {
+                    "x": "nS2sw0wtulWikOwX3Gj9nA",
+                    "i": [
+                      { "t": "s" },
+                      {
+                        "t": "t",
+                        "i": ["JGni-ILgw5je", 1],
+                        "o": "start",
+                        "l": 93,
+                        "c": "cbDomain = 0x200;\ncbUserName = 0x200;\n\n(char*)pData + 0x224 + 0x200\n  => (char*)pData + 0x424"
+                      },
+                      {
+                        "t": "t",
+                        "i": ["JGni-ILgw5je", 94],
+                        "o": ["JGni-ILgw5je", 93],
+                        "l": -1
+                      },
+                      { "t": "e" }
+                    ],
+                    "l": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "role": "reader"
+      }
+    },
+    "21eefd71-4331-80b3-b720-f54f8b6d98c2": {
+      "value": {
+        "value": {
+          "id": "21eefd71-4331-80b3-b720-f54f8b6d98c2",
+          "version": 5,
+          "type": "text",
+          "properties": {
+            "title": [
+              ["看到复制 "],
+              ["pData", [["c"]]],
+              [" 范围在 "],
+              ["[0x424, 0x424+0x200]", [["c"]]]
+            ]
+          },
+          "created_time": 1750925487171,
+          "last_edited_time": 1750925487211,
+          "parent_id": "21eefd71-4331-80d1-8b32-d42861feef13",
+          "parent_table": "block",
+          "alive": true,
+          "space_id": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+          "crdt_format_version": 1,
+          "crdt_data": {
+            "title": {
+              "r": "hTJFzYq3gKoFZYTYDHQeYw,\"start\",\"end\"",
+              "n": {
+                "hTJFzYq3gKoFZYTYDHQeYw,\"start\",\"end\"": {
+                  "s": {
+                    "x": "hTJFzYq3gKoFZYTYDHQeYw",
+                    "i": [
+                      { "t": "s" },
+                      {
+                        "t": "t",
+                        "i": ["SomZVzDjhxsC", 1],
+                        "o": "start",
+                        "l": 5,
+                        "c": "看到复制 "
+                      },
+                      {
+                        "t": "t",
+                        "i": ["SomZVzDjhxsC", 6],
+                        "o": ["SomZVzDjhxsC", 5],
+                        "l": 5,
+                        "c": "pData",
+                        "b": [
+                          {
+                            "t": "a",
+                            "x": "hTJFzYq3gKoFZYTYDHQeYw",
+                            "l": "",
+                            "i": ["SomZVzDjhxsC", 36],
+                            "s": { "i": ["SomZVzDjhxsC", 6], "a": "b" },
+                            "e": { "i": ["SomZVzDjhxsC", 10], "a": "a" },
+                            "a": ["c"]
+                          }
+                        ],
+                        "a": []
+                      },
+                      {
+                        "t": "t",
+                        "i": ["SomZVzDjhxsC", 11],
+                        "o": ["SomZVzDjhxsC", 10],
+                        "l": 5,
+                        "c": " 范围在 "
+                      },
+                      {
+                        "t": "t",
+                        "i": ["SomZVzDjhxsC", 16],
+                        "o": ["SomZVzDjhxsC", 15],
+                        "l": 20,
+                        "c": "[0x424, 0x424+0x200]",
+                        "b": [
+                          {
+                            "t": "a",
+                            "x": "hTJFzYq3gKoFZYTYDHQeYw",
+                            "l": "",
+                            "i": ["SomZVzDjhxsC", 37],
+                            "s": { "i": ["SomZVzDjhxsC", 16], "a": "b" },
+                            "e": { "i": ["SomZVzDjhxsC", 35], "a": "a" },
+                            "a": ["c"]
+                          }
+                        ],
+                        "a": []
+                      },
+                      { "t": "e" }
+                    ],
+                    "l": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "role": "reader"
+      }
+    },
+    "21eefd71-4331-80dc-8486-dc7e88b49036": {
+      "value": {
+        "value": {
+          "id": "21eefd71-4331-80dc-8486-dc7e88b49036",
+          "version": 4,
+          "type": "text",
+          "properties": {
+            "title": [
+              ["但 pData 实际大小为 "],
+              ["0x44c", [["c"]]],
+              ["，发生越界读取。"]
+            ]
+          },
+          "created_time": 1750925487173,
+          "last_edited_time": 1750925487211,
+          "parent_id": "21eefd71-4331-80d1-8b32-d42861feef13",
+          "parent_table": "block",
+          "alive": true,
+          "space_id": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+          "crdt_format_version": 1,
+          "crdt_data": {
+            "title": {
+              "r": "yefvya1fXojq8h93-Nt0QA,\"start\",\"end\"",
+              "n": {
+                "yefvya1fXojq8h93-Nt0QA,\"start\",\"end\"": {
+                  "s": {
+                    "x": "yefvya1fXojq8h93-Nt0QA",
+                    "i": [
+                      { "t": "s" },
+                      {
+                        "t": "t",
+                        "i": ["DdiZg2qXmK01", 1],
+                        "o": "start",
+                        "l": 14,
+                        "c": "但 pData 实际大小为 "
+                      },
+                      {
+                        "t": "t",
+                        "i": ["DdiZg2qXmK01", 15],
+                        "o": ["DdiZg2qXmK01", 14],
+                        "l": 5,
+                        "c": "0x44c",
+                        "b": [
+                          {
+                            "t": "a",
+                            "x": "yefvya1fXojq8h93-Nt0QA",
+                            "l": "",
+                            "i": ["DdiZg2qXmK01", 28],
+                            "s": { "i": ["DdiZg2qXmK01", 15], "a": "b" },
+                            "e": { "i": ["DdiZg2qXmK01", 19], "a": "a" },
+                            "a": ["c"]
+                          }
+                        ],
+                        "a": []
+                      },
+                      {
+                        "t": "t",
+                        "i": ["DdiZg2qXmK01", 20],
+                        "o": ["DdiZg2qXmK01", 19],
+                        "l": 8,
+                        "c": "，发生越界读取。"
+                      },
+                      { "t": "e" }
+                    ],
+                    "l": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "role": "reader"
+      }
+    },
+    "21eefd71-4331-807f-a60a-e9bd4638a94a": {
+      "value": {
+        "value": {
+          "id": "21eefd71-4331-807f-a60a-e9bd4638a94a",
+          "version": 3,
+          "type": "sub_sub_header",
+          "properties": { "title": [["修补"]] },
+          "created_time": 1750925487175,
+          "last_edited_time": 1750925487211,
+          "parent_id": "21eefd71-4331-80d1-8b32-d42861feef13",
+          "parent_table": "block",
+          "alive": true,
+          "space_id": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+          "crdt_format_version": 1,
+          "crdt_data": {
+            "title": {
+              "r": "RJ2OdItUnd9yfDRZxzl6Ag,\"start\",\"end\"",
+              "n": {
+                "RJ2OdItUnd9yfDRZxzl6Ag,\"start\",\"end\"": {
+                  "s": {
+                    "x": "RJ2OdItUnd9yfDRZxzl6Ag",
+                    "i": [
+                      { "t": "s" },
+                      {
+                        "t": "t",
+                        "i": ["7H4ifIkrolbh", 1],
+                        "o": "start",
+                        "l": 2,
+                        "c": "修补"
+                      },
+                      { "t": "e" }
+                    ],
+                    "l": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "role": "reader"
+      }
+    },
+    "21eefd71-4331-80c3-8fac-fef25755a96a": {
+      "value": {
+        "value": {
+          "id": "21eefd71-4331-80c3-8fac-fef25755a96a",
+          "version": 3,
+          "type": "text",
+          "properties": { "title": [["修正约束条件。"]] },
+          "created_time": 1750925487175,
+          "last_edited_time": 1750925487211,
+          "parent_id": "21eefd71-4331-80d1-8b32-d42861feef13",
+          "parent_table": "block",
+          "alive": true,
+          "space_id": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+          "crdt_format_version": 1,
+          "crdt_data": {
+            "title": {
+              "r": "VZLcXXKZ47el2LEeznq4pg,\"start\",\"end\"",
+              "n": {
+                "VZLcXXKZ47el2LEeznq4pg,\"start\",\"end\"": {
+                  "s": {
+                    "x": "VZLcXXKZ47el2LEeznq4pg",
+                    "i": [
+                      { "t": "s" },
+                      {
+                        "t": "t",
+                        "i": ["Rfh0eQuZu1sI", 1],
+                        "o": "start",
+                        "l": 7,
+                        "c": "修正约束条件。"
+                      },
+                      { "t": "e" }
+                    ],
+                    "l": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "role": "reader"
+      }
+    },
+    "21eefd71-4331-8058-841f-e21d5f16e9fd": {
+      "value": {
+        "value": {
+          "id": "21eefd71-4331-8058-841f-e21d5f16e9fd",
+          "version": 3,
+          "type": "text",
+          "properties": { "title": [["核心条件："]] },
+          "created_time": 1750925487176,
+          "last_edited_time": 1750925487211,
+          "parent_id": "21eefd71-4331-80d1-8b32-d42861feef13",
+          "parent_table": "block",
+          "alive": true,
+          "space_id": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+          "crdt_format_version": 1,
+          "crdt_data": {
+            "title": {
+              "r": "URiVl6FKn6XA232WvtKroA,\"start\",\"end\"",
+              "n": {
+                "URiVl6FKn6XA232WvtKroA,\"start\",\"end\"": {
+                  "s": {
+                    "x": "URiVl6FKn6XA232WvtKroA",
+                    "i": [
+                      { "t": "s" },
+                      {
+                        "t": "t",
+                        "i": ["CkeL0bvDv9WJ", 1],
+                        "o": "start",
+                        "l": 5,
+                        "c": "核心条件："
+                      },
+                      { "t": "e" }
+                    ],
+                    "l": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "role": "reader"
+      }
+    },
+    "21eefd71-4331-8086-ad70-f99a999905fc": {
+      "value": {
+        "value": {
+          "id": "21eefd71-4331-8086-ad70-f99a999905fc",
+          "version": 5,
+          "type": "code",
+          "properties": {
+            "title": [["cbUserName + cbDomain + 0x244 > cbData"]],
+            "language": [["C++"]]
+          },
+          "format": { "code_wrap": true },
+          "created_time": 1750925487176,
+          "last_edited_time": 1750925507356,
+          "parent_id": "21eefd71-4331-80d1-8b32-d42861feef13",
+          "parent_table": "block",
+          "alive": true,
+          "space_id": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+          "crdt_format_version": 1,
+          "crdt_data": {
+            "title": {
+              "r": "4lU-f8tjBBVM7kANHOWqpA,\"start\",\"end\"",
+              "n": {
+                "4lU-f8tjBBVM7kANHOWqpA,\"start\",\"end\"": {
+                  "s": {
+                    "x": "4lU-f8tjBBVM7kANHOWqpA",
+                    "i": [
+                      { "t": "s" },
+                      {
+                        "t": "t",
+                        "i": ["1lsBIgML3jAf", 1],
+                        "o": "start",
+                        "l": 38,
+                        "c": "cbUserName + cbDomain + 0x244 > cbData"
+                      },
+                      {
+                        "t": "t",
+                        "i": ["1lsBIgML3jAf", 39],
+                        "o": ["1lsBIgML3jAf", 38],
+                        "l": -1
+                      },
+                      { "t": "e" }
+                    ],
+                    "l": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "role": "reader"
+      }
+    }
+  },
+  "collection": {
+    "cdac06a1-1820-40f4-ac65-786bd02c8cf0": {
+      "spaceId": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+      "value": {
+        "value": {
+          "id": "cdac06a1-1820-40f4-ac65-786bd02c8cf0",
+          "version": 9,
+          "name": [["📖 Blog Posts"]],
+          "schema": {
+            ";KhU": { "name": "Last Updated", "type": "last_edited_time" },
+            "==~K": { "name": "Public", "type": "checkbox" },
+            "=bhc": { "name": "Featured", "type": "checkbox" },
+            "BN]P": {
+              "name": "Tags",
+              "type": "multi_select",
+              "options": [
+                {
+                  "id": "7993ec69-9767-4b84-adb9-5f1c907a6c77",
+                  "color": "blue",
+                  "value": "React"
+                },
+                {
+                  "id": "7dc13111-a327-487c-a966-284314962043",
+                  "color": "pink",
+                  "value": "Hello World"
+                },
+                {
+                  "id": "6a934f16-8fe2-42dd-855a-2af07a193f52",
+                  "color": "orange",
+                  "value": "Reverse"
+                },
+                {
+                  "id": "bfd27ca6-f7f6-4553-a793-636261f8ae9f",
+                  "color": "yellow",
+                  "value": "Bytecode"
+                },
+                {
+                  "id": "fe2219b5-51da-47d8-af44-6cd6faefa70c",
+                  "color": "brown",
+                  "value": "Pwn"
+                },
+                {
+                  "id": "1628f7f0-b9e8-42db-b58f-d14356afee07",
+                  "color": "orange",
+                  "value": "Stack Overflow"
+                },
+                {
+                  "id": "f620a08a-736b-4b62-bcb3-0c0a1e35253d",
+                  "color": "gray",
+                  "value": "ROP"
+                },
+                {
+                  "id": "93557346-105c-4824-93a6-2af582785c92",
+                  "color": "default",
+                  "value": "Windows NT"
+                },
+                {
+                  "id": "a64f83e0-1c6e-4074-858d-64039bb3ae73",
+                  "color": "red",
+                  "value": "Vulnerability"
+                },
+                {
+                  "id": "c8fb3cc0-cd68-443b-b095-3f572b3af160",
+                  "color": "purple",
+                  "value": "Achrive"
+                },
+                {
+                  "id": "05418eb6-017c-4ecd-99d9-e5d8958248ed",
+                  "color": "green",
+                  "value": "CTF"
+                },
+                {
+                  "id": "e5674225-885f-4069-b9ed-63db4a07324b",
+                  "color": "green",
+                  "value": "Python"
+                },
+                {
+                  "id": "db216758-a9c6-40dd-8585-67633d27e950",
+                  "color": "gray",
+                  "value": "Annual summary"
+                },
+                {
+                  "id": "221b5e7e-44ff-4032-aca3-0287c02cade6",
+                  "color": "yellow",
+                  "value": "RDP"
+                },
+                {
+                  "id": "61bcfd98-a3ef-4acd-8770-05d93e1ba0f0",
+                  "color": "purple",
+                  "value": "Memorabilia"
+                },
+                {
+                  "id": "2ba07624-7321-4185-8169-b20c18da7b06",
+                  "color": "brown",
+                  "value": "Travel Notes"
+                },
+                {
+                  "id": "d6ee3197-70f2-468a-b61d-d4dc9cadfdc9",
+                  "color": "red",
+                  "value": "CS"
+                }
+              ],
+              "default_workflow_id": "321efd71-4331-8180-a840-00921656bea2",
+              "select_ai_inference": {
+                "type": "multi_select",
+                "add_options": false,
+                "is_migrated": true,
+                "auto_update_on_edit": false,
+                "migrated_workflow_id": "321efd71-4331-8180-a840-00921656bea2"
+              }
+            },
+            "NVm^": { "name": "Slug", "type": "text" },
+            "a<ql": {
+              "name": "Published",
+              "type": "date",
+              "date_format": "MM/DD/YYYY"
+            },
+            "jhf;": { "name": "Tweet", "type": "text" },
+            "nAX{": { "name": "Created", "type": "created_time" },
+            "}nqi": { "name": "Author", "type": "text" },
+            "~]S<": { "name": "Description", "type": "text" },
+            "title": { "name": "Name", "type": "title" }
+          },
+          "format": {
+            "copied_from_pointer": {
+              "id": "bb3920cf-4615-4c26-8fa3-dfbe25288f01",
+              "table": "collection",
+              "spaceId": "1f2ae9ef-16a4-47ab-b03c-03dd2c48bfc3"
+            },
+            "property_visibility": [
+              { "property": "BN]P", "visibility": "hide_if_empty" },
+              { "property": "a<ql", "visibility": "hide_if_empty" },
+              { "property": ";KhU", "visibility": "hide" },
+              { "property": "}nqi", "visibility": "hide_if_empty" },
+              { "property": "nAX{", "visibility": "hide" },
+              { "property": "~]S<", "visibility": "hide" },
+              { "property": "==~K", "visibility": "hide" },
+              { "property": "jhf;", "visibility": "hide" },
+              { "property": "=bhc", "visibility": "hide" },
+              { "property": "NVm^", "visibility": "hide" }
+            ],
+            "metadata_copied_from": {
+              "id": "c718d831-fff2-482f-88c9-588d485e23be",
+              "table": "block",
+              "spaceId": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1"
+            },
+            "collection_page_properties": [
+              { "visible": true, "property": "BN]P" },
+              { "visible": true, "property": "a<ql" },
+              { "visible": false, "property": ";KhU" },
+              { "visible": false, "property": "}nqi" },
+              { "visible": true, "property": "nAX{" },
+              { "visible": true, "property": "~]S<" },
+              { "visible": true, "property": "==~K" },
+              { "visible": true, "property": "jhf;" },
+              { "visible": false, "property": "=bhc" },
+              { "visible": false, "property": "NVm^" }
+            ]
+          },
+          "parent_id": "c718d831-fff2-482f-88c9-588d485e23be",
+          "parent_table": "block",
+          "alive": true,
+          "copied_from": "bb3920cf-4615-4c26-8fa3-dfbe25288f01",
+          "template_pages": ["b28235b9-a802-4d24-aa54-ced2264207e0"],
+          "migrated": true,
+          "space_id": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+          "created_time": 1714823188677,
+          "last_edited_time": 1767165593075,
+          "created_by_table": "notion_user",
+          "created_by_id": "da486ff3-bb41-4ceb-a9f4-7326629c2158",
+          "last_edited_by_table": "notion_user",
+          "last_edited_by_id": "da486ff3-bb41-4ceb-a9f4-7326629c2158"
+        },
+        "role": "reader"
+      }
+    }
+  },
+  "collection_view": {
+    "d64a1634-7483-4757-affb-66671bea0f14": {
+      "spaceId": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+      "value": {
+        "value": {
+          "id": "d64a1634-7483-4757-affb-66671bea0f14",
+          "version": 32,
+          "type": "gallery",
+          "name": "Gallery view",
+          "format": {
+            "gallery_cover": { "type": "page_cover" },
+            "collection_pointer": {
+              "id": "cdac06a1-1820-40f4-ac65-786bd02c8cf0",
+              "table": "collection",
+              "spaceId": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1"
+            },
+            "gallery_cover_size": "medium",
+            "gallery_properties": [
+              { "visible": true, "property": "title" },
+              { "visible": false, "property": "nAX{" },
+              { "visible": true, "property": "~]S<" },
+              { "visible": true, "property": "a<ql" },
+              { "visible": true, "property": "BN]P" }
+            ],
+            "gallery_cover_aspect": "cover",
+            "hide_linked_collection_name": false
+          },
+          "parent_id": "c718d831-fff2-482f-88c9-588d485e23be",
+          "parent_table": "block",
+          "alive": true,
+          "page_sort": [
+            "e3df5b79-eb34-4bec-a82f-628699f43852",
+            "7a8e9c32-39af-4bca-a26e-3f8f1c9a1762",
+            "7864e0d8-d646-4df5-a4ae-057371b7559d",
+            "6a8fc2f0-fad9-432b-be6d-6859189e3205",
+            "c2994f3d-696a-4015-b7d1-2b71883562ad",
+            "58fc3d75-92a2-44e9-ab0d-84cb61086232",
+            "30ac6075-b07c-41fa-b684-15c16f1134ba",
+            "4c804cac-3119-4cc3-a621-a82040d9a0db",
+            "6ce6c0ba-0d6f-40b3-b7d4-afe8ca715c73",
+            "64158711-b8f3-4c3d-ba2f-3999059c5581",
+            "0c679f04-0865-4142-a65b-28668aa9daea",
+            "54fa8c94-ead7-4b14-b068-174936adb37f",
+            "ab2e2675-7daf-464f-a2c4-563136630232",
+            "ef52bf7e-8726-4804-a0d5-e9b5f7919284",
+            "460f888e-b262-4f14-a39f-93ae0090bb9d",
+            "eff2e07b-ee44-45e0-b46a-622deb611d0b",
+            "c94f3f08-d65f-4f7d-a409-72c353f9786d",
+            "daac7673-f388-475e-8f43-a345dc350bef",
+            "6ff46924-9cc3-4445-badc-28e7daa5fa5a",
+            "c114dc9f-b09a-4e30-9c0d-5ace92e6a8e3",
+            "51b78f8b-69ff-4a46-9ec6-74f0d5400d3e",
+            "06adcb1d-3acf-4266-a8d9-6cb0d3c439ce",
+            "e044646f-7d2f-4765-b7fb-51aebca21019",
+            "1db23f4a-8d7e-4445-b241-a8e4be5bd02a",
+            "70df362d-5c3a-4d2c-a3da-ef27e1f207e3",
+            "dae737f3-5216-4c50-b708-2bf7c2662020",
+            "a13c9d7e-5e2f-44c3-bd8c-17fd50ca4892",
+            "f3236b1d-73c7-45d5-920e-f7cac8c19573",
+            "c181e327-c3bf-42f8-b8aa-21a367ce64f2",
+            "f5613c52-6b68-4073-b593-03d26f51e710",
+            "d6f281d6-851a-4583-829e-4be2d2803ed5",
+            "c94c4a43-0a0b-4917-94b7-31fc5c2c00cd",
+            "e93de5cd-075a-4a42-b4dd-0163ecee3b24",
+            "2daefd71-4331-808b-b689-cb84d547bf3c",
+            "21eefd71-4331-80d1-8b32-d42861feef13",
+            "15cefd71-4331-8029-829f-f6fb838ad09e",
+            "169efd71-4331-8041-aa9b-c3db8e306293",
+            "150efd71-4331-80aa-93a6-d809907c7e7a",
+            "3dd847a0-7f2a-4763-bfd2-f793bde28933",
+            "54fc7ca6-b7dc-4549-b4ff-30c0522e3e72",
+            "19a15b02-565a-4afd-a69d-057e7874855c",
+            "231bcedc-8bd6-4411-825e-a7643c8681a9",
+            "e3e67ca6-5cf7-4041-b26c-a4080c74d8ea",
+            "e40d9ca4-2bf7-423b-97b7-8463a5720460",
+            "cb9cc71c-9412-41d8-8c76-4a27ccc087b2",
+            "6aabc38a-a4b1-4251-a99d-3e28f22be3ff",
+            "d8b13a67-3fae-4dea-bd01-430a1d3978de",
+            "116e1f21-4e9e-4f72-a355-5ccb35e76d1d",
+            "1209f61e-5fd3-43b4-a119-6775a58554dd",
+            "102efd71-4331-80df-b1a0-c783b77fec45",
+            "102efd71-4331-8074-bf56-e45a8c013baa",
+            "102efd71-4331-80e9-ad4e-f3d2daaee6f8",
+            "116efd71-4331-808a-9e7d-de8664f509ec",
+            "116efd71-4331-808c-914d-d5da0d367977",
+            "116efd71-4331-806f-86cd-d39c25b7f433",
+            "102efd71-4331-8058-9a28-f8ba29eddfb8",
+            "2e69859c-3872-4a34-b4c4-a383d3a3d7ba",
+            "b75b569e-0e46-4024-adc9-c3a689708647",
+            "1987bc90-9fa5-4162-8de9-b305b5ebe06f"
+          ],
+          "query2": {
+            "sort": [
+              { "property": "=bhc", "direction": "descending" },
+              { "property": "a<ql", "direction": "descending" }
+            ],
+            "filter": {
+              "filters": [
+                {
+                  "filter": {
+                    "value": { "type": "exact", "value": true },
+                    "operator": "checkbox_is"
+                  },
+                  "property": "==~K"
+                }
+              ],
+              "operator": "and"
+            },
+            "aggregations": [{ "aggregator": "count" }]
+          },
+          "space_id": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+          "created_time": 1767165593075,
+          "last_edited_time": 1767165593075,
+          "created_by_table": "notion_user",
+          "created_by_id": "da486ff3-bb41-4ceb-a9f4-7326629c2158"
+        },
+        "role": "reader"
+      }
+    },
+    "05adfa89-6edc-4eab-a723-5fbff5d574da": {
+      "spaceId": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+      "value": {
+        "value": {
+          "id": "05adfa89-6edc-4eab-a723-5fbff5d574da",
+          "version": 24,
+          "type": "table",
+          "name": "",
+          "format": {
+            "table_properties": [
+              { "width": 293, "visible": true, "property": "title" },
+              { "width": 398, "visible": true, "property": "~]S<" },
+              { "width": 81, "visible": true, "property": "==~K" },
+              { "width": 105, "visible": true, "property": "=bhc" },
+              { "width": 146, "visible": true, "property": "a<ql" },
+              { "width": 200, "visible": true, "property": "BN]P" },
+              { "width": 122, "visible": true, "property": "}nqi" },
+              { "width": 156, "visible": true, "property": "jhf;" },
+              { "width": 146, "visible": true, "property": "NVm^" },
+              { "width": 200, "visible": true, "property": ";KhU" },
+              { "width": 200, "visible": false, "property": "nAX{" }
+            ],
+            "collection_pointer": {
+              "id": "cdac06a1-1820-40f4-ac65-786bd02c8cf0",
+              "table": "collection",
+              "spaceId": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1"
+            }
+          },
+          "parent_id": "c718d831-fff2-482f-88c9-588d485e23be",
+          "parent_table": "block",
+          "alive": true,
+          "page_sort": [
+            "f3d44d4c-975d-4b11-8396-c68b35bfdb26",
+            "70df362d-5c3a-4d2c-a3da-ef27e1f207e3",
+            "f3236b1d-73c7-45d5-920e-f7cac8c19573",
+            "4117e62e-18ec-4503-a32a-6c31806a5e2a",
+            "6b9736df-63cb-4e7c-ba8e-d6e54f26d6c9",
+            "c2f261a2-c616-4198-b1a9-2caf6be162a0",
+            "a082287f-d4c9-4cfb-b3b2-72b8bbf043c6",
+            "4801bc76-a763-46a8-981d-79dc38c5d85a",
+            "e3df5b79-eb34-4bec-a82f-628699f43852",
+            "6a8fc2f0-fad9-432b-be6d-6859189e3205",
+            "c2994f3d-696a-4015-b7d1-2b71883562ad",
+            "58fc3d75-92a2-44e9-ab0d-84cb61086232",
+            "30ac6075-b07c-41fa-b684-15c16f1134ba",
+            "4c804cac-3119-4cc3-a621-a82040d9a0db",
+            "6ce6c0ba-0d6f-40b3-b7d4-afe8ca715c73",
+            "64158711-b8f3-4c3d-ba2f-3999059c5581",
+            "0c679f04-0865-4142-a65b-28668aa9daea",
+            "54fa8c94-ead7-4b14-b068-174936adb37f",
+            "ab2e2675-7daf-464f-a2c4-563136630232",
+            "ef52bf7e-8726-4804-a0d5-e9b5f7919284",
+            "460f888e-b262-4f14-a39f-93ae0090bb9d",
+            "eff2e07b-ee44-45e0-b46a-622deb611d0b",
+            "c94f3f08-d65f-4f7d-a409-72c353f9786d",
+            "daac7673-f388-475e-8f43-a345dc350bef",
+            "6ff46924-9cc3-4445-badc-28e7daa5fa5a",
+            "c114dc9f-b09a-4e30-9c0d-5ace92e6a8e3",
+            "51b78f8b-69ff-4a46-9ec6-74f0d5400d3e",
+            "06adcb1d-3acf-4266-a8d9-6cb0d3c439ce",
+            "e044646f-7d2f-4765-b7fb-51aebca21019",
+            "1db23f4a-8d7e-4445-b241-a8e4be5bd02a",
+            "dae737f3-5216-4c50-b708-2bf7c2662020",
+            "a13c9d7e-5e2f-44c3-bd8c-17fd50ca4892",
+            "7864e0d8-d646-4df5-a4ae-057371b7559d",
+            "7a8e9c32-39af-4bca-a26e-3f8f1c9a1762",
+            "0f58fdf7-da3e-4793-93f8-b2503443020d",
+            "ca43f24a-f6c2-4611-a92a-8051ec80fb0f",
+            "36b681a4-e13e-4a78-a2d6-f56b2e3657a1",
+            "8cfc0d5a-59ba-4ea0-9609-4720753d5fba",
+            "88891af2-1639-4eff-a2c9-f3ba6668b2ea",
+            "92db0a94-6e1e-44a6-8df5-882e60ff5b3f",
+            "0d958b63-df7a-44a4-b80c-5408c78f59e4",
+            "d6f281d6-851a-4583-829e-4be2d2803ed5",
+            "ae0b3ee0-531c-4f81-8d4b-cc6dd040fea1",
+            "bf9953ee-2589-4969-948c-0d31106a9deb",
+            "fdb7d90f-a355-4e7d-8f9a-3d07a58a457e",
+            "561e9779-b56c-4310-8913-d54675e02c74",
+            "6951e99b-10cc-4833-a27f-f0e08f8941d0",
+            "76a4bb7d-be00-45f3-bbcd-cba28c38588b",
+            "18c92268-31e5-4509-8644-9c6ad9e44c10",
+            "6463af62-efa9-47dc-91ce-99df728f66e0",
+            "15cefd71-4331-8029-829f-f6fb838ad09e",
+            "169efd71-4331-8041-aa9b-c3db8e306293",
+            "150efd71-4331-80aa-93a6-d809907c7e7a",
+            "3dd847a0-7f2a-4763-bfd2-f793bde28933",
+            "54fc7ca6-b7dc-4549-b4ff-30c0522e3e72",
+            "19a15b02-565a-4afd-a69d-057e7874855c",
+            "231bcedc-8bd6-4411-825e-a7643c8681a9",
+            "e3e67ca6-5cf7-4041-b26c-a4080c74d8ea",
+            "e40d9ca4-2bf7-423b-97b7-8463a5720460",
+            "cb9cc71c-9412-41d8-8c76-4a27ccc087b2",
+            "6aabc38a-a4b1-4251-a99d-3e28f22be3ff",
+            "116e1f21-4e9e-4f72-a355-5ccb35e76d1d",
+            "1209f61e-5fd3-43b4-a119-6775a58554dd",
+            "116efd71-4331-808a-9e7d-de8664f509ec",
+            "116efd71-4331-808c-914d-d5da0d367977",
+            "116efd71-4331-806f-86cd-d39c25b7f433",
+            "102efd71-4331-8058-9a28-f8ba29eddfb8",
+            "039183ec-3471-4058-a2ca-3d5bc615948c",
+            "21eefd71-4331-80d1-8b32-d42861feef13",
+            "2e69859c-3872-4a34-b4c4-a383d3a3d7ba",
+            "14aefd71-4331-80ff-a2b1-dbcebeee4bfb"
+          ],
+          "query2": {
+            "sort": [
+              { "property": "=bhc", "direction": "descending" },
+              { "property": "a<ql", "direction": "descending" }
+            ]
+          },
+          "space_id": "05ceb7f1-a067-47cd-a178-fd57fc3da5c1",
+          "created_time": 1751008602522,
+          "last_edited_time": 1751008621745,
+          "created_by_table": "notion_user",
+          "created_by_id": "da486ff3-bb41-4ceb-a9f4-7326629c2158"
+        },
+        "role": "reader"
+      }
+    }
+  },
+  "notion_user": {},
+  "collection_query": {},
+  "signed_urls": {
+    "attachment:708aef65-0243-416c-9fa5-3e4b8d3082d5:SocialMediaPreviewImage.png": "https://file.notion.com/f/f/05ceb7f1-a067-47cd-a178-fd57fc3da5c1/708aef65-0243-416c-9fa5-3e4b8d3082d5/SocialMediaPreviewImage.png?table=block&id=21eefd71-4331-80d1-8b32-d42861feef13&spaceId=05ceb7f1-a067-47cd-a178-fd57fc3da5c1&expirationTimestamp=1793030400000&signature=AUFfwKdcXAHxkWeUQ4yIsBe4soReXA_K2WEOyN_AZ1w",
+    "attachment:723a6173-863b-4d86-bce2-0ef4663a4a38:image.jpeg": "https://file.notion.com/f/f/05ceb7f1-a067-47cd-a178-fd57fc3da5c1/723a6173-863b-4d86-bce2-0ef4663a4a38/image.jpeg?table=block&id=e5f91fac-c6ed-44d9-9810-451958362259&spaceId=05ceb7f1-a067-47cd-a178-fd57fc3da5c1&expirationTimestamp=1793030400000&signature=3SDpdP70hfV2Sc7fsu0uPw6JlZjrUEeo2Z0jktrARc8",
+    "e5f91fac-c6ed-44d9-9810-451958362259": "https://file.notion.com/f/f/05ceb7f1-a067-47cd-a178-fd57fc3da5c1/723a6173-863b-4d86-bce2-0ef4663a4a38/image.jpeg?table=block&id=e5f91fac-c6ed-44d9-9810-451958362259&spaceId=05ceb7f1-a067-47cd-a178-fd57fc3da5c1&expirationTimestamp=1793030400000&signature=3SDpdP70hfV2Sc7fsu0uPw6JlZjrUEeo2Z0jktrARc8",
+    "attachment:71f92548-327e-4938-8394-5fcd9b716a81:Mas0n.png": "https://file.notion.com/f/f/05ceb7f1-a067-47cd-a178-fd57fc3da5c1/71f92548-327e-4938-8394-5fcd9b716a81/Mas0n.png?table=block&id=e5f91fac-c6ed-44d9-9810-451958362259&spaceId=05ceb7f1-a067-47cd-a178-fd57fc3da5c1&expirationTimestamp=1793030400000&signature=nWTXO3qWc2mCQ_y2aumENjDBh6o1BEnmq-whojlETgg",
+    "attachment:201b7be2-2bac-4b8e-8380-a651e6b410e0:SocialMediaPreviewImage.png": "https://file.notion.com/f/f/05ceb7f1-a067-47cd-a178-fd57fc3da5c1/201b7be2-2bac-4b8e-8380-a651e6b410e0/SocialMediaPreviewImage.png?table=block&id=e5f91fac-c6ed-44d9-9810-451958362259&spaceId=05ceb7f1-a067-47cd-a178-fd57fc3da5c1&expirationTimestamp=1793030400000&signature=LZGK24qvAQUXeaByh7N9BgxO1qm6yvKWbKE9AiC6ass"
+  }
+}

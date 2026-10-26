@@ -48,3 +48,6 @@ package-lock.json
 yarn.lock
 
 .turbo/
+# visual regression output
+apps/web/e2e/.results/
+apps/web/e2e/.report/
