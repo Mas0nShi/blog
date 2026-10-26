@@ -1,9 +1,9 @@
 import type * as types from 'notion-types'
+import { getBlockValue, notionImageProxyOrigin } from 'notion-utils'
 import React from 'react'
 
 import { useNotionContext } from '../context'
 import { cs } from '../utils'
-import { getBlockValue } from 'notion-utils'
 import { Text } from './text'
 
 interface AutomationValue {
@@ -20,7 +20,7 @@ interface AutomationValue {
 
 interface AutomationActionValue {
   id: string
-  type: 'open_page' | 'send_webhook' | 'http_request' | string
+  type: string
   config?: {
     target?: {
       type?: 'url' | 'page'
@@ -207,7 +207,7 @@ export function Button({
                         type: 'external',
                         external: {
                           url: pageBlock.format.page_cover.startsWith('/')
-                            ? `https://www.notion.so${pageBlock.format.page_cover}`
+                            ? `${notionImageProxyOrigin}${pageBlock.format.page_cover}`
                             : pageBlock.format.page_cover
                         }
                       }
@@ -281,7 +281,7 @@ export function Button({
                 body: JSON.stringify({ url: webhookUrl, payload, headers })
               })
 
-              const result = await response.json()
+              const result: any = await response.json()
 
               if (!response.ok || !result.success) {
                 console.error('Webhook request failed:', result)

@@ -1,11 +1,16 @@
 import { type ExtendedRecordMap } from 'notion-types'
-import { defaultMapImageUrl, defaultMapPageUrl } from 'notion-utils'
+import {
+  defaultMapImageUrl,
+  defaultMapPageUrl,
+  isPublicNotionBlock,
+  resolveDefaultImageUrl
+} from 'notion-utils'
 import React from 'react'
 
 import { AssetWrapper } from './components/asset-wrapper'
 import { Checkbox as DefaultCheckbox } from './components/checkbox'
 import { Header } from './components/header'
-import { wrapNextImage, wrapNextLegacyImage, wrapNextLink } from './next'
+import { wrapNextImage, wrapNextLink } from './next'
 import {
   type MapImageUrlFn,
   type MapPageUrlFn,
@@ -31,10 +36,12 @@ export interface NotionContext {
   previewImages: boolean
   forceCustomImages: boolean
   showCollectionViewDropdown: boolean
-  showTableOfContents: boolean
-  minTableOfContentsItems: number
   linkTableTitleProperties: boolean
   isLinkCollectionToUrlProperty: boolean
+
+  showTableOfContents: boolean
+  minTableOfContentsItems: number
+  tableOfContentsTitle?: string | null
 
   defaultPageIcon?: string | null
   defaultPageCover?: string | null
@@ -66,6 +73,7 @@ export interface PartialNotionContext {
 
   showTableOfContents?: boolean
   minTableOfContentsItems?: number
+  tableOfContentsTitle?: string | null
 
   defaultPageIcon?: string | null
   defaultPageCover?: string | null
@@ -182,6 +190,12 @@ const defaultNotionContext: NotionContext = {
 }
 
 const ctx = React.createContext<NotionContext>(defaultNotionContext)
+const defaultImageMapperMarker = Symbol('defaultImageMapper')
+
+const isDefaultImageMapper = (mapper?: MapImageUrlFn): boolean =>
+  mapper === undefined ||
+  mapper === defaultMapImageUrl ||
+  Boolean((mapper as any)?.[defaultImageMapperMarker])
 
 export function NotionContextProvider({
   components: themeComponents = {},
@@ -189,6 +203,7 @@ export function NotionContextProvider({
   mapPageUrl,
   mapImageUrl,
   rootPageId,
+  recordMap = defaultNotionContext.recordMap,
   ...rest
 }: PartialNotionContext & {
   children?: React.ReactNode
@@ -206,20 +221,8 @@ export function NotionContextProvider({
     [themeComponents]
   )
 
-  if (
-    wrappedThemeComponents.nextImage &&
-    wrappedThemeComponents.nextLegacyImage
-  ) {
-    console.warn(
-      'You should not pass both nextImage and nextLegacyImage. Only nextImage component will be used.'
-    )
+  if (wrappedThemeComponents.nextImage) {
     wrappedThemeComponents.Image = wrapNextImage(themeComponents.nextImage)
-  } else if (wrappedThemeComponents.nextImage) {
-    wrappedThemeComponents.Image = wrapNextImage(themeComponents.nextImage)
-  } else if (wrappedThemeComponents.nextLegacyImage) {
-    wrappedThemeComponents.Image = wrapNextLegacyImage(
-      themeComponents.nextLegacyImage
-    )
   }
 
   if (wrappedThemeComponents.nextLink) {
@@ -234,16 +237,45 @@ export function NotionContextProvider({
     }
   }
 
+  const resolvedMapImageUrl = React.useMemo<MapImageUrlFn>(() => {
+    const resolveImageUrl: MapImageUrlFn = (url, block) =>
+      resolveDefaultImageUrl(url, block, {
+        // Public blocks use stable sources because cached signatures expire.
+        // Private blocks retain usable signatures because the anonymous image
+        // proxy may not have permission to resolve their assets.
+        isPublic: isPublicNotionBlock(recordMap, block.id, rootPageId),
+        signedUrls: recordMap.signed_urls
+      })
+
+    if (isDefaultImageMapper(mapImageUrl)) {
+      Object.defineProperty(resolveImageUrl, defaultImageMapperMarker, {
+        value: true
+      })
+      return resolveImageUrl
+    }
+
+    const mapper = mapImageUrl!
+    return (url, block) => mapper(resolveImageUrl(url, block), block)
+  }, [mapImageUrl, recordMap, rootPageId])
+
   const value = React.useMemo(
     () => ({
       ...defaultNotionContext,
       ...rest,
+      recordMap,
       rootPageId,
       mapPageUrl: mapPageUrl ?? defaultMapPageUrl(rootPageId),
-      mapImageUrl: mapImageUrl ?? defaultMapImageUrl,
+      mapImageUrl: resolvedMapImageUrl,
       components: { ...defaultComponents, ...wrappedThemeComponents }
     }),
-    [mapImageUrl, mapPageUrl, wrappedThemeComponents, rootPageId, rest]
+    [
+      mapPageUrl,
+      recordMap,
+      resolvedMapImageUrl,
+      wrappedThemeComponents,
+      rootPageId,
+      rest
+    ]
   )
 
   return <ctx.Provider value={value}>{children}</ctx.Provider>

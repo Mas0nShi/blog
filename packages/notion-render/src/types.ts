@@ -1,9 +1,8 @@
 import type * as types from 'notion-types'
-import type React from 'react'
 
 export type MapPageUrlFn = (
   pageId: string,
-  recordMap?: types.ExtendedRecordMap | undefined
+  recordMap?: types.ExtendedRecordMap
 ) => string
 export type MapImageUrlFn = (
   url: string | undefined,
@@ -67,7 +66,6 @@ export interface NotionComponents {
 
   // optional next.js-specific overrides
   nextImage?: any
-  nextLegacyImage?: any
   nextLink?: any
 }
 

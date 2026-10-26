@@ -1,11 +1,9 @@
-// import { promises as fs } from 'fs'
-//import ky, { type Options as OfetchOptions } from 'ky'
-
 import type * as notion from 'notion-types'
 import {
   getBlockCollectionId,
   getBlockValue,
   getPageContentBlockIds,
+  getStableNotionFileSource,
   parsePageId,
   uuidToId
 } from 'notion-utils'
@@ -19,6 +17,36 @@ import {
   getRetryDelay
 } from './retry'
 
+const getNotionFileUrls = (
+  value: unknown,
+  urls = new Set<string>()
+): Set<string> => {
+  if (typeof value === 'string') {
+    const notionFileUrl = getStableNotionFileSource(value)
+    if (notionFileUrl) {
+      urls.add(notionFileUrl)
+    }
+
+    return urls
+  }
+
+  if (Array.isArray(value)) {
+    for (const item of value) {
+      getNotionFileUrls(item, urls)
+    }
+
+    return urls
+  }
+
+  if (value && typeof value === 'object') {
+    for (const item of Object.values(value)) {
+      getNotionFileUrls(item, urls)
+    }
+  }
+
+  return urls
+}
+
 /**
  * Main Notion API client.
  */
@@ -29,8 +57,17 @@ export class NotionAPI {
   private readonly _userTimeZone: string
   private readonly _ofetchOptions?: OfetchOptions
 
+  /**
+   * Constructor for the NotionAPI class.
+   * @param options - Configuration options.
+   * @param options.apiBaseUrl - The base URL of the Notion API. Defaults to `https://app.notion.com/api/v3`.
+   * @param options.authToken - The authentication token for the Notion API. Defaults to undefined.
+   * @param options.activeUser - The active user for the Notion API. Defaults to undefined.
+   * @param options.userTimeZone - The time zone for the Notion API. Defaults to `America/New_York`.
+   * @param options.ofetchOptions - The HTTP options to use for the underlying `ofetch` requests. Defaults to undefined.
+   */
   constructor({
-    apiBaseUrl = 'https://www.notion.so/api/v3',
+    apiBaseUrl = 'https://app.notion.com/api/v3',
     authToken,
     activeUser,
     userTimeZone = 'America/New_York',
@@ -50,12 +87,31 @@ export class NotionAPI {
     this._ofetchOptions = ofetchOptions
   }
 
+  /**
+   * Fetch a Notion page's content, including all async blocks, collection queries, and signed urls.
+   *
+   * @param pageId - The ID of the Notion page to fetch. May be a page ID, UUID, or URL.
+   * @param options - Optional configuration options.
+   * @param options.concurrency - The max number of concurrent Notion API requests to make. Defaults to `3`.
+   * @param options.fetchMissingBlocks - Whether to fetch additional missing blocks. Defaults to `true`.
+   * @param options.fetchCollections - Whether to fetch collections and their associated views. Defaults to `true`.
+   * @param options.signFileUrls - Whether to sign file URLs. Defaults to `true`.
+   * @param options.chunkLimit - The number of chunks to fetch. Defaults to `100`.
+   * @param options.chunkNumber - The number of the first chunk to fetch. Defaults to `0`.
+   * @param options.throwOnCollectionErrors - Whether to throw on collection errors. Defaults to `false`.
+   * @param options.collectionReducerLimit - The max number of collection reducers to fetch. Defaults to `999`.
+   * @param options.fetchRelationPages - Whether to fetch relation pages. Defaults to `false`.
+   * @param options.ofetchOptions - The HTTP options to use for the underlying `ofetch` requests. Defaults to `undefined`.
+   *
+   * @returns The content of the Notion page as an `ExtendedRecordMap`.
+   */
   public async getPage(
     pageId: string,
     {
       concurrency = 3,
       fetchMissingBlocks = true,
       fetchCollections = true,
+      fetchCustomEmojis = false,
       signFileUrls = true,
       chunkLimit = 100,
       chunkNumber = 0,
@@ -67,6 +123,7 @@ export class NotionAPI {
       concurrency?: number
       fetchMissingBlocks?: boolean
       fetchCollections?: boolean
+      fetchCustomEmojis?: boolean
       signFileUrls?: boolean
       chunkLimit?: number
       chunkNumber?: number
@@ -228,22 +285,43 @@ export class NotionAPI {
       )
     }
 
-    // Optionally fetch signed URLs for any embedded files.
-    // NOTE: Similar to collection data, we default to eagerly fetching signed URL info
-    // because it is preferable for many use cases as opposed to making these API calls
-    // lazily from the client-side.
-    if (signFileUrls) {
-      await this.addSignedUrls({ recordMap, contentBlockIds, ofetchOptions })
-    }
-
     if (fetchRelationPages) {
       const newBlocks = await this.fetchRelationPages(recordMap, ofetchOptions)
       recordMap.block = { ...recordMap.block, ...newBlocks }
     }
 
+    // Optionally fetch signed URLs for any embedded files.
+    // NOTE: Similar to collection data, we default to eagerly fetching signed URL info
+    // because it is preferable for many use cases as opposed to making these API calls
+    // lazily from the client-side.
+    if (signFileUrls) {
+      await this.addSignedUrls({ recordMap, ofetchOptions })
+    }
+
+    if (fetchCustomEmojis) {
+      const emojiMap: Record<string, string> = {}
+      const CustomEmojis = await this.getCustomEmojis({ ofetchOptions })
+
+      for (const emoji of CustomEmojis.results ?? []) {
+        if (emoji?.id && emoji?.url) {
+          emojiMap[emoji.id] = emoji.url
+        }
+      }
+
+      recordMap.custom_emojis = emojiMap
+    }
+
     return recordMap
   }
 
+  /**
+   * Fetches relation pages from the Notion API.
+   *
+   * @param recordMap - The record map to fetch relation pages from.
+   * @param ofetchOptions - The HTTP options to use for the underlying `ofetch` requests.
+   *
+   * @returns The relation pages as a `BlockMap`.
+   */
   fetchRelationPages = async (
     recordMap: notion.ExtendedRecordMap,
     ofetchOptions: OfetchOptions | undefined
@@ -315,11 +393,13 @@ export class NotionAPI {
               decoration.length > 1 &&
               decoration[0] === '‣'
             ) {
-              const pagePointer = decoration[1]?.[0]
+              const pagePointer = (decoration as string[][][])[1]?.[0]
               if (
+                pagePointer &&
                 Array.isArray(pagePointer) &&
                 pagePointer.length > 1 &&
-                pagePointer[0] === 'p'
+                pagePointer[0] === 'p' &&
+                pagePointer[1]
               ) {
                 pageIds.add(pagePointer[1])
               }
@@ -343,47 +423,36 @@ export class NotionAPI {
     recordMap.signed_urls = {}
 
     if (!contentBlockIds) {
-      contentBlockIds = getPageContentBlockIds(recordMap)
+      // Include collection rows and other fetched blocks which aren't descendants
+      // of the root page but may still be rendered from this record map.
+      contentBlockIds = Object.keys(recordMap.block)
     }
 
     const allFileInstances = contentBlockIds.flatMap((blockId) => {
       const block = getBlockValue(recordMap.block[blockId])
 
-      if (
-        block &&
-        (block.type === 'pdf' ||
-          block.type === 'audio' ||
-          (block.type === 'image' && block.file_ids?.length) ||
-          block.type === 'video' ||
-          block.type === 'file' ||
-          block.type === 'page')
-      ) {
-        const source =
-          block.type === 'page'
-            ? block.format?.page_cover
-            : block.properties?.source?.[0]?.[0]
-        // console.log(block, source)
-
-        if (source) {
-          if (
-            source.includes('secure.notion-static.com') ||
-            source.includes('prod-files-secure') ||
-            source.includes('attachment:')
-          ) {
-            return {
-              permissionRecord: {
-                table: 'block',
-                id: block.id
-              },
-              url: source
-            }
-          }
-
-          return []
-        }
+      if (!block) {
+        return []
       }
 
-      return []
+      const primaryUrl =
+        block.type === 'page'
+          ? block.format?.page_cover
+          : block.properties?.source?.[0]?.[0]
+      const primaryNotionFileUrl = primaryUrl
+        ? getStableNotionFileSource(primaryUrl)
+        : undefined
+
+      return Array.from(
+        getNotionFileUrls([primaryUrl, block.format, block.properties])
+      ).map((url) => ({
+        permissionRecord: {
+          table: 'block',
+          id: block.id
+        },
+        url,
+        isPrimary: url === primaryNotionFileUrl
+      }))
     })
 
     if (allFileInstances.length > 0) {
@@ -393,19 +462,19 @@ export class NotionAPI {
           ofetchOptions
         )
 
-        if (signedUrls.length === allFileInstances.length) {
-          for (const [i, file] of allFileInstances.entries()) {
-            const signedUrl = signedUrls[i]
-            if (!signedUrl) continue
+        for (const [i, file] of allFileInstances.entries()) {
+          const signedUrl = signedUrls[i]
+          if (!signedUrl) continue
 
+          recordMap.signed_urls[file.url] = signedUrl
+
+          if (file.isPrimary) {
             const blockId = file.permissionRecord.id
-            if (!blockId) continue
-
             recordMap.signed_urls[blockId] = signedUrl
           }
         }
       } catch (err) {
-        console.warn('NotionAPI getSignedfileUrls error', err)
+        console.warn('NotionAPI getSignedFileUrls error', err)
       }
     }
   }
@@ -673,6 +742,33 @@ export class NotionAPI {
     })
   }
 
+  public async getCustomEmojis({
+    apiBaseUrl = 'https://api.notion.com/v1',
+    notionVersion = '2026-03-11',
+    ofetchOptions
+  }: {
+    apiBaseUrl?: string
+    notionVersion?: string
+    ofetchOptions?: OfetchOptions
+  } = {}): Promise<types.ListCustomEmojisResponse> {
+    if (!this._authToken) {
+      throw new Error(
+        'NotionAPI.getCustomEmojis requires authToken (or process.env.NOTION_TOKEN)'
+      )
+    }
+
+    return this.fetch<types.ListCustomEmojisResponse>({
+      apiBaseUrl: apiBaseUrl.replace(/\/+$/, ''), // remove trailing slash if present
+      headers: {
+        Authorization: `Bearer ${this._authToken}`,
+        'Notion-Version': notionVersion
+      },
+      endpoint: 'custom_emojis',
+      method: 'GET',
+      ofetchOptions
+    })
+  }
+
   public async getBlocks(blockIds: string[], ofetchOptions?: OfetchOptions) {
     return this.fetch<notion.PageChunk>({
       endpoint: 'syncRecordValuesMain',
@@ -739,21 +835,25 @@ export class NotionAPI {
   public async fetch<T>({
     endpoint,
     body,
+    method = 'POST',
+    apiBaseUrl = this._apiBaseUrl,
     ofetchOptions,
     headers: clientHeaders
   }: {
     endpoint: string
-    body: object
+    body?: object
+    method?: 'GET' | 'POST'
+    apiBaseUrl?: string
     ofetchOptions?: OfetchOptions
     headers?: any
   }): Promise<T> {
     const headers: any = {
-      // Cloudflare in front of notion.so rejects api/v3 requests without a
-      // User-Agent (403). Ported from NotionX/react-notion-x#712.
       'User-Agent':
         'notion-client (+https://github.com/NotionX/react-notion-x)',
       ...clientHeaders,
+      // oxlint-disable-next-line typescript/no-misused-spread
       ...this._ofetchOptions?.headers,
+      // oxlint-disable-next-line typescript/no-misused-spread
       ...ofetchOptions?.headers,
       'Content-Type': 'application/json'
     }
@@ -766,7 +866,7 @@ export class NotionAPI {
       headers['x-notion-active-user-header'] = this._activeUser
     }
 
-    const url = `${this._apiBaseUrl}/${endpoint}`
+    const url = `${apiBaseUrl}/${endpoint}`
 
     /*     const res = await ky.post(url, {
       mode: 'no-cors',
@@ -793,7 +893,7 @@ export class NotionAPI {
     const maxRetries = typeof retry === 'number' ? retry : defaultMaxRetries
 
     const res = ofetch(url, {
-      method: 'POST',
+      method,
       mode: 'no-cors',
       retryStatusCodes: defaultRetryStatusCodes,
       retryDelay: (context) => getRetryDelay(context, maxRetries),

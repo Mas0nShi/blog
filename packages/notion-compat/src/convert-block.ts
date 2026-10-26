@@ -33,7 +33,7 @@ export function convertBlock({
 
   compatBlock.properties = {}
   compatBlock.format = {}
-  compatBlock.type = block.type
+  compatBlock.type = block.type as any // TODO
   compatBlock.created_time = convertTime(block.created_time)
   compatBlock.last_edited_time = convertTime(block.last_edited_time)
   if (block.created_by) {
@@ -132,6 +132,10 @@ export function convertBlock({
       compatBlock.type = 'sub_sub_header'
       break
 
+    case 'heading_4' as any:
+      compatBlock.type = 'header_4'
+      break
+
     case 'bulleted_list_item':
       compatBlock.type = 'bulleted_list'
       break
@@ -227,7 +231,8 @@ export function convertBlock({
         if (page) {
           if (page.properties.title) {
             compatBlock.properties.title = convertRichText(
-              (page.properties.title as any).rich_text
+              (page.properties.title as any).rich_text ||
+                (page.properties.title as any).title
             )
           }
 
@@ -343,9 +348,10 @@ export function convertBlock({
       break
 
     case 'table_row':
-      compatBlock.properties = {
-        ...block.table_row?.cells?.map((cell) => convertRichText(cell))
-      }
+      // TODO
+      // compatBlock.properties = {
+      //   ...block.table_row?.cells?.map((cell) => convertRichText(cell))
+      // }
       break
 
     case 'pdf':

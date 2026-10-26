@@ -4,10 +4,6 @@
   "private": true,
   "packageManager": "pnpm@10.18.2",
   "type": "module",
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
   "description": "",
   "author": "Mas0n",
   "repository": "",
@@ -18,34 +14,45 @@
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
-    "test:lint": "turbo run test:lint"
+    "test": "turbo run test",
+    "test:format": "oxfmt --check",
+    "test:lint": "oxlint",
+    "test:typecheck": "turbo run test:typecheck",
+    "test:unit": "turbo run test:unit",
+    "fix": "run-s fix:*",
+    "fix:format": "oxfmt",
+    "fix:lint": "oxlint --fix",
+    "prepare": "simple-git-hooks"
   },
   "devDependencies": {
     "@fisch0920/config": "catalog:",
     "@total-typescript/ts-reset": "catalog:",
     "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
     "bumpp": "catalog:",
     "del-cli": "catalog:",
-    "eslint": "catalog:",
+    "lint-staged": "catalog:",
     "npm-run-all2": "catalog:",
-    "prettier": "catalog:",
+    "oxfmt": "catalog:",
+    "oxlint": "catalog:",
+    "oxlint-tsgolint": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
     "simple-git-hooks": "catalog:",
-    "tsup": "catalog:",
+    "tsdown": "catalog:",
     "tsx": "catalog:",
     "turbo": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"
   },
-  "prettier": "@fisch0920/config/prettier",
   "simple-git-hooks": {
-    "pre-commit": "bunx lint-staged"
+    "pre-commit": "npx lint-staged"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
-      "prettier --ignore-unknown --write",
-      "eslint --fix"
+      "oxfmt --no-error-on-unmatched-pattern",
+      "oxlint --fix"
     ]
   }
 }

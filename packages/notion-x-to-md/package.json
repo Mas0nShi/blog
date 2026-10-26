@@ -1,0 +1,70 @@
+{
+  "name": "notion-x-to-md",
+  "version": "8.0.8",
+  "description": "Converts a Notion page to Markdown. Very useful for LLMs.",
+  "keywords": [
+    "ai",
+    "chat",
+    "chatbot",
+    "chatgpt",
+    "gfm",
+    "gpt",
+    "llm",
+    "markdown",
+    "md",
+    "notion",
+    "openai"
+  ],
+  "license": "MIT",
+  "author": "Travis Fischer <travis@transitivebullsh.it>",
+  "repository": "NotionX/react-notion-x",
+  "bin": {
+    "notion-x-to-md": "./src/cli.ts"
+  },
+  "source": "./src/index.ts",
+  "files": [
+    "build"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "publishConfig": {
+    "bin": {
+      "notion-x-to-md": "./build/cli.mjs"
+    },
+    "types": "./build/index.d.mts",
+    "exports": {
+      ".": {
+        "types": "./build/index.d.mts",
+        "import": "./build/index.mjs",
+        "default": "./build/index.mjs"
+      }
+    },
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "watch": "tsdown --watch --silent --onSuccess 'echo build successful'",
+    "clean": "del build",
+    "test": "run-s test:*",
+    "test:typecheck": "tsc --noEmit",
+    "test:unit": "vitest run"
+  },
+  "dependencies": {
+    "commander": "catalog:",
+    "date-fns": "catalog:",
+    "format-number": "catalog:",
+    "notion-client": "workspace:*",
+    "notion-types": "workspace:*",
+    "notion-utils": "workspace:*",
+    "p-map": "catalog:",
+    "tweet-to-md": "catalog:"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

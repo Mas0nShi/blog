@@ -27,9 +27,9 @@ export function Collection({
   ctx
 }: {
   block:
-  | types.CollectionViewBlock
-  | types.CollectionViewPageBlock
-  | types.PageBlock
+    | types.CollectionViewBlock
+    | types.CollectionViewPageBlock
+    | types.PageBlock
   className?: string
   ctx: NotionContext
 }) {
@@ -187,6 +187,7 @@ function CollectionViewBlock({
     (block.format as any)?.hide_inline_collection_name !== true &&
     collectionView.format?.hide_linked_collection_name !== true &&
     title
+
   if (collection.icon) {
     block.format = {
       ...block.format,
@@ -206,6 +207,7 @@ function CollectionViewBlock({
             />
           )}
         </div>
+
         {showTitle && (
           <div className='notion-collection-header'>
             <div className='notion-collection-header-title'>
@@ -214,11 +216,13 @@ function CollectionViewBlock({
                 className='notion-page-title-icon'
                 hideDefaultIcon
               />
+
               {title}
             </div>
           </div>
         )}
       </div>
+
       <div className={cs('notion-collection', className)}>
         <CollectionView
           collection={collection}
@@ -239,7 +243,7 @@ function CollectionViewTabs({
 }: {
   collectionViewId: string
   viewIds: string[]
-  onChangeView: (viewId: string) => unknown
+  onChangeView: (viewId: string) => void
 }) {
   const { recordMap } = useNotionContext()
 
@@ -252,7 +256,7 @@ function CollectionViewTabs({
           className={cs(
             'notion-collection-view-tabs-content-item',
             collectionViewId === viewId &&
-            'notion-collection-view-tabs-content-item-active'
+              'notion-collection-view-tabs-content-item-active'
           )}
         >
           <CollectionViewColumnDesc

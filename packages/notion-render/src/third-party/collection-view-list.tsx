@@ -1,7 +1,7 @@
 import type * as types from 'notion-types'
-import React from 'react'
 import { type PageBlock } from 'notion-types'
 import { getBlockValue } from 'notion-utils'
+import React from 'react'
 
 import { PageIcon } from '../components/page-icon'
 import { useNotionContext } from '../context'
@@ -56,11 +56,23 @@ function List({
 }) {
   const { components, recordMap, mapPageUrl } = useNotionContext()
 
+  const [isExpanded, setIsExpanded] = React.useState(false)
+
+  const { inline_collection_first_load_limit } = collectionView.format || {}
+  const loadLimit = inline_collection_first_load_limit?.limit
+  const shouldLimit = typeof loadLimit === 'number'
+
+  const showLoadMore =
+    shouldLimit && !isExpanded && (blockIds?.length || 0) > loadLimit
+  const visibleBlockIds = showLoadMore
+    ? blockIds?.slice(0, loadLimit)
+    : blockIds
+
   return (
     <div className='notion-list-collection'>
       <div className='notion-list-view'>
         <div className='notion-list-body'>
-          {blockIds?.map((blockId) => {
+          {visibleBlockIds?.map((blockId) => {
             const block = getBlockValue(recordMap.block[blockId]) as PageBlock
             if (!block) return null
 
@@ -123,6 +135,28 @@ function List({
           })}
         </div>
       </div>
+
+      {showLoadMore && (
+        <div
+          className='notion-collection-load-more'
+          onClick={() => setIsExpanded(true)}
+        >
+          <svg
+            viewBox='0 0 24 24'
+            height='16'
+            width='16'
+            fill='none'
+            stroke='currentColor'
+            strokeWidth='2'
+            strokeLinecap='round'
+            strokeLinejoin='round'
+          >
+            <path d='M12 5v14' />
+            <path d='m19 12-7 7-7-7' />
+          </svg>
+          Load more
+        </div>
+      )}
     </div>
   )
 }

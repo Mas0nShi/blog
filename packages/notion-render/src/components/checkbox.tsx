@@ -1,5 +1,3 @@
-import type React from 'react'
-
 import CheckIcon from '../icons/check'
 import UncheckIcon from '../icons/uncheck'
 
