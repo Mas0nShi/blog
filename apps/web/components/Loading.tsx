@@ -1,9 +1,9 @@
 import { LoadingIcon } from './LoadingIcon'
-import styles from './styles.module.css'
+import { statusPageClassNames } from './page-styles'
 
 export function Loading() {
   return (
-    <div className={styles.container}>
+    <div className={statusPageClassNames.container}>
       <LoadingIcon />
     </div>
   )

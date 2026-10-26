@@ -1,9 +1,10 @@
 import React from 'react'
 
 import type { TocItem } from './hooks'
-import styles from './FloatingTableOfContents.module.css'
+import { panelClassNames } from './styles'
 
 interface TocExpandedPanelProps {
+  isHovered: boolean
   tocItems: TocItem[]
   activeId: string
   minLevel: number
@@ -14,19 +15,20 @@ interface TocExpandedPanelProps {
  * 展开的目录面板
  */
 export function TocExpandedPanel({
+  isHovered,
   tocItems,
   activeId,
   minLevel,
   onItemClick
 }: TocExpandedPanelProps) {
   return (
-    <div className={styles.contentContainer}>
-      <div className={styles.interactiveArea}>
-        <div className={styles.slideContainer}>
-          <div className={styles.dialogContainer}>
-            <div className={styles.animationWrapper}>
-              <div className={styles.contentPanel}>
-                <div className={styles.contentInner}>
+    <div className={panelClassNames.container}>
+      <div className={panelClassNames.interactiveArea}>
+        <div className={panelClassNames.slide}>
+          <div className={panelClassNames.dialog}>
+            <div className={panelClassNames.animation(isHovered)}>
+              <div className={panelClassNames.panel}>
+                <div className={panelClassNames.inner}>
                   {tocItems.map((item) => {
                     const normalizedLevel = item.level - minLevel
                     const isActive = activeId === item.id
@@ -35,15 +37,15 @@ export function TocExpandedPanel({
                     return (
                       <div
                         key={item.id}
-                        className={`${styles.tocItem} ${isActive ? styles.active : ''}`}
+                        className={panelClassNames.item(isActive)}
                         onClick={() => onItemClick(item.id)}
                       >
                         <div
-                          className={styles.tocItemContent}
+                          className={panelClassNames.itemContent}
                           style={{ marginInlineStart: `${indent}px` }}
                         >
-                          <div className={styles.tocItemText}>
-                            <span className={styles.tocItemTextSpan}>
+                          <div className={panelClassNames.itemText}>
+                            <span className={panelClassNames.itemTextSpan}>
                               {item.text}
                             </span>
                           </div>

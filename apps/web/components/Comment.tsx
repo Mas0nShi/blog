@@ -5,8 +5,6 @@ import {
 } from '@waline/client'
 import React, { useEffect, useRef } from 'react'
 
-import styles from './styles.module.css'
-
 export type WalineOptions = Omit<WalineInitOptions, 'el'> & { path: string }
 
 // Only `path` and `dark` are synced after mount; other options are read once on init.
@@ -39,5 +37,5 @@ export function Waline(props: WalineOptions) {
     walineInstanceRef.current?.update({ path, dark })
   }, [path, dark])
 
-  return <div ref={containerRef} className={styles.comments} />
+  return <div ref={containerRef} className='tw:w-full' />
 }

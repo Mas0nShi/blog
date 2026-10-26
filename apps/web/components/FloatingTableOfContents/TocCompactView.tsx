@@ -1,9 +1,10 @@
 import React from 'react'
 
 import type { TocItem } from './hooks'
-import styles from './FloatingTableOfContents.module.css'
+import { compactClassNames } from './styles'
 
 interface TocCompactViewProps {
+  isHovered: boolean
   tocItems: TocItem[]
   activeId: string
   minLevel: number
@@ -14,14 +15,15 @@ interface TocCompactViewProps {
  * 紧凑线条视图
  */
 export function TocCompactView({
+  isHovered,
   tocItems,
   activeId,
   minLevel,
   onItemClick
 }: TocCompactViewProps) {
   return (
-    <div className={styles.placeholderArea}>
-      <div className={styles.compactView}>
+    <div className={compactClassNames.placeholder}>
+      <div className={compactClassNames.view(isHovered)}>
         {tocItems.map((item) => {
           const normalizedLevel = item.level - minLevel
           const isActive = activeId === item.id
@@ -30,7 +32,7 @@ export function TocCompactView({
           return (
             <div
               key={item.id}
-              className={`${styles.compactLine} ${isActive ? styles.active : ''}`}
+              className={compactClassNames.line(isActive)}
               style={{ width: `${lineWidth}px` }}
               onClick={() => onItemClick(item.id)}
             />

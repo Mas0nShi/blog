@@ -57,14 +57,14 @@ export const pageShellClassNames = {
     'tw:relative tw:flex tw:w-full tw:max-w-[1200px] tw:items-center tw:justify-center',
     'tw:h-[30vh] tw:min-h-[30vh] tw:max-h-[30vh]',
     'tw:rounded-[24px] tw:shadow-[2px_2px_8px_4px_rgba(15,15,15,0.1)]',
-    'tw:max-[1200px]:rounded-none'
+    'tw:[@media(max-width:1200px)]:rounded-none'
   ),
   // next/image `fill` sets inline width/height, hence the important sizes
   cover: cs(
     'notion-page-cover',
     'tw:block tw:p-0 tw:object-cover tw:w-full! tw:max-w-[1200px]',
     'tw:h-[30vh]! tw:min-h-[30vh]! tw:max-h-[30vh]!',
-    'tw:rounded-[24px] tw:max-[1200px]:rounded-none',
+    'tw:rounded-[24px] tw:[@media(max-width:1200px)]:rounded-none',
     // as a lazy image: no aspect-ratio padding, and the preview stays behind
     'tw:[&.lazy-image-wrapper]:p-0! tw:[&_:is(.lazy-image-preview,.lazy-image-real)]:will-change-auto!',
     'tw:[&.lazy-image-loaded_.lazy-image-preview]:opacity-100'
@@ -108,7 +108,7 @@ export function pageClassName({
     fullWidth
       ? 'tw:px-[min(96px,8vw)] tw:[--notion-max-width:min(1920px,98vw)]'
       : 'tw:px-[min(16px,8vw)]',
-    'tw:max-[720px]:px-[2vw]',
+    'tw:[@media(max-width:720px)]:px-[2vw]',
     // embedded root elements set their own font size (see embeddedRootClassName)
     fullPage && smallText && 'tw:text-[14px]',
     // pages embedded via oEmbed ("lite" mode) span the full width

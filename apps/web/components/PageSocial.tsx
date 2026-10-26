@@ -3,7 +3,25 @@ import cs from 'classnames'
 
 import * as config from '@/lib/config'
 
-import styles from './PageSocial.module.css'
+// brand color of each link, shown on hover
+const brandClassNames: Record<string, string> = {
+  twitter:
+    'tw:[&:hover]:[border-color:#2795e9] tw:[&_.social-pane]:bg-[#2795e9]',
+  github:
+    'tw:[&:hover]:[border-color:#c9510c] tw:[&_.social-pane]:bg-[#c9510c]',
+  linkedin:
+    'tw:[&:hover]:[border-color:#0077b5] tw:[&_.social-pane]:bg-[#0077b5]',
+  newsletter:
+    'tw:[&:hover]:[border-color:#777777] tw:[&_.social-pane]:bg-[#777777]',
+  youtube:
+    'tw:[&:hover]:[border-color:#ff0000] tw:[&_.social-pane]:bg-[#ff0000]'
+}
+
+const actionBgClassName = cs(
+  'tw:absolute tw:inset-0 tw:flex tw:flex-col tw:items-center tw:justify-center',
+  'tw:[&_svg]:size-1/2 tw:[&_svg]:fill-(--fg-color-6)',
+  'tw:[a:hover_&_svg]:fill-bg tw:[a:hover_&_svg]:[transition:fill_100ms_ease-out] tw:dark:[a:hover_&_svg]:fill-fg!'
+)
 
 interface SocialLink {
   name: string
@@ -71,21 +89,26 @@ const socialLinks: SocialLink[] = [
 
 export function PageSocial() {
   return (
-    <div className={styles.pageSocial}>
+    <div className='tw:flex tw:flex-col tw:items-center tw:text-center tw:text-fg'>
       {socialLinks.map((action) => (
         <a
-          className={cs(styles.action, styles[action.name])}
+          className={cs(
+            'tw:relative tw:mx-0 tw:mt-0 tw:mb-[1em] tw:flex tw:size-[3.5em] tw:cursor-pointer tw:flex-col tw:items-center tw:justify-center tw:rounded-full tw:no-underline! tw:select-none',
+            'tw:last:mb-0 tw:[@media(max-width:768px)]:last:mr-[1em]',
+            'tw:[border:2px_solid_var(--fg-color-6)] tw:[transition:all_300ms_ease-out] tw:[&:hover]:[transition:all_100ms_ease-out]',
+            brandClassNames[action.name]
+          )}
           href={action.href}
           key={action.name}
           title={action.title}
           target='_blank'
           rel='noopener noreferrer'
         >
-          <div className={styles.actionBg}>
-            <div className={styles.actionBgPane} />
+          <div className={actionBgClassName}>
+            <div className='social-pane tw:size-0 tw:rounded-full tw:[transition:all_300ms_ease-out] tw:[a:hover_&]:size-full tw:[a:hover_&]:[transition:all_100ms_ease-out]' />
           </div>
 
-          <div className={styles.actionBg}>{action.icon}</div>
+          <div className={actionBgClassName}>{action.icon}</div>
         </a>
       ))}
     </div>

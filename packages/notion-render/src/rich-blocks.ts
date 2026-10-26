@@ -101,7 +101,7 @@ export const bookmarkClassNames = {
     'notion-bookmark-image',
     'tw:relative tw:flex-[1_1_180px] tw:[&>*]:absolute! tw:[&>*]:size-full',
     'tw:[&_.lazy-image-wrapper]:h-full tw:[&_.lazy-image-wrapper]:p-0!',
-    'tw:max-[640px]:hidden tw:[.notion-column_&]:hidden'
+    'tw:[@media(max-width:640px)]:hidden tw:[.notion-column_&]:hidden'
   )
 }
 
