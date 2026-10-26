@@ -17,8 +17,6 @@
 .notion-brown_background,
 .notion-gray_background {
   padding: 0 0.5rem 0 0.25rem;
-  /* fix highlight will covered others */
-  /*margin: 0 -0.5rem 0 -0.25rem;*/
   border-radius: 0.5rem 0.5rem 0.5rem 0.125rem;
   box-decoration-break: clone;
 
@@ -134,16 +132,4 @@
   border-radius: 0.5rem 0.5rem 0.5rem 0.125rem;
   box-decoration-break: clone;
   background-image: none !important;
-}
-
-.notion-search .searchBar {
-  box-shadow: var(--fg-color-0) 0px 1px 0px;
-}
-
-.notion-search .noResults {
-  color: var(--fg-color-3);
-}
-
-.notion-search .noResultsDetail {
-  color: var(--fg-color-2);
 }

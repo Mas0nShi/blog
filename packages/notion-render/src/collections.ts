@@ -406,7 +406,10 @@ export const listClassNames = {
     'notion-list-view',
     'tw:relative tw:max-w-full tw:pl-0 tw:transition-[padding] tw:duration-200 tw:ease-out'
   ),
-  body: 'notion-list-body',
+  body: cs(
+    'notion-list-body',
+    'tw:flex tw:max-w-full tw:flex-col tw:overflow-hidden tw:pt-[8px] tw:[border-top:1px_solid_var(--fg-color-1)]'
+  ),
   item: cs(
     pageLinkClassName,
     'notion-list-item',
