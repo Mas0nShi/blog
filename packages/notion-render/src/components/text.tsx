@@ -8,6 +8,7 @@ import React from 'react'
 
 import { notionColorClassName } from '../colors'
 import { useNotionContext } from '../context'
+import { customEmojiClassName, userAvatarClassName } from '../media'
 import {
   inlineCodeClassName,
   inlineUnderlineClassName,
@@ -106,7 +107,7 @@ export function Text({
 
                     return (
                       <GracefulImage
-                        className='notion-user'
+                        className={userAvatarClassName}
                         src={src}
                         alt={name}
                       />
@@ -250,7 +251,11 @@ export function Text({
                   .join(' ')
 
                 return (
-                  <GracefulImage className='notion-user' src={src} alt={name} />
+                  <GracefulImage
+                    className={userAvatarClassName}
+                    src={src}
+                    alt={name}
+                  />
                 )
               }
 
@@ -281,7 +286,7 @@ export function Text({
                 }
                 return (
                   <img
-                    className='notion-custom-emoji'
+                    className={customEmojiClassName}
                     src={emojiUrl}
                     alt='custom emoji'
                   />

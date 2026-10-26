@@ -21,6 +21,7 @@ import React from 'react'
 import { Text } from '../components/text'
 import { useNotionContext } from '../context'
 import CopyIcon from '../icons/copy'
+import { assetCaptionClassName } from '../media'
 import { cs } from '../utils'
 
 export function Code({
@@ -164,7 +165,7 @@ export function Code({
         </div>
 
         {caption && (
-          <figcaption className='notion-asset-caption'>
+          <figcaption className={assetCaptionClassName}>
             <Text value={caption} block={block} />
           </figcaption>
         )}

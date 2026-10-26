@@ -2,6 +2,7 @@ import { type BaseContentBlock, type Block } from 'notion-types'
 import { parsePageId } from 'notion-utils'
 
 import { useNotionContext } from '..'
+import { assetCaptionClassName, assetFigureClassName } from '../media'
 import { cs } from '../utils'
 import { Asset } from './asset'
 import { Text } from './text'
@@ -34,15 +35,16 @@ export function AssetWrapper({
   const figure = (
     <figure
       className={cs(
-        'notion-asset-wrapper',
-        `notion-asset-wrapper-${block.type}`,
-        value.format?.block_full_width && 'notion-asset-wrapper-full',
+        assetFigureClassName({
+          type: block.type,
+          fullWidth: !!value.format?.block_full_width
+        }),
         blockId
       )}
     >
       <Asset block={value} zoomable={zoom && !isURL}>
         {value?.properties?.caption && !isURL && (
-          <figcaption className='notion-asset-caption'>
+          <figcaption className={assetCaptionClassName}>
             <Text value={value.properties.caption} block={block} />
           </figcaption>
         )}

@@ -1,6 +1,7 @@
 import { type GoogleDriveBlock } from 'notion-types'
 
 import { useNotionContext } from '../context'
+import { googleDriveClassNames } from '../media'
 import { cs } from '../utils'
 import { GracefulImage } from './graceful-image'
 
@@ -24,14 +25,14 @@ export function GoogleDrive({
   }
 
   return (
-    <div className={cs('notion-google-drive', className)}>
+    <div className={cs(googleDriveClassNames.root, className)}>
       <components.Link
-        className='notion-google-drive-link'
+        className={googleDriveClassNames.link}
         href={properties.url}
         target='_blank'
         rel='noopener noreferrer'
       >
-        <div className='notion-google-drive-preview'>
+        <div className={googleDriveClassNames.preview}>
           <GracefulImage
             src={mapImageUrl(properties.thumbnail, block)!}
             alt={properties.title || 'Google Drive Document'}
@@ -39,9 +40,9 @@ export function GoogleDrive({
           />
         </div>
 
-        <div className='notion-google-drive-body'>
+        <div className={googleDriveClassNames.body}>
           {properties.title && (
-            <div className='notion-google-drive-body-title'>
+            <div className={googleDriveClassNames.title}>
               {properties.title}
             </div>
           )}
@@ -56,10 +57,10 @@ export function GoogleDrive({
           )} */}
 
           {properties.icon && domain && (
-            <div className='notion-google-drive-body-source'>
+            <div className={googleDriveClassNames.source}>
               {properties.icon && (
                 <div
-                  className='notion-google-drive-body-source-icon'
+                  className={googleDriveClassNames.sourceIcon}
                   style={{
                     backgroundImage: `url(${properties.icon})`
                   }}
@@ -67,7 +68,7 @@ export function GoogleDrive({
               )}
 
               {domain && (
-                <div className='notion-google-drive-body-source-domain'>
+                <div className={googleDriveClassNames.sourceDomain}>
                   {domain}
                 </div>
               )}

@@ -1,3 +1,8 @@
+import {
+  youTubeClassNames,
+  youTubePlayButton,
+  youTubeTopShadow
+} from '../media'
 import React from 'react'
 
 import { cs } from '../utils'
@@ -98,6 +103,8 @@ export function LiteYouTubeEmbed({
     setIsIframeLoaded(true)
   }, [])
 
+  const classNames = youTubeClassNames(iframeInitialized)
+
   return (
     <>
       {/*
@@ -136,13 +143,18 @@ export function LiteYouTubeEmbed({
         onClick={onLoadIframe}
         onPointerOver={warmConnections}
         className={cs(
-          'notion-yt-lite',
+          classNames.root,
           isIframeLoaded && 'notion-yt-loaded',
           iframeInitialized && 'notion-yt-initialized',
           className
         )}
         style={style}
       >
+        <div
+          className={classNames.shadow}
+          style={{ backgroundImage: youTubeTopShadow }}
+        />
+
         <picture>
           {/*
             Browsers which don't support srcSet will most likely not support webp too
@@ -159,16 +171,20 @@ export function LiteYouTubeEmbed({
 
           <img
             src={getPosterUrl(id)}
-            className='notion-yt-thumbnail'
+            className={classNames.thumbnail}
             loading={lazyImage ? 'lazy' : undefined}
             alt={alt}
           />
         </picture>
 
-        <div className='notion-yt-playbtn' />
+        <div
+          className={classNames.playButton}
+          style={{ backgroundImage: youTubePlayButton }}
+        />
 
         {iframeInitialized && (
           <iframe
+            className={classNames.iframe}
             width='560'
             height='315'
             frameBorder='0'

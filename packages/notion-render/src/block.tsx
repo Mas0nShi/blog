@@ -31,6 +31,7 @@ import { ToggleBlock } from './components/toggle-block'
 import { useNotionContext } from './context'
 import { LinkIcon } from './icons/link-icon'
 import { calloutColorClassName } from './colors'
+import { tweetClassName } from './media'
 import {
   embeddedRootClassName,
   notionRootClassName,
@@ -552,7 +553,10 @@ export function Block(props: BlockProps) {
       const id = uri.split('/').pop() as string
 
       return (
-        <div data-theme={darkMode ? 'dark' : 'light'} className='notion-tweet'>
+        <div
+          data-theme={darkMode ? 'dark' : 'light'}
+          className={tweetClassName}
+        >
           <Tweet id={id} />
         </div>
       )

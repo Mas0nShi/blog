@@ -2,6 +2,7 @@ import { type AudioBlock } from 'notion-types'
 import { getSignedFileUrl } from 'notion-utils'
 
 import { useNotionContext } from '../context'
+import { audioClassName } from '../media'
 import { cs } from '../utils'
 
 export function Audio({
@@ -24,7 +25,7 @@ export function Audio({
   }
 
   return (
-    <div className={cs('notion-audio', className)}>
+    <div className={cs(audioClassName, className)}>
       <audio controls preload='none' src={source} />
     </div>
   )

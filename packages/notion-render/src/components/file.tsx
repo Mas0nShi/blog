@@ -3,6 +3,7 @@ import { getSignedFileUrl } from 'notion-utils'
 
 import { useNotionContext } from '../context'
 import { FileIcon } from '../icons/file-icon'
+import { fileClassNames } from '../media'
 import { cs } from '../utils'
 import { Text } from './text'
 
@@ -26,22 +27,22 @@ export function File({
   }
 
   return (
-    <div className={cs('notion-file', className)}>
+    <div className={cs(fileClassNames.root, className)}>
       <components.Link
-        className='notion-file-link'
+        className={fileClassNames.link}
         href={source}
         target='_blank'
         rel='noopener noreferrer'
       >
-        <FileIcon className='notion-file-icon' />
+        <FileIcon className={fileClassNames.icon} />
 
-        <div className='notion-file-info'>
-          <div className='notion-file-title'>
+        <div className={fileClassNames.info}>
+          <div className={fileClassNames.title}>
             <Text value={block.properties?.title || [['File']]} block={block} />
           </div>
 
           {block.properties?.size && (
-            <div className='notion-file-size'>
+            <div className={fileClassNames.size}>
               <Text value={block.properties.size} block={block} />
             </div>
           )}
