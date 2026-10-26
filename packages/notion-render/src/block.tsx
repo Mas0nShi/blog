@@ -38,6 +38,7 @@ import {
   pageClassName,
   pageShellClassNames
 } from './page-shell'
+import { bookmarkClassName, bookmarkClassNames } from './rich-blocks'
 import {
   blankBlockClassName,
   calloutClassName,
@@ -720,28 +721,27 @@ export function Block(props: BlockProps) {
             target='_blank'
             rel='noopener noreferrer'
             className={cs(
-              'notion-bookmark',
-              block.format?.block_color && `notion-${block.format.block_color}`,
+              bookmarkClassName(block.format?.block_color),
               blockId
             )}
             href={link[0][0]}
           >
-            <div>
+            <div className={bookmarkClassNames.body}>
               {title && (
-                <div className='notion-bookmark-title'>
+                <div className={bookmarkClassNames.title}>
                   <Text value={[[title]]} block={block} />
                 </div>
               )}
 
               {block.properties?.description && (
-                <div className='notion-bookmark-description'>
+                <div className={bookmarkClassNames.description}>
                   <Text value={block.properties?.description} block={block} />
                 </div>
               )}
 
-              <div className='notion-bookmark-link'>
+              <div className={bookmarkClassNames.link}>
                 {block.format?.bookmark_icon && (
-                  <div className='notion-bookmark-link-icon'>
+                  <div className={bookmarkClassNames.linkIcon}>
                     <LazyImage
                       src={mapImageUrl(block.format?.bookmark_icon, block)}
                       alt={title}
@@ -753,14 +753,14 @@ export function Block(props: BlockProps) {
                   </div>
                 )}
 
-                <div className='notion-bookmark-link-text'>
+                <div className={bookmarkClassNames.linkText}>
                   <Text value={link} block={block} />
                 </div>
               </div>
             </div>
 
             {block.format?.bookmark_cover && (
-              <div className='notion-bookmark-image'>
+              <div className={bookmarkClassNames.image}>
                 <LazyImage
                   src={mapImageUrl(block.format?.bookmark_cover, block)}
                   alt={getTextContent(block.properties?.title)}

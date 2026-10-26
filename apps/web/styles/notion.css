@@ -98,12 +98,6 @@
   padding: 2em;
 }
 
-.notion-code {
-  background: rgba(249, 250, 251, 1);
-  border: 1px solid rgba(229, 231, 235, 1);
-  border-radius: 0.375rem;
-}
-
 .notion-red_background,
 .notion-pink_background,
 .notion-blue_background,
@@ -237,11 +231,6 @@
 
 /* Workaround for Firefox not supporting backdrop-filter yet */
 
-.notion-bookmark:hover {
-  border-image: linear-gradient(90.68deg, #b439df 0.26%, #e5337e 102.37%);
-  border-image-slice: 1;
-}
-
 .notion-search .searchBar {
   box-shadow: var(--fg-color-0) 0px 1px 0px;
 }
@@ -252,11 +241,6 @@
 
 .notion-search .noResultsDetail {
   color: var(--fg-color-2);
-}
-
-.notion-equation.notion-equation-block {
-  overflow: visible; /* todo: not checked, fixes overflow */
-  align-items: center;
 }
 
 .notion-property-created_time {

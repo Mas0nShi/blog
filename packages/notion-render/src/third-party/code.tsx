@@ -22,6 +22,7 @@ import { Text } from '../components/text'
 import { useNotionContext } from '../context'
 import CopyIcon from '../icons/copy'
 import { assetCaptionClassName } from '../media'
+import { codeClassNames } from '../rich-blocks'
 import { cs } from '../utils'
 
 export function Code({
@@ -127,28 +128,30 @@ export function Code({
   }, [content, copyTimeout])
 
   const copyButton = (
-    <div className='notion-code-copy-button' onClick={onClickCopyToClipboard}>
+    <div className={codeClassNames.copyButton} onClick={onClickCopyToClipboard}>
       <CopyIcon />
     </div>
   )
 
   return (
     <>
-      <div style={{ position: 'relative', width: '100%' }}>
-        <div className={cs('notion-code', className)}>
-          <div className='notion-code-copy'>
+      <div className={codeClassNames.wrapper}>
+        <div className={cs(codeClassNames.block, className)}>
+          <div className={codeClassNames.copy}>
             {copyButton}
 
             {isCopied && (
-              <div className='notion-code-copy-tooltip'>
-                <div>{isCopied ? 'Copied' : 'Copy'}</div>
+              <div className={codeClassNames.tooltip}>
+                <div className={codeClassNames.tooltipLabel}>
+                  {isCopied ? 'Copied' : 'Copy'}
+                </div>
               </div>
             )}
           </div>
 
           {language === 'mermaid' ? (
             <div
-              className={`language-${language}`}
+              className={cs(`language-${language}`, codeClassNames.mermaid)}
               ref={mermaidRef}
               {...(mermaidSvg
                 ? { dangerouslySetInnerHTML: { __html: mermaidSvg } }
