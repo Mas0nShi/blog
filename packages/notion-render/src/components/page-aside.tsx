@@ -1,3 +1,7 @@
+import {
+  tableOfContentsItemBodyClassName,
+  tableOfContentsItemClassName
+} from '../layout-blocks'
 import throttle from 'lodash.throttle'
 import { type TableOfContentsEntry, uuidToId } from 'notion-utils'
 import React from 'react'
@@ -101,14 +105,18 @@ export function PageAside({
                   key={id}
                   href={`#${id}`}
                   className={cs(
-                    'notion-table-of-contents-item',
+                    tableOfContentsItemClassName,
                     `notion-table-of-contents-item-indent-level-${tocItem.indentLevel}`,
+                    'tw:leading-none',
                     activeSection === id &&
-                      'notion-table-of-contents-active-item'
+                      'notion-table-of-contents-active-item tw:text-accent!'
                   )}
                 >
                   <span
-                    className='notion-table-of-contents-item-body'
+                    className={cs(
+                      tableOfContentsItemBodyClassName,
+                      'tw:[border:0_none]'
+                    )}
                     style={{
                       display: 'inline-block',
                       marginLeft: tocItem.indentLevel * 16
