@@ -27,7 +27,7 @@ import { getCanonicalPageUrl, mapPageUrl } from '@/lib/map-page-url'
 import { searchNotion } from '@/lib/search-notion'
 import { useDarkMode } from '@/lib/use-dark-mode'
 
-import { Waline } from './Comment'
+import { Waline, type WalineOptions } from './Comment'
 import { FloatingTableOfContents } from './FloatingTableOfContents'
 import { Footer } from './Footer'
 import { Loading } from './Loading'
@@ -147,6 +147,33 @@ function Tweet({ id }: { id: string }) {
     </React.Suspense>
   )
 }
+
+// static waline options; hoisted so they aren't recreated on every render
+const walineOptions = {
+  emoji: [
+    '//cdn.jsdelivr.net/gh/walinejs/emojis@1.4.0/tw-emoji',
+    '//cdn.jsdelivr.net/gh/walinejs/emojis@1.4.0/tieba',
+    '//cdn.jsdelivr.net/gh/walinejs/emojis@1.4.0/qq',
+    '//cdn.jsdelivr.net/gh/walinejs/emojis@1.4.0/weibo'
+  ],
+  meta: ['nick', 'mail'],
+  requiredMeta: ['nick', 'mail'],
+  imageUploader: false,
+  noCopyright: true,
+  reaction: [
+    '//npm.elemecdn.com/@waline/emojis/tieba/tieba_agree.png',
+    '//npm.elemecdn.com/@waline/emojis/tieba/tieba_look_down.png',
+    '//npm.elemecdn.com/@waline/emojis/tieba/tieba_sunglasses.png',
+    '//npm.elemecdn.com/@waline/emojis/tieba/tieba_pick_nose.png',
+    '//npm.elemecdn.com/@waline/emojis/tieba/tieba_awkward.png',
+    '//npm.elemecdn.com/@waline/emojis/tieba/tieba_sleep.png'
+  ],
+  locale: { reactionTitle: '🎉 文章到底啦' },
+  highlighter: true,
+  texRenderer: true,
+  login: 'disable',
+  wordLimit: 10_000
+} satisfies Partial<WalineOptions>
 
 const propertyLastEditedTimeValue = (
   { block, pageHeader }: any,
@@ -335,35 +362,16 @@ export function NotionPage({
         searchNotion={config.isSearchEnabled ? searchNotion : undefined}
         pageAside={pageAside}
         footer={footer}
-        pageFooter={pageId === site.rootNotionPageId ? null : (config.walineHost ? <Waline
-          serverURL={config.walineHost}
-          path={'/' + block.id.replaceAll('-', '')}
-          emoji={[
-            '//cdn.jsdelivr.net/gh/walinejs/emojis@1.4.0/tw-emoji',
-            '//cdn.jsdelivr.net/gh/walinejs/emojis@1.4.0/tieba',
-            '//cdn.jsdelivr.net/gh/walinejs/emojis@1.4.0/qq',
-            '//cdn.jsdelivr.net/gh/walinejs/emojis@1.4.0/weibo',
-          ]}
-          dark={isDarkMode}
-          meta={['nick', 'mail']}
-          requiredMeta={['nick', 'mail']}
-          imageUploader={false}
-          noCopyright={true}
-          reaction={[
-            '//npm.elemecdn.com/@waline/emojis/tieba/tieba_agree.png',
-            '//npm.elemecdn.com/@waline/emojis/tieba/tieba_look_down.png',
-            '//npm.elemecdn.com/@waline/emojis/tieba/tieba_sunglasses.png',
-            '//npm.elemecdn.com/@waline/emojis/tieba/tieba_pick_nose.png',
-            '//npm.elemecdn.com/@waline/emojis/tieba/tieba_awkward.png',
-            '//npm.elemecdn.com/@waline/emojis/tieba/tieba_sleep.png'
-          ]}
-          locale={{reactionTitle: '🎉 文章到底啦'}}
-          highlighter={true}
-          texRenderer={true}
-          login={'disable'}
-          wordLimit={10_000}
-
-        /> : null)}
+        pageFooter={
+          pageId === site.rootNotionPageId || !config.walineHost ? null : (
+            <Waline
+              {...walineOptions}
+              serverURL={config.walineHost}
+              path={'/' + block.id.replaceAll('-', '')}
+              dark={isDarkMode}
+            />
+          )
+        }
       />
 
     </>
