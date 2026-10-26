@@ -30,8 +30,6 @@
 @import './waline.css' layer(legacy);
 /* global style overrides for the prism theme */
 @import './prism-theme.css' layer(legacy);
-/* global style overrides for notion */
-@import './notion.css' layer(legacy);
 /* waline comment metadata (browser/OS badges) */
 @import '@waline/client/waline-meta.css' layer(legacy);
 

@@ -4,6 +4,11 @@ import React from 'react'
 import { useNotionContext } from '../context'
 import { cs } from '../utils'
 
+// the blurred preview and the real image both cover the wrapper (the real
+// image is positioned inline unless the wrapper has a fixed height)
+const lazyImageFill =
+  'tw:top-0 tw:left-0 tw:size-full tw:min-h-full tw:min-w-full tw:max-h-full tw:max-w-full tw:object-cover'
+
 /**
  * Progressive, lazy images modeled after Medium's LQIP technique.
  */
@@ -99,12 +104,20 @@ export function LazyImage({
         className={cs(
           'lazy-image-wrapper',
           isLoaded && 'lazy-image-loaded',
+          'tw:relative tw:overflow-hidden',
           className
         )}
         style={wrapperStyle}
       >
         <img
-          className='lazy-image-preview'
+          className={cs(
+            'lazy-image-preview',
+            lazyImageFill,
+            'tw:absolute',
+            'tw:[filter:blur(20px)] tw:[transform:scale(1.1)]',
+            'tw:will-change-[opacity] tw:[transition:opacity_400ms_ease-in]!',
+            isLoaded ? 'tw:opacity-0' : 'tw:opacity-100'
+          )}
           src={previewImage.dataURIBase64}
           alt=''
           aria-hidden='true'
@@ -113,7 +126,15 @@ export function LazyImage({
         />
 
         <img
-          className='lazy-image-real'
+          className={cs(
+            'lazy-image-real',
+            lazyImageFill,
+            'tw:relative',
+            'tw:will-change-[opacity] tw:[transition:opacity_400ms_ease-out]!',
+            // medium-zoom adds its class once the image is zoomable
+            'tw:[&.medium-zoom-image]:will-change-[opacity,transform] tw:[&.medium-zoom-image]:[transition:transform_0.3s_cubic-bezier(0.2,0,0.2,1),opacity_400ms_ease-out]!',
+            isLoaded ? 'tw:opacity-100' : 'tw:opacity-0'
+          )}
           src={src}
           alt={alt}
           style={{

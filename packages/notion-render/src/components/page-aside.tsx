@@ -89,9 +89,19 @@ export function PageAside({
   return (
     <aside className={cs(pageShellClassNames.aside, className)}>
       {hasToc && (
-        <div className='notion-aside-table-of-contents'>
+        <div
+          className={cs(
+            'notion-aside-table-of-contents',
+            'tw:flex tw:max-h-[calc(100vh-148px-16px)] tw:min-w-[222px] tw:flex-col tw:items-center tw:overflow-auto tw:rounded-[4px] tw:bg-bg'
+          )}
+        >
           {tocTitle !== null && (
-            <div className='notion-aside-table-of-contents-header'>
+            <div
+              className={cs(
+                'notion-aside-table-of-contents-header',
+                'tw:text-[1.1em] tw:font-normal tw:uppercase tw:[word-break:break-word]'
+              )}
+            >
               {tocTitle ?? 'Table of Contents'}
             </div>
           )}
