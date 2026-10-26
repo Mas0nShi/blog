@@ -2,22 +2,17 @@
  * Waline (comments): the stock v3 stylesheet, themed with the site's design
  * tokens so it follows light / dark mode with the rest of the page.
  *
- * The accent is the text color itself ("ink"): buttons and active states are
- * ink on paper, and links in comments look like links in the article.
+ * The accent is the site's original comment purple.
  *
  * Tokens are set on the widget itself rather than on :root, so they win over
  * the `:root` palette Waline injects for its `dark` option.
  */
 [data-waline] {
-  --waline-theme-color: var(--fg-color);
-  --waline-active-color: color-mix(
-    in srgb,
-    var(--fg-color) 80%,
-    var(--bg-color)
-  );
-  --waline-badge-color: var(--fg-color);
-  /* text on the accent */
-  --waline-white: var(--bg-color);
+  --waline-theme-color: #5682ee;
+  --waline-active-color: #7598f1;
+  --waline-badge-color: #5682ee;
+  /* text on the accent (Waline's dark palette sets it to black) */
+  --waline-white: #fff;
 
   --waline-color: var(--fg-color);
   --waline-light-grey: rgba(55, 53, 47, 0.5);
@@ -41,6 +36,9 @@
 
 /* the site's dark foreground tokens are all full strength, so be explicit */
 .dark-mode [data-waline] {
+  --waline-theme-color: #7aa2ff;
+  --waline-active-color: #9bb8ff;
+  --waline-badge-color: #7aa2ff;
   --waline-light-grey: rgba(255, 255, 255, 0.5);
   --waline-dark-grey: rgba(255, 255, 255, 0.7);
   --waline-info-color: rgba(255, 255, 255, 0.5);
@@ -56,20 +54,33 @@
   word-break: break-word;
 }
 
-/* links in comments match links in the article (see text-blocks.ts) */
-[data-waline] .wl-content a {
-  display: inline;
-  border-bottom: 0.1rem solid var(--fg-color-2);
-  background: linear-gradient(90.68deg, #b439df 0.26%, #e5337e 102.37%)
-    no-repeat 50% 100% / 0 0.1rem;
-  background-origin: border-box;
-  color: inherit;
+/*
+ * @mentions link to the comment they reply to (`#<comment id>`): land below
+ * the sticky header, and briefly point out the comment that was jumped to.
+ */
+[data-waline] .wl-card-item {
+  scroll-margin-top: calc(var(--notion-header-height) + 16px);
 }
 
-[data-waline] .wl-content a:is(:hover, :focus) {
-  border-bottom-color: transparent;
-  background-position: 0 100%;
-  background-size: 100% 0.1rem;
-  transition-property: background-position, background-size;
-  transition-duration: 300ms;
+[data-waline] .wl-card-item:target > .wl-card > .wl-content {
+  border-radius: 6px;
+  animation: wl-target-highlight 2.4s ease-out;
+}
+
+@keyframes wl-target-highlight {
+  0%,
+  30% {
+    background-color: color-mix(
+      in srgb,
+      var(--waline-theme-color) 12%,
+      transparent
+    );
+    box-shadow: 0 0 0 6px
+      color-mix(in srgb, var(--waline-theme-color) 12%, transparent);
+  }
+
+  100% {
+    background-color: transparent;
+    box-shadow: 0 0 0 6px transparent;
+  }
 }
