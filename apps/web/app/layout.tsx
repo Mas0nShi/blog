@@ -1,17 +1,5 @@
-// used for rendering equations (optional)
-import 'katex/dist/katex.min.css'
-// used for code syntax highlighting (optional)
-import 'prismjs/themes/prism-coy.css'
-// core styles shared by all of notion-render (required)
-import 'notion-render/styles.css'
-// global styles shared across the entire site
-import '@/styles/global.css'
-// global style overrides for waline
-import '@/styles/waline.css'
-// global style overrides for prism theme (optional)
-import '@/styles/prism-theme.css'
-// global style overrides for notion
-import '@/styles/notion.css'
+// all global CSS, in explicit cascade layers (see styles/index.css)
+import '@/styles/index.css'
 
 import type { Metadata, Viewport } from 'next'
 import type { ReactNode } from 'react'

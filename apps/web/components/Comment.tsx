@@ -1,5 +1,3 @@
-import '@waline/client/waline-meta.css'
-
 import {
   init,
   type WalineInitOptions,

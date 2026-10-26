@@ -1,0 +1,60 @@
+/*
+ * Design tokens.
+ *
+ * Tokens reference the existing CSS custom properties (defined by
+ * notion-render for light mode and overridden under `.dark-mode`), so every
+ * utility follows the active theme without separate `dark:` variants.
+ */
+
+/* theme switching sets `.dark-mode` / `.light-mode` on <html> (next-themes) */
+@custom-variant dark (&:where(.dark-mode, .dark-mode *));
+
+@theme inline {
+  --font-sans: var(--notion-font);
+  --font-mono:
+    'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier,
+    monospace;
+
+  /* text and borders, from strongest to faintest */
+  --color-fg: var(--fg-color);
+  --color-fg-strong: var(--fg-color-4);
+  --color-fg-muted: var(--fg-color-3);
+  --color-fg-subtle: var(--fg-color-2);
+  --color-fg-faint: var(--fg-color-1);
+  --color-divider: var(--fg-color-0);
+
+  /* surfaces */
+  --color-bg: var(--bg-color);
+  --color-bg-hover: var(--bg-color-0);
+  --color-bg-subtle: var(--bg-color-1);
+
+  --color-accent: var(--select-color-0);
+  --color-selection: var(--select-color-1);
+
+  /* Notion palette (text colors and block backgrounds) */
+  --color-notion-gray: var(--notion-gray);
+  --color-notion-brown: var(--notion-brown);
+  --color-notion-orange: var(--notion-orange);
+  --color-notion-yellow: var(--notion-yellow);
+  --color-notion-teal: var(--notion-teal);
+  --color-notion-blue: var(--notion-blue);
+  --color-notion-purple: var(--notion-purple);
+  --color-notion-pink: var(--notion-pink);
+  --color-notion-red: var(--notion-red);
+
+  --color-notion-gray-bg: var(--notion-gray_background);
+  --color-notion-brown-bg: var(--notion-brown_background);
+  --color-notion-orange-bg: var(--notion-orange_background);
+  --color-notion-yellow-bg: var(--notion-yellow_background);
+  --color-notion-teal-bg: var(--notion-teal_background);
+  --color-notion-blue-bg: var(--notion-blue_background);
+  --color-notion-purple-bg: var(--notion-purple_background);
+  --color-notion-pink-bg: var(--notion-pink_background);
+  --color-notion-red-bg: var(--notion-red_background);
+
+  --radius-notion: var(--notion-corner-radius);
+
+  /* layout */
+  --container-page: var(--notion-max-width);
+  --spacing-header: var(--notion-header-height);
+}
