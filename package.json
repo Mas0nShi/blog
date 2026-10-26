@@ -2,15 +2,11 @@
   "name": "blog",
   "version": "2.0.0",
   "private": true,
-  "packageManager": "pnpm@10.18.2",
-  "type": "module",
   "description": "",
+  "license": "MIT",
   "author": "Mas0n",
   "repository": "",
-  "license": "MIT",
-  "engines": {
-    "node": ">=20"
-  },
+  "type": "module",
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
@@ -54,5 +50,9 @@
       "oxfmt --no-error-on-unmatched-pattern",
       "oxlint --fix"
     ]
-  }
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@10.18.2"
 }

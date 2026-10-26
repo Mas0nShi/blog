@@ -1,0 +1,57 @@
+{
+  "name": "@blog/web",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "deploy": "vercel deploy",
+    "test": "run-p test:*",
+    "test:typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@keyvhq/core": "^2.2.7",
+    "@keyvhq/redis": "^2.2.7",
+    "@waline/client": "^3.8.0",
+    "classnames": "catalog:",
+    "expiry-map": "^2.0.0",
+    "fathom-client": "^3.7.2",
+    "katex": "catalog:",
+    "ky": "catalog:",
+    "lqip-modern": "catalog:",
+    "next": "catalog:",
+    "next-themes": "^0.4.6",
+    "notion-client": "workspace:*",
+    "notion-compat": "workspace:*",
+    "notion-render": "workspace:*",
+    "notion-types": "workspace:*",
+    "notion-utils": "workspace:*",
+    "p-map": "catalog:",
+    "p-memoize": "catalog:",
+    "posthog-js-lite": "^4.11.0",
+    "prismjs": "catalog:",
+    "react": "catalog:",
+    "react-body-classname": "catalog:",
+    "react-dom": "catalog:",
+    "react-ga4": "^2.1.0",
+    "react-tweet": "catalog:",
+    "react-use": "^17.6.1",
+    "rss": "^1.2.2",
+    "sharp": "catalog:"
+  },
+  "devDependencies": {
+    "@fisch0920/config": "catalog:",
+    "@types/node": "catalog:",
+    "@types/prismjs": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-body-classname": "^1.1.10",
+    "@types/rss": "^0.0.32",
+    "npm-run-all2": "catalog:",
+    "typescript": "catalog:"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
