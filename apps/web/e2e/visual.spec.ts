@@ -15,14 +15,23 @@ import pages from './pages.json' with { type: 'json' }
 const recordHar = process.env.E2E_RECORD_HAR === '1'
 const fixedNow = new Date('2026-10-26T12:00:00+08:00')
 
-for (const { name, path } of pages) {
+for (const { name, path, har = name, localStorage } of pages as Array<
+  (typeof pages)[number] & { har?: string; localStorage?: object }
+>) {
   test(name, async ({ page, baseURL }, testInfo) => {
     await replayExternalTraffic(
       page,
       baseURL!,
-      `${testInfo.project.name}--${name}`
+      `${testInfo.project.name}--${har}`
     )
     await page.clock.setFixedTime(fixedNow)
+    if (localStorage) {
+      await page.addInitScript((entries) => {
+        for (const [key, value] of Object.entries(entries)) {
+          window.localStorage.setItem(key, JSON.stringify(value))
+        }
+      }, localStorage)
+    }
 
     await page.goto(path)
     // fail loudly instead of capturing an error page as the baseline
