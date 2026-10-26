@@ -46,6 +46,28 @@ for (const { name, path, har = name, localStorage } of pages as Array<
   })
 }
 
+// the search dialog, with results served from the recorded search fixtures
+test('search', async ({ page, baseURL }, testInfo) => {
+  // no fixed clock: the dialog throttles searches by Date.now, and nothing
+  // time-dependent is visible behind it
+  await replayExternalTraffic(page, baseURL!, `${testInfo.project.name}--home`)
+
+  await page.goto('/')
+  await expect(page.locator('main.notion-page')).toBeVisible()
+  await settle(page)
+
+  // the header button is hidden on small screens, so dispatch the click
+  await page.locator('.notion-search-button').dispatchEvent('click')
+  // type like a user: the dialog only searches on throttled keystrokes
+  await page
+    .locator('.notion-search .searchInput')
+    .pressSequentially('CVE', { delay: 50 })
+  await expect(page.locator('.notion-search .result')).toHaveCount(7)
+  await page.evaluate(() => document.fonts.ready)
+
+  await expect(page).toHaveScreenshot('search.png')
+})
+
 async function replayExternalTraffic(page: Page, baseURL: string, har: string) {
   const origin = new URL(baseURL).origin.replaceAll(
     /[.*+?^${}()|[\]\\]/g,
