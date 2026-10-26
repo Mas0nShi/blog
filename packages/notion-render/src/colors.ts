@@ -120,3 +120,47 @@ export function calloutColorClassName(
 
   return cs(`notion-${color}_co`, utilities)
 }
+
+// Select, multi-select and status options ("items") use their own palette.
+const itemColors: Record<string, string> = {
+  default: 'tw:bg-(--notion-item-default) tw:text-(--notion-item-text-default)',
+  'default-inferred':
+    'tw:bg-(--notion-item-default) tw:text-(--notion-item-text-default)',
+  gray: 'tw:bg-(--notion-item-gray) tw:text-(--notion-item-text-gray)',
+  brown: 'tw:bg-(--notion-item-brown) tw:text-(--notion-item-text-brown)',
+  orange: 'tw:bg-(--notion-item-orange) tw:text-(--notion-item-text-orange)',
+  yellow: 'tw:bg-(--notion-item-yellow) tw:text-(--notion-item-text-yellow)',
+  green: 'tw:bg-(--notion-item-green) tw:text-(--notion-item-text-green)',
+  blue: 'tw:bg-(--notion-item-blue) tw:text-(--notion-item-text-blue)',
+  purple: 'tw:bg-(--notion-item-purple) tw:text-(--notion-item-text-purple)',
+  pink: 'tw:bg-(--notion-item-pink) tw:text-(--notion-item-text-pink)',
+  red: 'tw:bg-(--notion-item-red) tw:text-(--notion-item-text-red)'
+}
+
+const itemBulletColors: Record<string, string> = {
+  default: 'tw:bg-(--notion-item-bullet-default)',
+  'default-inferred': 'tw:bg-(--notion-item-bullet-gray)',
+  gray: 'tw:bg-(--notion-item-bullet-gray)',
+  brown: 'tw:bg-(--notion-item-bullet-brown)',
+  orange: 'tw:bg-(--notion-item-bullet-orange)',
+  yellow: 'tw:bg-(--notion-item-bullet-yellow)',
+  green: 'tw:bg-(--notion-item-bullet-green)',
+  blue: 'tw:bg-(--notion-item-bullet-blue)',
+  purple: 'tw:bg-(--notion-item-bullet-purple)',
+  pink: 'tw:bg-(--notion-item-bullet-pink)',
+  red: 'tw:bg-(--notion-item-bullet-red)'
+}
+
+/** Classes for a select / multi-select / status option with the given color. */
+export function itemColorClassName(color?: string | null): string | undefined {
+  return color ? cs(`notion-item-${color}`, itemColors[color]) : undefined
+}
+
+/** Classes for the dot in front of a status option. */
+export function itemBulletColorClassName(
+  color?: string | null
+): string | undefined {
+  return color
+    ? cs(`notion-item-bullet-${color}`, itemBulletColors[color])
+    : undefined
+}

@@ -7,97 +7,6 @@
  * places to add some flare.
  */
 
-.notion-gallery-grid {
-  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-  grid-gap: 6vmin;
-  gap: 6vmin;
-}
-
-.notion-gallery-grid .notion-page-icon-inline {
-  display: none;
-}
-
-.notion-gallery-grid .notion-page-title-text {
-  font-size: 2em;
-  white-space: unset;
-}
-
-.notion-gallery-grid .notion-collection-card-property {
-  white-space: unset;
-  text-overflow: unset;
-}
-
-.notion-gallery-grid .notion-property-text {
-  font-size: 14px;
-}
-
-.notion-collection-card {
-  border-radius: 16px;
-  box-shadow: none;
-}
-
-.notion-collection-card-cover img {
-  border-radius: 16px;
-}
-
-.notion-collection-card {
-  overflow: visible;
-}
-
-.notion-collection-card-cover {
-  border-radius: 16px;
-  box-shadow: 2px 2px 8px 4px rgba(15, 15, 15, 0.1);
-}
-
-.notion-collection-card-cover {
-  border-bottom: 0 none;
-  transition: filter 150ms linear;
-  filter: none;
-}
-
-.notion-collection-card:hover .notion-collection-card-cover {
-  filter: brightness(120%);
-}
-
-.notion-collection-card-body {
-  padding: 10px;
-}
-
-/* only target safari */
-@media screen and (-webkit-min-device-pixel-ratio: 0) {
-  _::-webkit-full-page-media,
-  _:future,
-  :root,
-  .notion-collection-card-cover {
-    transition: none 0ms linear;
-  }
-}
-
-.notion-collection-row {
-  padding-bottom: 1em;
-}
-
-.notion-collection-page-properties .notion-collection-column-title {
-  display: none;
-}
-
-.notion-collection-row-property .notion-property {
-  display: flex;
-  justify-content: center;
-}
-
-.notion-collection-row-value {
-  display: flex;
-  align-items: center;
-  padding: 0;
-  min-height: 23px;
-}
-
-.notion-block-ab9a258d6cf444f3bb40dc2600feae91 .notion-page-link {
-  justify-content: center;
-  padding: 2em;
-}
-
 .notion-red_background,
 .notion-pink_background,
 .notion-blue_background,
@@ -227,10 +136,6 @@
   background-image: none !important;
 }
 
-/* if you don't want rounded page icon images, remove this */
-
-/* Workaround for Firefox not supporting backdrop-filter yet */
-
 .notion-search .searchBar {
   box-shadow: var(--fg-color-0) 0px 1px 0px;
 }
@@ -242,69 +147,3 @@
 .notion-search .noResultsDetail {
   color: var(--fg-color-2);
 }
-
-.notion-property-created_time {
-  display: flex !important;
-}
-/* fixes inline page table rendering date block */
-.notion-list-item-property .notion-property-date {
-  vertical-align: middle;
-}
-
-/* fixes inline page table re-rendering title */
-.notion-list-item-property .notion-property-title {
-  display: none;
-}
-
-/* custom define notion list item rendering */
-.notion-list-item {
-  border-radius: 0.5rem;
-}
-
-/* todo: fixes nav header overflow */
-@media only screen and (max-width: 600px) {
-  /* .notion-header .notion-nav-header {
-    justify-content: space-around;
-  } */
-}
-
-/* todo: not check: fixes notion row auto layout */
-
-/* custom define notion collection card hover effect */
-.notion-collection-card {
-  transition: box-shadow 0.2s ease;
-}
-
-.notion-collection-card:hover {
-  background: none;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-/* disable brightness filter on hover, it's will make image lose raw color */
-.notion-collection-card:hover .notion-collection-card-cover {
-  filter: brightness(100%);
-}
-
-/* fixes screen overflow when block is too wide */
-/* .notion-toggle {
-  padding: 0;
-  max-width: 100%;
-  -webkit-margin-before: 0.6em;
-  padding-inline-start: 0.6em;
-} */
-
-/* fixes notion list block overflow and all list style */
-
-/** fixes notion toggle summary cursor */
-/* .notion-toggle summary {
-  cursor: pointer;
-  outline: none;
-  align-items: center;
-} */
-
-/* fixes notion toggle summary & div text alignment */
-/* .notion-toggle > div {
-  margin-left: 11px;
-} */
-
-/* custom define notion list ul (unordered list) and ol (ordered list) */

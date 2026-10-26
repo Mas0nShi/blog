@@ -107,7 +107,11 @@ export class SearchDialog extends React.Component<{
                           {searchResult.results.map((result: any) => (
                             <components.PageLink
                               key={result.id}
-                              className={cs('result', 'notion-page-link')}
+                              className={cs(
+                                'result',
+                                'notion-page-link',
+                                'tw:my-[1px] tw:w-full tw:transition-[background] tw:duration-[120ms] tw:ease-in'
+                              )}
                               href={mapPageUrl(
                                 result.page.id,
                                 // TODO
@@ -115,6 +119,7 @@ export class SearchDialog extends React.Component<{
                               )}
                             >
                               <PageTitle
+                                className='tw:flex!'
                                 block={result.page}
                                 defaultIcon={defaultPageIcon}
                               />

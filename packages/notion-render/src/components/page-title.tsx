@@ -3,6 +3,7 @@ import { getBlockTitle } from 'notion-utils'
 import React from 'react'
 
 import { useNotionContext } from '../context'
+import { pageTitleClassNames } from '../page-links'
 import { cs } from '../utils'
 import { PageIcon } from './page-icon'
 import { Text } from './text'
@@ -33,14 +34,14 @@ export function PageTitleImpl({
     const titleDecoration: Decoration[] = [[title]]
 
     return (
-      <span className={cs('notion-page-title', className)} {...rest}>
+      <span className={cs(pageTitleClassNames.root, className)} {...rest}>
         <PageIcon
           block={block}
           defaultIcon={defaultIcon}
-          className='notion-page-title-icon'
+          className={pageTitleClassNames.icon}
         />
 
-        <span className='notion-page-title-text'>
+        <span className={pageTitleClassNames.text}>
           <Text value={titleDecoration} block={block} />
         </span>
       </span>
@@ -52,14 +53,14 @@ export function PageTitleImpl({
   }
 
   return (
-    <span className={cs('notion-page-title', className)} {...rest}>
+    <span className={cs(pageTitleClassNames.root, className)} {...rest}>
       <PageIcon
         block={block}
         defaultIcon={defaultIcon}
-        className='notion-page-title-icon'
+        className={pageTitleClassNames.icon}
       />
 
-      <span className='notion-page-title-text'>
+      <span className={pageTitleClassNames.text}>
         <Text value={block.properties?.title} block={block} />
       </span>
     </span>

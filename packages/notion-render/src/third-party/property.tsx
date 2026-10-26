@@ -5,13 +5,21 @@ import formatNumber from 'format-number'
 import { type FormulaResult } from 'notion-types'
 import React from 'react'
 
+import {
+  propertyCheckboxClassNames,
+  propertyClassName,
+  propertyFileClassName,
+  propertyItemClassName,
+  propertyUrlClassNames
+} from '../collections'
+import { itemBulletColorClassName } from '../colors'
 import { Checkbox } from '../components/checkbox'
 import { GracefulImage } from '../components/graceful-image'
 import { PageTitle } from '../components/page-title'
 import { Text } from '../components/text'
 import { useNotionContext } from '../context'
+import { pageLinkClassName } from '../page-links'
 import { linkClassName } from '../text-blocks'
-import { cs } from '../utils'
 import { evalFormula } from './eval-formula'
 
 export interface IPropertyProps {
@@ -111,7 +119,7 @@ export function PropertyImpl(props: IPropertyProps) {
         if (block && linkToTitlePage) {
           return (
             <components.PageLink
-              className={cs('notion-page-link')}
+              className={pageLinkClassName}
               href={mapPageUrl(block.id)}
             >
               <PageTitle block={block} />
@@ -146,7 +154,7 @@ export function PropertyImpl(props: IPropertyProps) {
         return files.map((file, i) => (
           <components.Link
             key={i}
-            className='notion-property-file'
+            className={propertyFileClassName}
             href={mapImageUrl(file[2] as string, block!)}
             target='_blank'
             rel='noreferrer noopener'
@@ -169,9 +177,11 @@ export function PropertyImpl(props: IPropertyProps) {
         const isChecked = data && data[0]?.[0] === 'Yes'
 
         return (
-          <div className='notion-property-checkbox-container'>
+          <div className={propertyCheckboxClassNames.container}>
             <Checkbox isChecked={isChecked} blockId={undefined} />
-            <span className='notion-property-checkbox-text'>{schema.name}</span>
+            <span className={propertyCheckboxClassNames.text}>
+              {schema.name}
+            </span>
           </div>
         )
       },
@@ -229,8 +239,8 @@ export function PropertyImpl(props: IPropertyProps) {
             rel='noreferrer noopener'
             className={linkClassName}
           >
-            <span className='notion-url-domain'>{domain}</span>
-            {path && <span className='notion-url-path'>{path}</span>}
+            <span className={propertyUrlClassNames.domain}>{domain}</span>
+            {path && <span className={propertyUrlClassNames.path}>{path}</span>}
           </a>
         )
       },
@@ -526,14 +536,9 @@ export function PropertyImpl(props: IPropertyProps) {
             color
           },
           () => (
-            <div
-              className={cs(
-                `notion-property-${schema.type}-item`,
-                color && `notion-item-${color}`
-              )}
-            >
+            <div className={propertyItemClassName(schema.type, color)}>
               <span
-                className={cs(`notion-item-bullet-${color}`)}
+                className={itemBulletColorClassName(color)}
                 style={{
                   marginRight: '5px',
                   borderRadius: '100%',
@@ -575,10 +580,7 @@ export function PropertyImpl(props: IPropertyProps) {
             () => (
               <div
                 key={index}
-                className={cs(
-                  `notion-property-${schema.type}-item`,
-                  color && `notion-item-${color}`
-                )}
+                className={propertyItemClassName(schema.type, color)}
               >
                 {value}
               </div>
@@ -664,11 +666,7 @@ export function PropertyImpl(props: IPropertyProps) {
     }
   }
 
-  return (
-    <span className={`notion-property notion-property-${schema.type}`}>
-      {content}
-    </span>
-  )
+  return <span className={propertyClassName(schema.type)}>{content}</span>
 }
 
 export const PropertyImplMemo = React.memo(PropertyImpl)

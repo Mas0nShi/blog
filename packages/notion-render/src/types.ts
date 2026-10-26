@@ -87,6 +87,8 @@ export interface CollectionCardProps {
     property: types.PropertyID
     visible: boolean
   }>
+  /** cards in board columns are smaller and don't wrap their properties */
+  inBoard?: boolean
   className?: string
 }
 export interface CollectionGroupProps {

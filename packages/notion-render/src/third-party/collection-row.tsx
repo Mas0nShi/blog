@@ -1,6 +1,7 @@
 import { type PageBlock } from 'notion-types'
 import { getBlockValue } from 'notion-utils'
 
+import { collectionRowClassNames } from '../collections'
 import { useNotionContext } from '../context'
 import { cs } from '../utils'
 import { CollectionColumnTitle } from './collection-column-title'
@@ -53,17 +54,21 @@ export function CollectionRow({
   }
 
   return (
-    <div className={cs('notion-collection-row', className)}>
-      <div className='notion-collection-row-body'>
+    <div className={cs(collectionRowClassNames.root, className)}>
+      <div className={collectionRowClassNames.body}>
         {propertyIds.map((propertyId) => {
           const schema = schemas[propertyId]
           if (!schema) return null
 
           return (
-            <div className='notion-collection-row-property' key={propertyId}>
-              <CollectionColumnTitle schema={schema} />
+            <div className={collectionRowClassNames.property} key={propertyId}>
+              {/* the page header shows values only */}
+              <CollectionColumnTitle
+                schema={schema}
+                variant={pageHeader ? 'hidden' : 'row'}
+              />
 
-              <div className='notion-collection-row-value'>
+              <div className={collectionRowClassNames.value}>
                 <Property
                   schema={schema}
                   data={

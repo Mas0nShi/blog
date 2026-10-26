@@ -1,20 +1,23 @@
 import { type CollectionPropertySchema } from 'notion-types'
 
+import { columnTitleClassNames } from '../collections'
 import { PropertyIcon } from '../icons/property-icon'
 
 export function CollectionColumnTitle({
-  schema
+  schema,
+  variant = 'table'
 }: {
   schema: CollectionPropertySchema
+  /** `row`: label of a page property row; `hidden`: not shown */
+  variant?: 'table' | 'row' | 'hidden'
 }) {
-  return (
-    <div className='notion-collection-column-title'>
-      <PropertyIcon
-        className='notion-collection-column-title-icon'
-        type={schema.type}
-      />
+  const classNames = columnTitleClassNames(variant)
 
-      <div className='notion-collection-column-title-body'>{schema.name}</div>
+  return (
+    <div className={classNames.root}>
+      <PropertyIcon className={classNames.icon} type={schema.type} />
+
+      <div className={classNames.body}>{schema.name}</div>
     </div>
   )
 }

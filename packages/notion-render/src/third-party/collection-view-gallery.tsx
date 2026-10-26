@@ -3,9 +3,9 @@ import { type PageBlock } from 'notion-types'
 import { getBlockValue } from 'notion-utils'
 import React from 'react'
 
+import { collectionClassNames, galleryClassNames } from '../collections'
 import { useNotionContext } from '../context'
 import { type CollectionViewProps } from '../types'
-import { cs } from '../utils'
 import { CollectionCard } from './collection-card'
 import { CollectionGroup } from './collection-group'
 import { getCollectionGroups } from './collection-utils'
@@ -83,14 +83,9 @@ function Gallery({
     : blockIds
 
   return (
-    <div className='notion-gallery'>
-      <div className='notion-gallery-view'>
-        <div
-          className={cs(
-            'notion-gallery-grid',
-            `notion-gallery-grid-size-${gallery_cover_size}`
-          )}
-        >
+    <div className={galleryClassNames.root}>
+      <div className={galleryClassNames.view}>
+        <div className={galleryClassNames.grid(gallery_cover_size)}>
           {visibleBlockIds?.map((blockId) => {
             const block = getBlockValue(recordMap.block[blockId]) as PageBlock
             if (!block) return null
@@ -112,7 +107,7 @@ function Gallery({
 
       {showLoadMore && (
         <div
-          className='notion-collection-load-more'
+          className={collectionClassNames.loadMore}
           onClick={() => setIsExpanded(true)}
         >
           <svg
