@@ -53,7 +53,13 @@ async function createPreviewImage(
       console.warn(`redis error get "${cacheKey}"`, err.message)
     }
 
-    const body = await ky(url).arrayBuffer()
+    // notion.so rejects requests without a User-Agent (403); see notion-client
+    const body = await ky(url, {
+      headers: {
+        'User-Agent':
+          'notion-client (+https://github.com/NotionX/react-notion-x)'
+      }
+    }).arrayBuffer()
     const result = await lqip(body)
     console.log('lqip', { ...result.metadata, url, cacheKey })
 

@@ -742,6 +742,10 @@ export class NotionAPI {
     headers?: any
   }): Promise<T> {
     const headers: any = {
+      // Cloudflare in front of notion.so rejects api/v3 requests without a
+      // User-Agent (403). Ported from NotionX/react-notion-x#712.
+      'User-Agent':
+        'notion-client (+https://github.com/NotionX/react-notion-x)',
       ...clientHeaders,
       ...this._ofetchOptions?.headers,
       ...ofetchOptions?.headers,
