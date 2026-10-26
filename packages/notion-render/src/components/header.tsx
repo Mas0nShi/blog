@@ -41,7 +41,9 @@ export const headerClassNames = {
     'tw:my-[1px] tw:inline-flex tw:cursor-pointer tw:flex-row tw:items-center tw:justify-center',
     'tw:rounded-[3px] tw:bg-transparent tw:px-[6px] tw:py-[4px] tw:whitespace-nowrap tw:text-ellipsis',
     'tw:text-fg tw:no-underline tw:select-none tw:transition-[background] tw:duration-[120ms] tw:ease-in',
-    'tw:[&:not(.active):hover]:bg-bg-hover tw:[&:not(.active):active]:bg-bg-subtle tw:[&.active]:cursor-default'
+    'tw:[&:not(.active):hover]:bg-bg-hover tw:[&:not(.active):active]:bg-bg-subtle tw:[&.active]:cursor-default',
+    'tw:[&_.notion-page-icon-inline]:mt-0 tw:[&_.notion-page-icon-inline]:mr-[6px] tw:[&_.notion-page-icon-inline]:mb-0 tw:[&_.notion-page-icon-inline]:ml-0',
+    'tw:[&_.notion-page-icon-inline]:text-[18px] tw:[&_.notion-page-icon-inline]:leading-[1.1] tw:[&_.notion-page-icon-span]:top-[1px]'
   ),
   // icon buttons and nav links get a larger hit area than breadcrumbs
   button: cs('button', 'tw:p-[12px]!'),

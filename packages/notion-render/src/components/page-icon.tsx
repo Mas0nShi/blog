@@ -9,6 +9,11 @@ import React from 'react'
 import { useNotionContext } from '../context'
 import { DefaultPageIcon } from '../icons/default-page-icon'
 import {
+  heroPageIconGlyphClassName,
+  inlinePageIconClassName,
+  inlinePageIconContentClassName
+} from '../page-links'
+import {
   pageIconHeroClassName,
   pageIconHeroContentClassName
 } from '../page-shell'
@@ -58,8 +63,12 @@ export function PageIconImpl({
           alt={title || 'page icon'}
           className={cs(
             className,
-            'notion-page-icon',
-            !inline && pageIconHeroContentClassName.image
+            inline
+              ? inlinePageIconContentClassName
+              : cs(
+                  heroPageIconGlyphClassName,
+                  pageIconHeroContentClassName.image
+                )
           )}
           fill={true}
           sizes={inline ? '24px' : '124px'}
@@ -74,8 +83,12 @@ export function PageIconImpl({
           alt={title || 'page icon'}
           className={cs(
             className,
-            'notion-page-icon',
-            !inline && pageIconHeroContentClassName.image
+            inline
+              ? inlinePageIconContentClassName
+              : cs(
+                  heroPageIconGlyphClassName,
+                  pageIconHeroContentClassName.image
+                )
           )}
           fill={true}
           sizes={inline ? '24px' : '124px'}
@@ -88,8 +101,12 @@ export function PageIconImpl({
           <DefaultPageIcon
             className={cs(
               className,
-              'notion-page-icon',
-              !inline && pageIconHeroContentClassName.image
+              inline
+                ? inlinePageIconContentClassName
+                : cs(
+                    heroPageIconGlyphClassName,
+                    pageIconHeroContentClassName.image
+                  )
             )}
             alt={title || 'page icon'}
           />
@@ -101,8 +118,9 @@ export function PageIconImpl({
         <span
           className={cs(
             className,
-            'notion-page-icon',
-            !inline && pageIconHeroContentClassName.span
+            inline
+              ? inlinePageIconContentClassName
+              : cs('notion-page-icon', pageIconHeroContentClassName.span)
           )}
           role='img'
           aria-label={icon}
@@ -121,10 +139,7 @@ export function PageIconImpl({
     <div
       className={
         inline
-          ? cs(
-              'notion-page-icon-inline',
-              isImage ? 'notion-page-icon-image' : 'notion-page-icon-span'
-            )
+          ? inlinePageIconClassName(isImage)
           : pageIconHeroClassName({ isImage, hasCover })
       }
     >

@@ -7,6 +7,7 @@ import {
 } from 'notion-utils'
 import React from 'react'
 
+import { collectionClassNames } from '../collections'
 import { PageIcon } from '../components/page-icon'
 import {
   type NotionContext,
@@ -14,6 +15,7 @@ import {
   useNotionContext
 } from '../context'
 import { CollectionViewIcon } from '../icons/collection-view-icon'
+import { pageTitleClassNames } from '../page-links'
 import { cs } from '../utils'
 import { CollectionRow } from './collection-row'
 import { CollectionView } from './collection-view'
@@ -60,7 +62,7 @@ export function Collection({
 
     return (
       <NotionContextProvider {...context}>
-        <div className='notion-collection-page-properties'>
+        <div className={collectionClassNames.pageProperties}>
           <CollectionRow
             block={block as types.PageBlock}
             pageHeader={true}
@@ -209,11 +211,11 @@ function CollectionViewBlock({
         </div>
 
         {showTitle && (
-          <div className='notion-collection-header'>
-            <div className='notion-collection-header-title'>
+          <div className={collectionClassNames.header}>
+            <div className={collectionClassNames.headerTitle}>
               <PageIcon
                 block={block}
-                className='notion-page-title-icon'
+                className={pageTitleClassNames.icon}
                 hideDefaultIcon
               />
 
@@ -223,7 +225,7 @@ function CollectionViewBlock({
         )}
       </div>
 
-      <div className={cs('notion-collection', className)}>
+      <div className={cs(collectionClassNames.root, className)}>
         <CollectionView
           collection={collection}
           collectionView={collectionView}
@@ -248,16 +250,12 @@ function CollectionViewTabs({
   const { recordMap } = useNotionContext()
 
   return (
-    <div className='notion-collection-view-tabs-row'>
+    <div className={collectionClassNames.tabs}>
       {viewIds.map((viewId) => (
         <button
           onClick={() => onChangeView(viewId)}
           key={viewId}
-          className={cs(
-            'notion-collection-view-tabs-content-item',
-            collectionViewId === viewId &&
-              'notion-collection-view-tabs-content-item-active'
-          )}
+          className={collectionClassNames.tab(collectionViewId === viewId)}
         >
           <CollectionViewColumnDesc
             collectionView={getBlockValue(recordMap.collection_view[viewId])}
@@ -285,13 +283,13 @@ function CollectionViewColumnDesc({
     collectionView.name || `${type[0]!.toUpperCase()}${type.slice(1)} view`
 
   return (
-    <div className={cs('notion-collection-view-type', className)} {...rest}>
+    <div className={cs(collectionClassNames.viewType, className)} {...rest}>
       <CollectionViewIcon
-        className='notion-collection-view-type-icon'
+        className={collectionClassNames.viewTypeIcon}
         type={type}
       />
 
-      <span className='notion-collection-view-type-title'>{name}</span>
+      <span className={collectionClassNames.viewTypeTitle}>{name}</span>
 
       {children}
     </div>

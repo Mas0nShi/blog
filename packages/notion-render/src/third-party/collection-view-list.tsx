@@ -3,8 +3,10 @@ import { type PageBlock } from 'notion-types'
 import { getBlockValue } from 'notion-utils'
 import React from 'react'
 
+import { collectionClassNames, listClassNames } from '../collections'
 import { PageIcon } from '../components/page-icon'
 import { useNotionContext } from '../context'
+import { pageTitleClassNames } from '../page-links'
 import { type CollectionViewProps } from '../types'
 import { CollectionGroup } from './collection-group'
 import { getCollectionGroups } from './collection-utils'
@@ -69,9 +71,9 @@ function List({
     : blockIds
 
   return (
-    <div className='notion-list-collection'>
-      <div className='notion-list-view'>
-        <div className='notion-list-body'>
+    <div className={listClassNames.root}>
+      <div className={listClassNames.view}>
+        <div className={listClassNames.body}>
           {visibleBlockIds?.map((blockId) => {
             const block = getBlockValue(recordMap.block[blockId]) as PageBlock
             if (!block) return null
@@ -81,14 +83,14 @@ function List({
 
             return (
               <components.PageLink
-                className='notion-list-item notion-page-link'
+                className={listClassNames.item}
                 href={mapPageUrl(block.id)}
                 key={blockId}
               >
-                <div className='notion-list-item-title'>
+                <div className={listClassNames.itemTitle}>
                   <PageIcon
                     block={block}
-                    className='notion-page-title-icon'
+                    className={pageTitleClassNames.icon}
                     hideDefaultIcon
                   />
                   <Property
@@ -100,7 +102,7 @@ function List({
                   />
                 </div>
 
-                <div className='notion-list-item-body'>
+                <div className={listClassNames.itemBody}>
                   {collectionView.format?.list_properties
                     ?.filter((p: any) => p.visible && p.property !== 'title')
                     .map((p: any) => {
@@ -117,7 +119,7 @@ function List({
 
                       return (
                         <div
-                          className='notion-list-item-property'
+                          className={listClassNames.itemProperty}
                           key={p.property}
                         >
                           <Property
@@ -138,7 +140,7 @@ function List({
 
       {showLoadMore && (
         <div
-          className='notion-collection-load-more'
+          className={collectionClassNames.loadMore}
           onClick={() => setIsExpanded(true)}
         >
           <svg

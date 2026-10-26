@@ -1,6 +1,7 @@
 import { type ImageBlock } from 'notion-types'
 import { getBlockValue, getTextContent } from 'notion-utils'
 
+import { collectionCardClassNames } from '../collections'
 import { LazyImage } from '../components/lazy-image'
 import { dummyLink, NotionContextProvider, useNotionContext } from '../context'
 import { type CollectionCardProps } from '../types'
@@ -14,9 +15,11 @@ export function CollectionCard({
   coverSize,
   coverAspect,
   properties,
+  inBoard = false,
   className,
   ...rest
 }: CollectionCardProps) {
+  const classNames = collectionCardClassNames({ size: coverSize, inBoard })
   const ctx = useNotionContext()
   const {
     components,
@@ -72,7 +75,7 @@ export function CollectionCard({
     }
 
     if (!coverContent) {
-      coverContent = <div className='notion-collection-card-cover-empty' />
+      coverContent = <div className={classNames.coverEmpty} />
     }
   } else if (cover?.type === 'page_cover') {
     const { page_cover } = block.format || {}
@@ -109,7 +112,7 @@ export function CollectionCard({
 
         if (file) {
           coverContent = (
-            <span className={`notion-property-${schema.type}`}>
+            <span className={classNames.coverFile}>
               <LazyImage
                 alt={file[0] as string}
                 src={mapImageUrl(file[2] as string, block)}
@@ -164,11 +167,11 @@ export function CollectionCard({
   const innerCard = (
     <>
       {(coverContent || cover?.type !== 'none') && (
-        <div className='notion-collection-card-cover'>{coverContent}</div>
+        <div className={classNames.cover}>{coverContent}</div>
       )}
 
-      <div className='notion-collection-card-body'>
-        <div className='notion-collection-card-property'>
+      <div className={classNames.body}>
+        <div className={classNames.property(true)}>
           <Property
             schema={collection.schema.title}
             data={block?.properties?.title}
@@ -191,7 +194,7 @@ export function CollectionCard({
               block.properties[p.property as keyof typeof block.properties]
 
             return (
-              <div className='notion-collection-card-property' key={p.property}>
+              <div className={classNames.property(false)} key={p.property}>
                 <Property
                   schema={schema}
                   data={data}
@@ -219,7 +222,7 @@ export function CollectionCard({
               <input
                 type='submit'
                 value={props?.children?.props?.children ?? props.href}
-                className='nested-form-link notion-link'
+                className={classNames.nestedLink}
               />
             </form>
           )
@@ -229,11 +232,7 @@ export function CollectionCard({
     >
       {isLinkCollectionToUrlProperty && url ? (
         <components.Link
-          className={cs(
-            'notion-collection-card',
-            `notion-collection-card-size-${coverSize}`,
-            className
-          )}
+          className={cs(classNames.root, className)}
           href={url}
           {...rest}
         >
@@ -241,11 +240,7 @@ export function CollectionCard({
         </components.Link>
       ) : (
         <components.PageLink
-          className={cs(
-            'notion-collection-card',
-            `notion-collection-card-size-${coverSize}`,
-            className
-          )}
+          className={cs(classNames.root, className)}
           href={mapPageUrl(block.id)}
           {...rest}
         >

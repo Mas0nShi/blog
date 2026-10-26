@@ -1,5 +1,6 @@
 import CheckIcon from '../icons/check'
 import UncheckIcon from '../icons/uncheck'
+import { checkboxClassNames } from '../page-links'
 
 export function Checkbox({
   isChecked
@@ -11,19 +12,17 @@ export function Checkbox({
 
   if (isChecked) {
     content = (
-      <div className='notion-property-checkbox-checked'>
+      <div className={checkboxClassNames.checked}>
         <CheckIcon />
       </div>
     )
   } else {
     content = (
-      <div className='notion-property-checkbox-unchecked'>
+      <div className={checkboxClassNames.unchecked}>
         <UncheckIcon />
       </div>
     )
   }
 
-  return (
-    <span className='notion-property notion-property-checkbox'>{content}</span>
-  )
+  return <span className={checkboxClassNames.root}>{content}</span>
 }

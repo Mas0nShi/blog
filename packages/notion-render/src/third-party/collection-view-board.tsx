@@ -3,10 +3,10 @@ import { type PageBlock } from 'notion-types'
 import { getBlockValue } from 'notion-utils'
 import React from 'react'
 
+import { boardClassNames, boardCountClassName } from '../collections'
 import { useNotionContext } from '../context'
 import { EmptyIcon } from '../icons/empty-icon'
 import { type CollectionViewProps } from '../types'
-import { cs } from '../utils'
 import { CollectionCard } from './collection-card'
 import { CollectionGroup } from './collection-group'
 import { getCollectionGroups } from './collection-utils'
@@ -79,6 +79,8 @@ function Board({
 
   const boardGroupBy = collectionView?.format?.board_columns_by?.groupBy
 
+  const classNames = boardClassNames(board_cover_size)
+
   const boardStyle = React.useMemo(
     () => ({
       paddingLeft: padding
@@ -87,16 +89,10 @@ function Board({
   )
 
   return (
-    <div className='notion-board'>
-      <div
-        className={cs(
-          'notion-board-view',
-          `notion-board-view-size-${board_cover_size}`
-        )}
-        style={boardStyle}
-      >
-        <div className='notion-board-header'>
-          <div className='notion-board-header-inner'>
+    <div className={classNames.root}>
+      <div className={classNames.view} style={boardStyle}>
+        <div className={classNames.header}>
+          <div className={classNames.headerInner}>
             {boardGroups.map((p: any, index: number) => {
               if (!(collectionData as any).board_columns?.results) {
                 // no groupResults in the data when collection is in a toggle
@@ -112,8 +108,8 @@ function Board({
               }
 
               return (
-                <div className='notion-board-th' key={index}>
-                  <div className='notion-board-th-body'>
+                <div className={classNames.th} key={index}>
+                  <div className={classNames.thBody}>
                     {group.value?.value ? (
                       <Property
                         schema={schema}
@@ -127,12 +123,12 @@ function Board({
                       />
                     ) : (
                       <span>
-                        <EmptyIcon className='notion-board-th-empty' />
+                        <EmptyIcon className={classNames.thEmpty} />
                         {schema?.name ? `No ${schema.name}` : 'No Select'}
                       </span>
                     )}
 
-                    <span className='notion-board-th-count'>{group.total}</span>
+                    <span className={boardCountClassName}>{group.total}</span>
                   </div>
                 </div>
               )
@@ -140,9 +136,9 @@ function Board({
           </div>
         </div>
 
-        <div className='notion-board-header-placeholder' />
+        <div className={classNames.headerPlaceholder} />
 
-        <div className='notion-board-body'>
+        <div className={classNames.body}>
           {boardGroups.map((p: any, index: number) => {
             const boardResults = (collectionData as any).board_columns?.results
             if (!boardResults) return null
@@ -158,7 +154,7 @@ function Board({
             }
 
             return (
-              <div className='notion-board-group' key={index}>
+              <div className={classNames.group} key={index}>
                 {group.blockIds?.map((blockId: string) => {
                   const block = getBlockValue(
                     recordMap.block[blockId]
@@ -167,7 +163,7 @@ function Board({
 
                   return (
                     <CollectionCard
-                      className='notion-board-group-card'
+                      inBoard
                       collection={collection}
                       block={block}
                       cover={board_cover}

@@ -112,7 +112,9 @@ export const calloutClassName = cs(
   'notion-callout',
   'tw:mx-0 tw:my-[0.75em] tw:box-border tw:inline-flex tw:w-full tw:items-center',
   'tw:rounded-notion tw:p-[16px_16px_16px_12px]',
-  'tw:[border:1px_solid_var(--fg-color-0)] tw:dark:[border-color:var(--bg-color-2)]'
+  'tw:[border:1px_solid_var(--fg-color-0)] tw:dark:[border-color:var(--bg-color-2)]',
+  // the callout icon, and any page icon inside the callout
+  'tw:[&_.notion-page-icon-inline]:size-[24px] tw:[&_.notion-page-icon-inline]:self-start tw:[&_.notion-page-icon-inline]:text-[1.3em] tw:[&_.notion-page-icon-inline]:leading-[24px] tw:[&_.notion-page-icon-inline]:select-none'
 )
 
 export const calloutTextClassName = cs(
@@ -149,7 +151,8 @@ export const toDoClassNames = {
   root: cs('notion-to-do', 'tw:flex tw:w-full tw:flex-col'),
   item: cs(
     'notion-to-do-item',
-    'tw:flex tw:min-h-[calc(1.5em_+_3px_+_3px)] tw:w-full tw:items-center tw:pl-[2px]'
+    'tw:flex tw:min-h-[calc(1.5em_+_3px_+_3px)] tw:w-full tw:items-center tw:pl-[2px]',
+    'tw:[&_.notion-property-checkbox]:mr-[8px]'
   ),
   body: cs('notion-to-do-body', wrapText),
   checked: cs(

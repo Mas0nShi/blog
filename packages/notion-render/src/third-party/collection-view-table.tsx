@@ -1,9 +1,9 @@
 import { getBlockValue } from 'notion-utils'
 import React from 'react'
 
+import { collectionClassNames, tableClassNames } from '../collections'
 import { useNotionContext } from '../context'
 import { type CollectionViewProps } from '../types'
-import { cs } from '../utils'
 import { CollectionColumnTitle } from './collection-column-title'
 import { CollectionGroup } from './collection-group'
 import { getCollectionGroups } from './collection-utils'
@@ -120,13 +120,13 @@ function Table({
   }
 
   return (
-    <div className='notion-table' style={tableStyle} ref={tableRef}>
-      <div className='notion-table-view' style={tableViewStyle}>
+    <div className={tableClassNames.root} style={tableStyle} ref={tableRef}>
+      <div className={tableClassNames.view} style={tableViewStyle}>
         {!!properties.length && (
           <>
-            <div className='notion-table-header'>
-              <div className='notion-table-header-inner'>
-                {properties.map((p: any) => {
+            <div className={tableClassNames.header}>
+              <div className={tableClassNames.headerInner}>
+                {properties.map((p: any, index: number) => {
                   const schema = collection.schema?.[p.property]
                   const isTitle = p.property === 'title'
                   const style: React.CSSProperties = {}
@@ -141,12 +141,13 @@ function Table({
                   }
 
                   return (
-                    <div className='notion-table-th' key={p.property}>
-                      <div
-                        className='notion-table-view-header-cell'
-                        style={style}
-                      >
-                        <div className='notion-table-view-header-cell-inner'>
+                    <div className={tableClassNames.th} key={p.property}>
+                      <div className={tableClassNames.headerCell} style={style}>
+                        <div
+                          className={tableClassNames.headerCellInner(
+                            index === properties.length - 1
+                          )}
+                        >
                           {schema && <CollectionColumnTitle schema={schema} />}
                         </div>
                       </div>
@@ -156,11 +157,11 @@ function Table({
               </div>
             </div>
 
-            <div className='notion-table-header-placeholder'></div>
+            <div className={tableClassNames.headerPlaceholder}></div>
 
-            <div className='notion-table-body'>
+            <div className={tableClassNames.body}>
               {visibleBlockIds?.map((blockId) => (
-                <div className='notion-table-row' key={blockId}>
+                <div className={tableClassNames.row} key={blockId}>
                   {properties.map((p: any) => {
                     const schema = collection.schema?.[p.property]
                     const block = getBlockValue(recordMap.block[blockId])
@@ -183,11 +184,10 @@ function Table({
                     return (
                       <div
                         key={p.property}
-                        className={cs(
-                          'notion-table-cell',
-                          `notion-table-cell-${schema?.type}`,
-                          !cellWrap && 'notion-table-cell-nowrap'
-                        )}
+                        className={tableClassNames.cell({
+                          type: schema?.type,
+                          wrap: cellWrap
+                        })}
                         style={style}
                       >
                         <Property
@@ -211,7 +211,7 @@ function Table({
 
       {showLoadMore && (
         <div
-          className='notion-collection-load-more'
+          className={collectionClassNames.loadMore}
           onClick={() => setIsExpanded(true)}
         >
           <svg

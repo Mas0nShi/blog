@@ -41,6 +41,7 @@ import {
   tableOfContentsItemBodyClassName,
   tableOfContentsItemClassName
 } from './layout-blocks'
+import { pageLinkClassName } from './page-links'
 import { tweetClassName } from './media'
 import {
   embeddedRootClassName,
@@ -351,7 +352,7 @@ export function Block(props: BlockProps) {
         return (
           <components.PageLink
             className={cs(
-              'notion-page-link',
+              pageLinkClassName,
               blockColor && `notion-${blockColor}`,
               blockId
             )}
@@ -869,7 +870,7 @@ export function Block(props: BlockProps) {
 
       return (
         <components.PageLink
-          className={cs('notion-page-link', blockPointerId)}
+          className={cs(pageLinkClassName, blockPointerId)}
           href={mapPageUrl(blockPointerId)}
         >
           <PageTitle block={linkedBlock} />

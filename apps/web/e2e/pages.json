@@ -1,6 +1,17 @@
 [
   { "name": "home", "path": "/" },
   {
+    "name": "home-table-view",
+    "path": "/",
+    "har": "home",
+    "localStorage": {
+      "c718d831-fff2-482f-88c9-588d485e23be": {
+        "collectionViewId": "05adfa89-6edc-4eab-a723-5fbff5d574da"
+      }
+    },
+    "note": "the home collection's table view (the site only shows the gallery, but the view state is read from localStorage)"
+  },
+  {
     "name": "hello-world",
     "path": "/hello-world-116e1f214e9e4f72a3555ccb35e76d1d",
     "note": "kitchen-sink test page: code, mermaid, toggles, lists, tables, callouts, equations, quotes, tweet, GitHub embeds, to-dos, columns"
