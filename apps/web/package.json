@@ -44,12 +44,14 @@
   "devDependencies": {
     "@fisch0920/config": "catalog:",
     "@playwright/test": "1.64.1",
+    "@tailwindcss/postcss": "catalog:",
     "@types/node": "catalog:",
     "@types/prismjs": "catalog:",
     "@types/react": "catalog:",
     "@types/react-body-classname": "^1.1.10",
     "@types/rss": "^0.0.32",
     "npm-run-all2": "catalog:",
+    "tailwindcss": "catalog:",
     "typescript": "catalog:"
   },
   "engines": {
