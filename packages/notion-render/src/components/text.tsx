@@ -6,7 +6,13 @@ import {
 import { getBlockValue, parsePageId } from 'notion-utils'
 import React from 'react'
 
+import { notionColorClassName } from '../colors'
 import { useNotionContext } from '../context'
+import {
+  inlineCodeClassName,
+  inlineUnderlineClassName,
+  linkClassName
+} from '../text-blocks'
 import { formatDate, getHashFragmentValue } from '../utils'
 import { EOI } from './eoi'
 import { GracefulImage } from './graceful-image'
@@ -69,7 +75,7 @@ export function Text({
 
                 return (
                   <components.Link
-                    className='notion-link'
+                    className={linkClassName}
                     href={mapPageUrl(blockId)}
                   >
                     <PageTitle block={linkedBlock} />
@@ -117,7 +123,7 @@ export function Text({
 
                     return (
                       <components.Link
-                        className='notion-link'
+                        className={linkClassName}
                         href={mapPageUrl(id)}
                         {...linkProps}
                         target='_blank'
@@ -132,11 +138,13 @@ export function Text({
 
               case 'h':
                 return (
-                  <span className={`notion-${decorator[1]}`}>{element}</span>
+                  <span className={notionColorClassName(decorator[1])}>
+                    {element}
+                  </span>
                 )
 
               case 'c':
-                return <code className='notion-inline-code'>{element}</code>
+                return <code className={inlineCodeClassName}>{element}</code>
 
               case 'b':
                 return <b>{element}</b>
@@ -149,7 +157,7 @@ export function Text({
 
               case '_':
                 return (
-                  <span className='notion-inline-underscore'>{element}</span>
+                  <span className={inlineUnderlineClassName}>{element}</span>
                 )
 
               case 'e':
@@ -175,7 +183,7 @@ export function Text({
 
                   return (
                     <components.Link
-                      className='notion-link'
+                      className={linkClassName}
                       href={href}
                       {...linkProps}
                     >
@@ -185,7 +193,7 @@ export function Text({
                 } else {
                   return (
                     <components.Link
-                      className='notion-link'
+                      className={linkClassName}
                       href={
                         linkProtocol
                           ? `${linkProtocol}:${decorator[1]}`

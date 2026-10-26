@@ -30,12 +30,31 @@ import { Text } from './components/text'
 import { ToggleBlock } from './components/toggle-block'
 import { useNotionContext } from './context'
 import { LinkIcon } from './icons/link-icon'
+import { calloutColorClassName } from './colors'
 import {
   embeddedRootClassName,
   notionRootClassName,
   pageClassName,
   pageShellClassNames
 } from './page-shell'
+import {
+  blankBlockClassName,
+  calloutClassName,
+  calloutTextClassName,
+  dividerClassName,
+  headingAnchorClassName,
+  headingClassName,
+  headingHashLinkClassName,
+  listClassName,
+  listItemClassName,
+  listItemContentClassName,
+  listItemTextClassName,
+  quoteClassName,
+  textBlockClassName,
+  textChildrenClassName,
+  toDoClassNames,
+  toggleClassNames
+} from './text-blocks'
 import { cs, isUrl } from './utils'
 
 export interface BlockProps {
@@ -370,23 +389,22 @@ export function Block(props: BlockProps) {
       const isH1 = block.type === 'header'
       const isH2 = block.type === 'sub_header'
       const isH3 = block.type === 'sub_sub_header'
-      const isH4 = block.type === 'header_4'
 
       const classNameStr = cs(
-        isH1 && 'notion-h notion-h1',
-        isH2 && 'notion-h notion-h2',
-        isH3 && 'notion-h notion-h3',
-        isH4 && 'notion-h notion-h4',
-        blockColor && `notion-${blockColor}`,
+        headingClassName(isH1 ? 1 : isH2 ? 2 : isH3 ? 3 : 4, blockColor),
         indentLevelClass,
         blockId
       )
 
       const innerHeader = (
         <span>
-          <div id={id} className='notion-header-anchor' />
+          <div id={id} className={headingAnchorClassName} />
           {!block.format?.toggleable && (
-            <a className='notion-hash-link' href={`#${id}`} title={title}>
+            <a
+              className={headingHashLinkClassName}
+              href={`#${id}`}
+              title={title}
+            >
               <LinkIcon />
             </a>
           )}
@@ -427,7 +445,7 @@ export function Block(props: BlockProps) {
 
       if (block.format?.toggleable) {
         return (
-          <details className={cs('notion-toggle', blockId)}>
+          <details className={cs(toggleClassNames.toggle, blockId)}>
             <summary>{headerBlock}</summary>
             <div>{children}</div>
           </details>
@@ -438,28 +456,22 @@ export function Block(props: BlockProps) {
     }
 
     case 'divider':
-      return <hr className={cs('notion-hr', blockId)} />
+      return <hr className={cs(dividerClassName, blockId)} />
 
     case 'text': {
       if (!block.properties && !block.content?.length) {
-        return <div className={cs('notion-blank', blockId)}>&nbsp;</div>
+        return <div className={cs(blankBlockClassName, blockId)}>&nbsp;</div>
       }
 
       const blockColor = block.format?.block_color
 
       return (
-        <div
-          className={cs(
-            'notion-text',
-            blockColor && `notion-${blockColor}`,
-            blockId
-          )}
-        >
+        <div className={cs(textBlockClassName(blockColor), blockId)}>
           {block.properties?.title && (
             <Text value={block.properties.title} block={block} />
           )}
 
-          {children && <div className='notion-text-children'>{children}</div>}
+          {children && <div className={textChildrenClassName}>{children}</div>}
         </div>
       )
     }
@@ -469,12 +481,12 @@ export function Block(props: BlockProps) {
     case 'numbered_list': {
       const wrapList = (content: React.ReactNode) =>
         block.type === 'bulleted_list' ? (
-          <div className={cs('notion-list', 'notion-list-disc', blockId)}>
+          <div className={cs(listClassName('bulleted'), blockId)}>
             {content}
           </div>
         ) : (
           <div
-            className={cs('notion-list', 'notion-list-numbered', blockId)}
+            className={cs(listClassName('numbered'), blockId)}
             style={
               block.type === 'numbered_list'
                 ? {
@@ -505,28 +517,12 @@ export function Block(props: BlockProps) {
         output = (
           <>
             {block.properties && (
-              <div className='notion-block-list-item' {...props}>
-                <div className='notion-block-list-item-content'>
-                  <div
-                    style={{
-                      maxWidth: '100%',
-                      width: '100%',
-                      whiteSpace: 'pre-wrap',
-                      wordBreak: 'break-word'
-                    }}
-                  >
+              <div className={listItemClassName} {...props}>
+                <div className={listItemContentClassName}>
+                  <div className={listItemTextClassName}>
                     <Text value={block.properties.title} block={block} />
                   </div>
-                  <div
-                    style={{
-                      maxWidth: '100%',
-                      width: '100%',
-                      whiteSpace: 'pre-wrap',
-                      wordBreak: 'break-word'
-                    }}
-                  >
-                    {children}
-                  </div>
+                  <div className={listItemTextClassName}>{children}</div>
                 </div>
               </div>
             )}
@@ -534,16 +530,9 @@ export function Block(props: BlockProps) {
         )
       } else {
         output = block.properties ? (
-          <div className='notion-block-list-item' {...props}>
-            <div className='notion-block-list-item-content'>
-              <div
-                style={{
-                  maxWidth: '100%',
-                  width: '100%',
-                  whiteSpace: 'pre-wrap',
-                  wordBreak: 'break-word'
-                }}
-              >
+          <div className={listItemClassName} {...props}>
+            <div className={listItemContentClassName}>
+              <div className={listItemTextClassName}>
                 <Text value={block.properties.title} block={block} />
               </div>
             </div>
@@ -640,7 +629,15 @@ export function Block(props: BlockProps) {
 
       return (
         <>
-          <div className={cs('notion-column', blockId)} style={style}>
+          <div
+            className={cs(
+              'notion-column',
+              // the column owns the outer spacing of its first and last block
+              'tw:*:first:mx-0! tw:*:first:mt-0! tw:*:last:mx-0! tw:*:last:mb-0!',
+              blockId
+            )}
+            style={style}
+          >
             {children}
           </div>
 
@@ -655,13 +652,7 @@ export function Block(props: BlockProps) {
       const blockColor = block.format?.block_color
 
       return (
-        <blockquote
-          className={cs(
-            'notion-quote',
-            blockColor && `notion-${blockColor}`,
-            blockId
-          )}
-        >
+        <blockquote className={cs(quoteClassName(blockColor), blockId)}>
           <div>
             <Text value={block.properties.title} block={block} />
           </div>
@@ -682,15 +673,14 @@ export function Block(props: BlockProps) {
         return (
           <div
             className={cs(
-              'notion-callout',
-              block.format?.block_color &&
-                `notion-${block.format?.block_color}_co`,
+              calloutClassName,
+              calloutColorClassName(block.format?.block_color),
               blockId
             )}
           >
             <PageIcon block={block} hideDefaultIcon={true} />
 
-            <div className='notion-callout-text'>
+            <div className={calloutTextClassName}>
               <Text value={block.properties?.title} block={block} />
               {children}
             </div>
@@ -844,21 +834,21 @@ export function Block(props: BlockProps) {
       const isChecked = block.properties?.checked?.[0]?.[0] === 'Yes'
 
       return (
-        <div className={cs('notion-to-do', blockId)}>
-          <div className='notion-to-do-item'>
+        <div className={cs(toDoClassNames.root, blockId)}>
+          <div className={toDoClassNames.item}>
             <components.Checkbox blockId={blockId} isChecked={isChecked} />
 
             <div
               className={cs(
-                'notion-to-do-body',
-                isChecked && `notion-to-do-checked`
+                toDoClassNames.body,
+                isChecked && toDoClassNames.checked
               )}
             >
               <Text value={block.properties?.title} block={block} />
             </div>
           </div>
 
-          <div className='notion-to-do-children'>{children}</div>
+          <div className={toDoClassNames.children}>{children}</div>
         </div>
       )
     }

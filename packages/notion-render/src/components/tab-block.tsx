@@ -4,6 +4,7 @@ import React from 'react'
 
 import { Block, type BlockProps } from '../block'
 import { useNotionContext } from '../context'
+import { blankBlockClassName } from '../text-blocks'
 import { cs } from '../utils'
 
 export type TabBlockProps = Omit<BlockProps, 'children'> & {
@@ -69,13 +70,17 @@ export function TabBlock(props: TabBlockProps) {
   }
 
   if (!tabIds.length) {
-    return <div className={cs('notion-tab-block', 'notion-blank', blockId)} />
+    return (
+      <div className={cs('notion-tab-block', blankBlockClassName, blockId)} />
+    )
   }
 
   const safeIndex = Math.min(activeIndex, tabIds.length - 1)
   const activeTabId = tabIds[safeIndex]
   if (!activeTabId) {
-    return <div className={cs('notion-tab-block', 'notion-blank', blockId)} />
+    return (
+      <div className={cs('notion-tab-block', blankBlockClassName, blockId)} />
+    )
   }
   const activeTabBlock = getBlockValue(recordMap.block[activeTabId])
   const panelBlocks = activeTabBlock?.content ?? []

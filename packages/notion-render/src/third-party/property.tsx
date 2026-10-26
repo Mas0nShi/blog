@@ -10,6 +10,7 @@ import { GracefulImage } from '../components/graceful-image'
 import { PageTitle } from '../components/page-title'
 import { Text } from '../components/text'
 import { useNotionContext } from '../context'
+import { linkClassName } from '../text-blocks'
 import { cs } from '../utils'
 import { evalFormula } from './eval-formula'
 
@@ -226,7 +227,7 @@ export function PropertyImpl(props: IPropertyProps) {
             href={fullUrl}
             target='_blank'
             rel='noreferrer noopener'
-            className='notion-link'
+            className={linkClassName}
           >
             <span className='notion-url-domain'>{domain}</span>
             {path && <span className='notion-url-path'>{path}</span>}
