@@ -49,7 +49,7 @@ export const headerClassNames = {
   button: cs('button', 'tw:p-[12px]!'),
   spacer: cs('spacer', 'tw:mx-[2px] tw:text-fg-subtle'),
   // labels collapse on narrow screens, leaving icons only
-  title: cs('title', 'tw:max-[600px]:hidden')
+  title: cs('title', 'tw:[@media(max-width:600px)]:hidden')
 }
 
 export function Header({
@@ -185,7 +185,7 @@ export function Search({
             headerClassNames.breadcrumb,
             headerClassNames.button,
             'notion-search-button',
-            'tw:gap-[8px] tw:max-[600px]:hidden!'
+            'tw:gap-[8px] tw:[@media(max-width:600px)]:hidden!'
           )}
           onClick={onOpenSearch}
         >

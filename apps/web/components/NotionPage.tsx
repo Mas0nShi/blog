@@ -286,7 +286,7 @@ export function NotionPage({
           pageId === site.rootNotionPageId && [
             'index-page',
             // the home page's gallery gets a wider content column
-            'tw:[--notion-max-width:900px] tw:max-[920px]:px-[2vw]'
+            'tw:[--notion-max-width:900px] tw:[@media(max-width:920px)]:px-[2vw]'
           ]
         )}
         darkMode={isDarkMode}

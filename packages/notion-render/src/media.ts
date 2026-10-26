@@ -27,7 +27,7 @@ export function assetFigureClassName({
       ? 'tw:max-w-screen'
       : type === 'image'
         ? 'tw:max-w-full'
-        : 'tw:max-w-screen tw:max-[730px]:max-w-full',
+        : 'tw:max-w-screen tw:[@media(max-width:730px)]:max-w-full',
     // images (incl. next/image output) fill the asset box
     'tw:[&_img]:size-full tw:[&_img]:max-h-full tw:[&_iframe]:[border:none]',
     type === 'video' && 'tw:[&>div]:w-full! tw:[&_video]:w-full!'

@@ -49,7 +49,7 @@ export const collectionClassNames = {
   root: cs('notion-collection', 'tw:min-w-full tw:self-center'),
   tabs: cs(
     'notion-collection-view-tabs-row',
-    'tw:flex tw:w-[120%] tw:flex-row tw:flex-wrap tw:max-[730px]:w-full'
+    'tw:flex tw:w-[120%] tw:flex-row tw:flex-wrap tw:[@media(max-width:730px)]:w-full'
   ),
   // `all: unset` in the original, spelled out
   tab: (active: boolean) =>

@@ -10,19 +10,19 @@ import { cs } from './utils'
 export const rowClassName = cs(
   'notion-row',
   'tw:flex tw:w-full tw:max-w-full tw:overflow-hidden',
-  'tw:max-[640px]:flex-row tw:max-[640px]:flex-wrap tw:max-[640px]:gap-[8px] tw:max-[640px]:*:flex-1'
+  'tw:[@media(max-width:640px)]:flex-row tw:[@media(max-width:640px)]:flex-wrap tw:[@media(max-width:640px)]:gap-[8px] tw:[@media(max-width:640px)]:*:flex-1'
 )
 
 export const columnClassName = cs(
   'notion-column',
-  'tw:flex tw:flex-col tw:py-[12px] tw:max-[640px]:w-full!',
+  'tw:flex tw:flex-col tw:py-[12px] tw:[@media(max-width:640px)]:w-full!',
   // the column owns the outer spacing of its first and last block
   'tw:*:first:mx-0! tw:*:first:mt-0! tw:*:last:mx-0! tw:*:last:mb-0!'
 )
 
 export const columnSpacerClassName = cs(
   'notion-spacer',
-  'tw:w-[min(32px,4vw)] tw:last:hidden tw:max-[640px]:hidden'
+  'tw:w-[min(32px,4vw)] tw:last:hidden tw:[@media(max-width:640px)]:hidden'
 )
 
 export const simpleTableClassNames = {
