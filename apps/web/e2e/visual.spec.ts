@@ -58,10 +58,8 @@ test('search', async ({ page, baseURL }, testInfo) => {
 
   // the header button is hidden on small screens, so dispatch the click
   await page.locator('.notion-search-button').dispatchEvent('click')
-  // type like a user: the dialog only searches on throttled keystrokes
-  await page
-    .locator('.notion-search .searchInput')
-    .pressSequentially('CVE', { delay: 50 })
+  // a single input event, like pasting a query
+  await page.locator('.notion-search .searchInput').fill('CVE')
   await expect(page.locator('.notion-search .result')).toHaveCount(7)
   await page.evaluate(() => document.fonts.ready)
 

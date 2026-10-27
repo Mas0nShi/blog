@@ -181,10 +181,13 @@ export class SearchDialog extends React.Component<{
     this.setState({ query })
 
     if (!query.trim()) {
+      this._search.cancel()
       this.setState({ isLoading: false, searchResult: null, searchError: null })
       return
     } else {
-      this._search()
+      // pass the query: state isn't updated yet when the throttled search
+      // runs on the leading edge (e.g. when a query is pasted)
+      this._search(query)
     }
   }
 
@@ -204,9 +207,8 @@ export class SearchDialog extends React.Component<{
     })
   }
 
-  _searchImpl = async () => {
+  _searchImpl = async (query: string) => {
     const { searchNotion, rootBlockId } = this.props
-    const { query } = this.state
 
     if (!query.trim()) {
       this.setState({ isLoading: false, searchResult: null, searchError: null })
