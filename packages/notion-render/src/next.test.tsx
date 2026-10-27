@@ -1,7 +1,7 @@
 import { renderToStaticMarkup } from 'react-dom/server'
 import { beforeEach, describe, expect, test } from 'vitest'
 
-import { wrapNextImage } from './next'
+import { wrapNextImage, wrapNextLink } from './next'
 
 describe('wrapNextImage', () => {
   let receivedProps: Record<string, unknown> | undefined
@@ -57,5 +57,25 @@ describe('wrapNextImage', () => {
     expect(receivedProps?.preload).toBe(true)
     expect(receivedProps?.loading).toBeUndefined()
     expect(receivedProps).not.toHaveProperty('priority')
+  })
+})
+
+describe('wrapper identity', () => {
+  // a new wrapper would be a new component type, remounting every image or
+  // link that uses it (e.g. on each theme switch)
+  test('wrapping the same component returns the same wrapper', () => {
+    const NextImage = () => null
+    const NextLink = () => null
+
+    expect(wrapNextImage(NextImage)).toBe(wrapNextImage(NextImage))
+    expect(wrapNextLink(NextLink)).toBe(wrapNextLink(NextLink))
+  })
+
+  test('wrapping a wrapper returns it unchanged', () => {
+    const Image = wrapNextImage(() => null)
+    const Link = wrapNextLink(() => null)
+
+    expect(wrapNextImage(Image)).toBe(Image)
+    expect(wrapNextLink(Link)).toBe(Link)
   })
 })

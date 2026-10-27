@@ -214,28 +214,29 @@ export function NotionContextProvider({
     }
   }
 
-  const wrappedThemeComponents = React.useMemo(
-    () => ({
-      ...themeComponents
-    }),
-    [themeComponents]
-  )
+  const wrappedThemeComponents = React.useMemo(() => {
+    const components: Partial<NotionComponents> = { ...themeComponents }
 
-  if (wrappedThemeComponents.nextImage) {
-    wrappedThemeComponents.Image = wrapNextImage(themeComponents.nextImage)
-  }
-
-  if (wrappedThemeComponents.nextLink) {
-    wrappedThemeComponents.nextLink = wrapNextLink(themeComponents.nextLink)
-  }
-
-  // ensure the user can't override default components with falsy values
-  // since it would result in very difficult-to-debug react errors
-  for (const key of Object.keys(wrappedThemeComponents)) {
-    if (!(wrappedThemeComponents as any)[key]) {
-      delete (wrappedThemeComponents as any)[key]
+    // stable across renders (see wrapNextImage), so re-rendering the provider,
+    // e.g. when the theme changes, doesn't remount images and links
+    if (components.nextImage) {
+      components.Image = wrapNextImage(components.nextImage)
     }
-  }
+
+    if (components.nextLink) {
+      components.nextLink = wrapNextLink(components.nextLink)
+    }
+
+    // ensure the user can't override default components with falsy values
+    // since it would result in very difficult-to-debug react errors
+    for (const key of Object.keys(components)) {
+      if (!(components as any)[key]) {
+        delete (components as any)[key]
+      }
+    }
+
+    return components
+  }, [themeComponents])
 
   const resolvedMapImageUrl = React.useMemo<MapImageUrlFn>(() => {
     const resolveImageUrl: MapImageUrlFn = (url, block) =>
