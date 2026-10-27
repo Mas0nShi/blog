@@ -87,3 +87,83 @@
     background-color: transparent;
   }
 }
+
+/*
+ * The form. Form controls keep browser defaults (reset-opt-out.css), so give
+ * them the site's font; the stock sizes (10px inputs, 2px textarea padding)
+ * and grey focus fill don't fit the page.
+ */
+[data-waline] :is(input, textarea, button, select) {
+  font-family: inherit;
+}
+
+[data-waline] .wl-header label {
+  font-size: 13px;
+}
+
+[data-waline] .wl-header input {
+  font-size: 14px;
+}
+
+[data-waline] .wl-editor {
+  padding: 10px 12px;
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+[data-waline] :is(.wl-editor, .wl-input),
+[data-waline] :is(.wl-editor, .wl-input):focus {
+  background: transparent;
+}
+
+/*
+ * Dashed separators, as on the original form: between each label and its
+ * input, between the nickname and email columns, and along the textarea.
+ * The focused field's separator takes the accent.
+ */
+[data-waline] .wl-header input,
+[data-waline] .wl-editor {
+  border-inline-start: 2px dashed var(--waline-border-color);
+  border-radius: 0;
+  transition: border-color 0.2s;
+}
+
+[data-waline] :is(.wl-editor, .wl-input):focus {
+  border-inline-start-color: var(--waline-theme-color);
+}
+
+@media (min-width: 581px) {
+  [data-waline] .wl-header-item:not(:last-child) {
+    border-inline-end: 2px dashed var(--waline-border-color);
+  }
+}
+
+/* focus shows on the whole panel instead */
+[data-waline] .wl-panel {
+  transition: border-color 0.2s;
+}
+
+[data-waline] .wl-panel:focus-within {
+  border-color: var(--waline-theme-color);
+}
+
+[data-waline] .wl-btn {
+  font-size: 13px;
+}
+
+/*
+ * The GIF picker only hides itself (opacity / visibility), so once GIFs have
+ * loaded, the closed popup still sat below the form and made the page
+ * longer. Take it out of the layout while closed, like the emoji picker;
+ * @starting-style keeps the fade-in.
+ */
+[data-waline] .wl-gif-popup:not(.display) {
+  display: none;
+}
+
+@starting-style {
+  [data-waline] .wl-gif-popup.display {
+    opacity: 0;
+    transform: scale(0.9, 0.9);
+  }
+}
