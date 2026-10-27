@@ -22,3 +22,7 @@ e2e/run.sh record               # re-record server fixtures and HAR traffic
 Extra arguments go to `playwright test`, e.g. `e2e/run.sh -g links`. Diffs are in `e2e/.report` (`pnpm exec playwright show-report e2e/.report`).
 
 Pages under test are listed in `pages.json`; the `search` test opens the search dialog on the home page. Re-record when their content changes in Notion or a page is added: `e2e/run.sh record` (it fails on missing baselines, which is expected), then `e2e/run.sh --update-snapshots` to capture baselines from the replay, then `e2e/run.sh` to confirm they are stable. Recording also post-processes the HARs (`clean-har.mjs`): incomplete requests are dropped and animated GIFs/SVGs are frozen.
+
+## Behaviour tests
+
+`toc.spec.ts` checks the floating table of contents (highlighting the section being read, click navigation, keyboard access) on desktop. It runs with the visual suite: `e2e/run.sh e2e/toc.spec.ts` to run it alone.

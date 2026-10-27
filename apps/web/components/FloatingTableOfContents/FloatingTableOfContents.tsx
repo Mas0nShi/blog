@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 
 import { floatingTocClassName, hoverWrapperClassName } from './styles'
 import {
@@ -17,12 +17,14 @@ const HOVER_CLOSE_DELAY = 20
 
 interface FloatingTableOfContentsProps {
   containerSelector?: string
-  rootMargin?: string
 }
 
+// 没有悬停能力的设备（触屏）：点一下短线先展开面板
+const canHover = () =>
+  typeof window !== 'undefined' && window.matchMedia('(hover: hover)').matches
+
 export function FloatingTableOfContents({
-  containerSelector = '.notion-page-content',
-  rootMargin = '-80px 0px -40% 0px'
+  containerSelector = '.notion-page-content'
 }: FloatingTableOfContentsProps) {
   const sidebarRef = useRef<HTMLDivElement>(null)
 
@@ -30,7 +32,7 @@ export function FloatingTableOfContents({
   const { tocItems, minLevel } = useTocItems({ containerSelector })
 
   // 追踪活动标题
-  const activeId = useActiveHeading({ tocItems, rootMargin })
+  const activeId = useActiveHeading({ tocItems, offset: SCROLL_OFFSET + 20 })
 
   // 容器可见性（分离渲染和显示状态，支持淡出动画）
   const { shouldRender, isVisible } = useContainerVisibility({
@@ -52,22 +54,56 @@ export function FloatingTableOfContents({
     setFalse: handleMouseLeave
   } = useDelayedBoolean(HOVER_CLOSE_DELAY)
 
-  // 点击跳转
+  // 键盘焦点在目录内、或触屏点开时，面板保持展开
+  const [hasFocus, setHasFocus] = useState(false)
+  const [isTapOpen, setIsTapOpen] = useState(false)
+  const wrapperRef = useRef<HTMLElement>(null)
+  const isOpen = isHovered || hasFocus || isTapOpen
+
+  // 触屏展开后，点目录以外的地方收起
+  useEffect(() => {
+    if (!isTapOpen) return
+    const close = (event: PointerEvent) => {
+      if (!wrapperRef.current?.contains(event.target as Node)) {
+        setIsTapOpen(false)
+      }
+    }
+    document.addEventListener('pointerdown', close)
+    return () => document.removeEventListener('pointerdown', close)
+  }, [isTapOpen])
+
+  // 点击跳转：滚到标题（留出顶栏），并把地址更新为 #章节，便于分享
   const handleItemClick = useCallback(
     (id: string) => {
       const item = tocItems.find((item) => item.id === id)
       if (item?.headerElement) {
         const elementPosition = item.headerElement.getBoundingClientRect().top
-        const offsetPosition =
-          elementPosition + window.pageYOffset - SCROLL_OFFSET
+        const offsetPosition = elementPosition + window.scrollY - SCROLL_OFFSET
+        const reduceMotion = window.matchMedia(
+          '(prefers-reduced-motion: reduce)'
+        ).matches
 
         window.scrollTo({
           top: offsetPosition,
-          behavior: 'smooth'
+          behavior: reduceMotion ? 'auto' : 'smooth'
         })
+        window.history.replaceState(window.history.state, '', `#${id}`)
       }
+      setIsTapOpen(false)
     },
     [tocItems]
+  )
+
+  // 短线：能悬停的设备直接跳转；触屏先展开面板
+  const handleLineClick = useCallback(
+    (id: string) => {
+      if (canHover() || isTapOpen) {
+        handleItemClick(id)
+      } else {
+        setIsTapOpen(true)
+      }
+    },
+    [handleItemClick, isTapOpen]
   )
 
   // 早期返回：无内容或不需要渲染
@@ -84,26 +120,34 @@ export function FloatingTableOfContents({
       className={floatingTocClassName(isReady)}
       style={{ top: sidebarTop !== null ? `${sidebarTop}px` : undefined }}
     >
-      <div
+      <nav
+        ref={wrapperRef}
+        aria-label='目录'
         className={hoverWrapperClassName}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        onFocus={() => setHasFocus(true)}
+        onBlur={(event) => {
+          if (!event.currentTarget.contains(event.relatedTarget as Node)) {
+            setHasFocus(false)
+          }
+        }}
       >
         <TocCompactView
-          isHovered={isHovered}
+          isHovered={isOpen}
           tocItems={tocItems}
           activeId={activeId}
           minLevel={minLevel}
-          onItemClick={handleItemClick}
+          onItemClick={handleLineClick}
         />
         <TocExpandedPanel
-          isHovered={isHovered}
+          isHovered={isOpen}
           tocItems={tocItems}
           activeId={activeId}
           minLevel={minLevel}
           onItemClick={handleItemClick}
         />
-      </div>
+      </nav>
     </div>
   )
 }
