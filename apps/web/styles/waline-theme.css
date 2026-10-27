@@ -111,8 +111,31 @@
   line-height: 1.75;
 }
 
+[data-waline] :is(.wl-editor, .wl-input),
 [data-waline] :is(.wl-editor, .wl-input):focus {
   background: transparent;
+}
+
+/*
+ * Dashed separators, as on the original form: between each label and its
+ * input, between the nickname and email columns, and along the textarea.
+ * The focused field's separator takes the accent.
+ */
+[data-waline] .wl-header input,
+[data-waline] .wl-editor {
+  border-inline-start: 2px dashed var(--waline-border-color);
+  border-radius: 0;
+  transition: border-color 0.2s;
+}
+
+[data-waline] :is(.wl-editor, .wl-input):focus {
+  border-inline-start-color: var(--waline-theme-color);
+}
+
+@media (min-width: 581px) {
+  [data-waline] .wl-header-item:not(:last-child) {
+    border-inline-end: 2px dashed var(--waline-border-color);
+  }
 }
 
 /* focus shows on the whole panel instead */
