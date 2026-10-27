@@ -1,7 +1,25 @@
 import React from 'react'
 import isEqual from 'react-fast-compare'
 
+// One wrapper per wrapped component: a new wrapper is a new component type,
+// and React would remount every image or link that uses it. Wrappers are
+// also returned as-is, since nested context providers pass them back in.
+const imageWrappers = new WeakMap<object, React.FC<any>>()
+const linkWrappers = new WeakMap<object, React.FC<any>>()
+const wrappers = new WeakSet<object>()
+
 export const wrapNextImage = (NextImage: any): React.FC<any> => {
+  if (wrappers.has(NextImage)) return NextImage
+  let wrapper = imageWrappers.get(NextImage)
+  if (!wrapper) {
+    wrapper = createNextImage(NextImage)
+    imageWrappers.set(NextImage, wrapper)
+    wrappers.add(wrapper)
+  }
+  return wrapper
+}
+
+function createNextImage(NextImage: any): React.FC<any> {
   return React.memo(function ReactNotionXNextImage({
     src,
     alt = '',
@@ -42,8 +60,19 @@ export const wrapNextImage = (NextImage: any): React.FC<any> => {
   }, isEqual)
 }
 
-export function wrapNextLink(NextLink: any) {
-  return ({
+export function wrapNextLink(NextLink: any): React.FC<any> {
+  if (wrappers.has(NextLink)) return NextLink
+  let wrapper = linkWrappers.get(NextLink)
+  if (!wrapper) {
+    wrapper = createNextLink(NextLink)
+    linkWrappers.set(NextLink, wrapper)
+    wrappers.add(wrapper)
+  }
+  return wrapper
+}
+
+function createNextLink(NextLink: any): React.FC<any> {
+  return function ReactNotionXNextLink({
     href,
     as,
     passHref,
@@ -53,7 +82,7 @@ export function wrapNextLink(NextLink: any) {
     shallow,
     locale,
     ...linkProps
-  }: any) => {
+  }: any) {
     return (
       <NextLink
         href={href}
