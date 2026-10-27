@@ -24,7 +24,7 @@ import { cs } from './utils'
 /** Base typography for the root of a rendered Notion tree. */
 export const notionRootClassName = cs(
   'notion',
-  'tw:font-sans tw:text-[16px] tw:leading-normal tw:text-fg tw:caret-fg'
+  'tw:font-sans tw:text-[17px] tw:leading-normal tw:text-fg tw:caret-fg'
 )
 
 /**

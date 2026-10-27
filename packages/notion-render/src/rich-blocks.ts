@@ -17,7 +17,7 @@ export const codeClassNames = {
   block: cs(
     'notion-code',
     'tw:mx-0 tw:my-[4px] tw:box-border tw:block tw:overflow-x-auto tw:rounded-[0.375rem] tw:p-[1.5em]',
-    'tw:text-[length:85%] tw:whitespace-pre tw:[tab-size:2] tw:[overflow-wrap:break-word]',
+    'tw:text-[13.6px] tw:whitespace-pre tw:[tab-size:2] tw:[overflow-wrap:break-word]',
     monoFont,
     'tw:bg-bg-subtle tw:[border:1px_solid_var(--fg-color-0)]',
     // scrollable, but without a visible scrollbar
