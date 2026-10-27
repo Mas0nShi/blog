@@ -154,7 +154,27 @@ export const propertyUrlClassNames = {
   )
 }
 
-// page property rows (database pages and the site's post header)
+// the page header of an article: properties as one line of metadata
+export const articleMetaClassNames = {
+  root: cs(
+    'notion-collection-row',
+    'tw:mb-[16px] tw:w-full tw:pb-[18px] tw:[border-bottom:1px_solid_var(--fg-color-0)]'
+  ),
+  body: cs(
+    'notion-collection-row-body',
+    'tw:flex tw:flex-row tw:flex-wrap tw:items-center tw:gap-x-[12px] tw:gap-y-[6px] tw:text-[14px] tw:text-fg-muted'
+  ),
+  property: cs(
+    'notion-collection-row-property',
+    'tw:flex tw:items-center tw:gap-x-[12px]',
+    "tw:not-first:before:text-fg-subtle tw:not-first:before:content-['·']",
+    'tw:[&_.notion-property]:flex tw:[&_.notion-property]:items-center',
+    'tw:[&_.notion-property-relation_.notion-page-title-text]:[border-bottom:1px_solid]'
+  ),
+  value: cs('notion-collection-row-value', 'tw:flex tw:items-center')
+}
+
+// page property rows (database pages)
 export const collectionRowClassNames = {
   root: cs(
     'notion-collection-row',

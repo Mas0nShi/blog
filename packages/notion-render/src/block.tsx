@@ -47,7 +47,8 @@ import {
   embeddedRootClassName,
   notionRootClassName,
   pageClassName,
-  pageShellClassNames
+  pageShellClassNames,
+  pageTitleClassName
 } from './page-shell'
 import { bookmarkClassName, bookmarkClassNames } from './rich-blocks'
 import {
@@ -194,6 +195,9 @@ export function Block(props: BlockProps) {
             showTableOfContents && toc.length >= minTableOfContentsItems
           const hasAside = !!((hasToc || pageAside) && !page_full_width)
           const hasPageCover = !!(pageCover || page_cover)
+          // pages in a database (blog posts) read as articles
+          const isArticle =
+            block.type === 'page' && block.parent_table === 'collection'
 
           return (
             <div
@@ -235,7 +239,8 @@ export function Block(props: BlockProps) {
                         smallText: !!page_small_text,
                         hasCover: hasPageCover,
                         hasIcon: !!page_icon,
-                        isImageIcon: !!isPageIconUrl
+                        isImageIcon: !!isPageIconUrl,
+                        isArticle
                       }),
                       hasPageCover
                         ? 'notion-page-has-cover'
@@ -258,12 +263,13 @@ export function Block(props: BlockProps) {
                         defaultIcon={defaultPageIcon}
                         inline={false}
                         hasCover={hasPageCover}
+                        compact={isArticle}
                       />
                     )}
 
                     {pageHeader}
 
-                    <h1 className={pageShellClassNames.title}>
+                    <h1 className={pageTitleClassName(isArticle)}>
                       {pageTitle ?? (
                         <Text value={properties?.title} block={block} />
                       )}

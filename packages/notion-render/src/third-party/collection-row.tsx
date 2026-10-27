@@ -1,7 +1,7 @@
 import { type PageBlock } from 'notion-types'
 import { getBlockValue } from 'notion-utils'
 
-import { collectionRowClassNames } from '../collections'
+import { articleMetaClassNames, collectionRowClassNames } from '../collections'
 import { useNotionContext } from '../context'
 import { cs } from '../utils'
 import { CollectionColumnTitle } from './collection-column-title'
@@ -17,6 +17,9 @@ export function CollectionRow({
   className?: string
 }) {
   const { recordMap } = useNotionContext()
+  const classNames = pageHeader
+    ? articleMetaClassNames
+    : collectionRowClassNames
   const collectionId = block.parent_id
   const collection = getBlockValue(recordMap.collection[collectionId])
   const schemas = collection?.schema
@@ -54,21 +57,21 @@ export function CollectionRow({
   }
 
   return (
-    <div className={cs(collectionRowClassNames.root, className)}>
-      <div className={collectionRowClassNames.body}>
+    <div className={cs(classNames.root, className)}>
+      <div className={classNames.body}>
         {propertyIds.map((propertyId) => {
           const schema = schemas[propertyId]
           if (!schema) return null
 
           return (
-            <div className={collectionRowClassNames.property} key={propertyId}>
+            <div className={classNames.property} key={propertyId}>
               {/* the page header shows values only */}
               <CollectionColumnTitle
                 schema={schema}
                 variant={pageHeader ? 'hidden' : 'row'}
               />
 
-              <div className={collectionRowClassNames.value}>
+              <div className={classNames.value}>
                 <Property
                   schema={schema}
                   data={

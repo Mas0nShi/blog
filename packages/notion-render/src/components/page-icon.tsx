@@ -35,7 +35,8 @@ export function PageIconImpl({
   inline = true,
   hideDefaultIcon = false,
   defaultIcon,
-  hasCover = false
+  hasCover = false,
+  compact = false
 }: {
   block: Block
   className?: string
@@ -44,6 +45,8 @@ export function PageIconImpl({
   defaultIcon?: string | null
   /** positions the hero (non-inline) icon over the page cover */
   hasCover?: boolean
+  /** a smaller hero icon in the flow (article pages) */
+  compact?: boolean
 }) {
   const { mapImageUrl, recordMap, darkMode } = useNotionContext()
   let isImage = false
@@ -120,7 +123,12 @@ export function PageIconImpl({
             className,
             inline
               ? inlinePageIconContentClassName
-              : cs('notion-page-icon', pageIconHeroContentClassName.span)
+              : cs(
+                  'notion-page-icon',
+                  compact
+                    ? pageIconHeroContentClassName.compactSpan
+                    : pageIconHeroContentClassName.span
+                )
           )}
           role='img'
           aria-label={icon}
@@ -140,7 +148,7 @@ export function PageIconImpl({
       className={
         inline
           ? inlinePageIconClassName(isImage)
-          : pageIconHeroClassName({ isImage, hasCover })
+          : pageIconHeroClassName({ isImage, hasCover, compact })
       }
     >
       {content}

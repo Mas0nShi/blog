@@ -24,7 +24,7 @@ import { cs } from './utils'
 /** Base typography for the root of a rendered Notion tree. */
 export const notionRootClassName = cs(
   'notion',
-  'tw:font-sans tw:text-[16px] tw:leading-normal tw:text-fg tw:caret-fg'
+  'tw:font-sans tw:text-[17px] tw:leading-normal tw:text-fg tw:caret-fg'
 )
 
 /**
@@ -69,11 +69,7 @@ export const pageShellClassNames = {
     'tw:[&.lazy-image-wrapper]:p-0! tw:[&_:is(.lazy-image-preview,.lazy-image-real)]:will-change-auto!',
     'tw:[&.lazy-image-loaded_.lazy-image-preview]:opacity-100'
   ),
-  title: cs(
-    'notion-title',
-    'tw:mb-[20px] tw:block tw:w-full tw:text-center',
-    'tw:text-[2.5em] tw:leading-[1.2] tw:font-semibold'
-  ),
+
   content: cs('notion-page-content', 'tw:flex tw:w-full tw:flex-col'),
   article: cs(
     'notion-page-content-inner',
@@ -91,7 +87,8 @@ export function pageClassName({
   smallText,
   hasCover,
   hasIcon,
-  isImageIcon
+  isImageIcon,
+  isArticle = false
 }: {
   fullPage: boolean
   fullWidth: boolean
@@ -99,22 +96,28 @@ export function pageClassName({
   hasCover: boolean
   hasIcon: boolean
   isImageIcon: boolean
+  /** a page in a database (a blog post): compact, left-aligned header */
+  isArticle?: boolean
 }) {
   return cs(
     'notion-page',
     'tw:relative tw:mx-auto tw:flex tw:shrink-0 tw:grow tw:flex-col tw:items-start',
-    'tw:w-(--notion-max-width) tw:max-w-full tw:leading-[1.65]',
+    'tw:w-(--notion-max-width) tw:max-w-full tw:leading-[1.85]',
     'tw:pb-[max(5vh,32px)]',
     fullWidth
       ? 'tw:px-[min(96px,8vw)] tw:[--notion-max-width:min(1920px,98vw)]'
       : 'tw:px-[min(16px,8vw)]',
-    'tw:[@media(max-width:720px)]:px-[2vw]',
+    'tw:[@media(max-width:720px)]:px-[16px]',
     // embedded root elements set their own font size (see embeddedRootClassName)
     fullPage && smallText && 'tw:text-[14px]',
     // pages embedded via oEmbed ("lite" mode) span the full width
     'tw:[.notion-lite_&]:w-full tw:[.notion-lite_&]:px-0!',
     // vertical room for the hero icon, which overlaps the cover
     fullPage &&
+      isArticle &&
+      (hasCover ? 'tw:pt-0' : cs('tw:mt-[48px]', 'tw:pt-0')),
+    fullPage &&
+      !isArticle &&
       (hasCover
         ? !hasIcon
           ? 'tw:pt-[48px]'
@@ -132,14 +135,38 @@ export function pageClassName({
   )
 }
 
+/** Title of a full page; articles get a left-aligned, tighter title. */
+export function pageTitleClassName(isArticle: boolean) {
+  return cs(
+    'notion-title',
+    'tw:block tw:w-full tw:font-semibold',
+    isArticle
+      ? 'tw:mb-[14px] tw:text-left tw:text-[2em] tw:leading-[1.3] tw:tracking-[-0.01em]'
+      : 'tw:mb-[20px] tw:text-center tw:text-[2.5em] tw:leading-[1.2]'
+  )
+}
+
 /** The large page icon shown above the title. */
 export function pageIconHeroClassName({
   isImage,
-  hasCover
+  hasCover,
+  compact = false
 }: {
   isImage: boolean
   hasCover: boolean
+  /** articles: a smaller icon in the flow, half over the cover */
+  compact?: boolean
 }) {
+  if (compact) {
+    return cs(
+      'notion-page-icon-hero',
+      isImage ? 'notion-page-icon-image' : 'notion-page-icon-span',
+      'tw:relative tw:mb-[18px] tw:flex',
+      isImage ? 'tw:size-[72px]' : 'tw:size-[60px]',
+      hasCover ? (isImage ? 'tw:-mt-[36px]' : 'tw:-mt-[30px]') : 'tw:mt-0'
+    )
+  }
+
   return cs(
     'notion-page-icon-hero',
     'tw:absolute tw:left-1/2 tw:flex tw:flex-row tw:justify-center',
@@ -160,5 +187,7 @@ export function pageIconHeroClassName({
 export const pageIconHeroContentClassName = {
   image:
     'tw:relative tw:block tw:size-full tw:max-h-full tw:max-w-full tw:object-cover tw:rounded-full tw:shadow-[0_8px_40px_0_rgb(0_0_0/21%)]',
-  span: 'tw:relative tw:block tw:ml-0 tw:font-emoji tw:text-[78px] tw:leading-[1.1] tw:text-(--fg-color-icon) tw:fill-(--fg-color-6)'
+  span: 'tw:relative tw:block tw:ml-0 tw:font-emoji tw:text-[78px] tw:leading-[1.1] tw:text-(--fg-color-icon) tw:fill-(--fg-color-6)',
+  compactSpan:
+    'tw:relative tw:block tw:ml-0 tw:font-emoji tw:text-[56px] tw:leading-[1.1] tw:text-(--fg-color-icon) tw:fill-(--fg-color-6)'
 }

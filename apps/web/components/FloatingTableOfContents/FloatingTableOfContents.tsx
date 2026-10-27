@@ -10,6 +10,7 @@ import {
 } from './hooks'
 import { TocCompactView } from './TocCompactView'
 import { TocExpandedPanel } from './TocExpandedPanel'
+import { TocSidebar } from './TocSidebar'
 
 // 常量配置
 const SCROLL_OFFSET = 80
@@ -79,31 +80,40 @@ export function FloatingTableOfContents({
   const isReady = isPositionReady && sidebarTop !== null && isVisible
 
   return (
-    <div
-      ref={sidebarRef}
-      className={floatingTocClassName(isReady)}
-      style={{ top: sidebarTop !== null ? `${sidebarTop}px` : undefined }}
-    >
+    <>
+      <TocSidebar
+        containerSelector={containerSelector}
+        tocItems={tocItems}
+        activeId={activeId}
+        minLevel={minLevel}
+        onItemClick={handleItemClick}
+      />
       <div
-        className={hoverWrapperClassName}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
+        ref={sidebarRef}
+        className={floatingTocClassName(isReady)}
+        style={{ top: sidebarTop !== null ? `${sidebarTop}px` : undefined }}
       >
-        <TocCompactView
-          isHovered={isHovered}
-          tocItems={tocItems}
-          activeId={activeId}
-          minLevel={minLevel}
-          onItemClick={handleItemClick}
-        />
-        <TocExpandedPanel
-          isHovered={isHovered}
-          tocItems={tocItems}
-          activeId={activeId}
-          minLevel={minLevel}
-          onItemClick={handleItemClick}
-        />
+        <div
+          className={hoverWrapperClassName}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          <TocCompactView
+            isHovered={isHovered}
+            tocItems={tocItems}
+            activeId={activeId}
+            minLevel={minLevel}
+            onItemClick={handleItemClick}
+          />
+          <TocExpandedPanel
+            isHovered={isHovered}
+            tocItems={tocItems}
+            activeId={activeId}
+            minLevel={minLevel}
+            onItemClick={handleItemClick}
+          />
+        </div>
       </div>
-    </div>
+    </>
   )
 }

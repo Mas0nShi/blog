@@ -19,8 +19,7 @@ export const codeClassNames = {
     'tw:mx-0 tw:my-[4px] tw:box-border tw:block tw:overflow-x-auto tw:rounded-[0.375rem] tw:p-[1.5em]',
     'tw:text-[length:85%] tw:whitespace-pre tw:[tab-size:2] tw:[overflow-wrap:break-word]',
     monoFont,
-    'tw:bg-[rgba(249,250,251,1)] tw:[border:1px_solid_rgba(229,231,235,1)]',
-    'tw:dark:bg-[rgba(17,24,39,1)] tw:dark:[border-color:rgba(55,65,81,1)]',
+    'tw:bg-bg-subtle tw:[border:1px_solid_var(--fg-color-0)]',
     // scrollable, but without a visible scrollbar
     'tw:[scrollbar-width:none] tw:[-ms-overflow-style:none] tw:[&::-webkit-scrollbar]:hidden'
   ),

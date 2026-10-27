@@ -30,9 +30,11 @@
     --bg-color-1: rgb(247, 246, 243);
     --bg-color-2: rgba(135, 131, 120, 0.15);
 
-    --select-color-0: rgb(35, 131, 226);
-    --select-color-1: rgba(45, 170, 219, 0.3);
-    --select-color-2: #d9eff8;
+    /* accent: the comment purple; -0 is the text tier (AA on white) */
+    --select-color-0: #4369d6;
+    --select-color-1: rgba(86, 130, 238, 0.24);
+    --select-color-2: #e8eefd;
+    --accent-color: #5682ee;
 
     --notion-red: rgb(224, 62, 62);
     --notion-pink: rgb(173, 26, 114);
@@ -99,7 +101,7 @@
 
     --notion-simple-list-item-cursor: rgba(233, 233, 231, 0.81);
 
-    --notion-max-width: 720px;
+    --notion-max-width: 712px;
     --notion-header-height: 45px;
 
     /* stacking order of layered UI, lowest to highest */
@@ -112,20 +114,48 @@
   }
 
   .dark-mode {
-    --fg-color: rgba(255, 255, 255, 0.9);
-    --fg-color-0: var(--fg-color);
-    --fg-color-1: var(--fg-color);
-    --fg-color-2: var(--fg-color);
-    --fg-color-3: var(--fg-color);
-    --fg-color-4: var(--fg-color);
-    --fg-color-5: rgba(255, 255, 255, 0.7);
-    --fg-color-6: #fff;
+    /* ink tiers on a darker paper, so secondary surfaces can lift */
+    --fg-color: #e8e6e1;
+    --fg-color-0: rgba(255, 255, 255, 0.08);
+    --fg-color-1: rgba(255, 255, 255, 0.14);
+    --fg-color-2: rgba(255, 255, 255, 0.4);
+    --fg-color-3: rgba(255, 255, 255, 0.6);
+    --fg-color-4: #fff;
+    --fg-color-5: rgba(255, 255, 255, 0.04);
+    --fg-color-6: rgba(255, 255, 255, 0.85);
     --fg-color-icon: #fff;
 
-    --bg-color: #2f3437;
-    --bg-color-0: rgb(71, 76, 80);
-    --bg-color-1: rgb(63, 68, 71);
-    --bg-color-2: rgba(135, 131, 120, 0.15);
+    --bg-color: #1b1c1e;
+    --bg-color-0: rgba(255, 255, 255, 0.07);
+    --bg-color-1: #232528;
+    --bg-color-2: rgba(255, 255, 255, 0.06);
+
+    --select-color-0: #7aa2ff;
+    --select-color-1: rgba(122, 162, 255, 0.3);
+    --select-color-2: #263255;
+    --accent-color: #7aa2ff;
+
+    /* select / status options */
+    --notion-item-default: rgba(255, 255, 255, 0.08);
+    --notion-item-gray: rgba(255, 255, 255, 0.1);
+    --notion-item-brown: rgb(74, 50, 40);
+    --notion-item-orange: rgb(92, 59, 35);
+    --notion-item-yellow: rgb(86, 67, 40);
+    --notion-item-green: rgb(36, 61, 48);
+    --notion-item-blue: rgb(20, 58, 78);
+    --notion-item-purple: rgb(60, 45, 73);
+    --notion-item-pink: rgb(78, 44, 60);
+    --notion-item-red: rgb(82, 46, 42);
+    --notion-item-text-default: rgba(255, 255, 255, 0.85);
+    --notion-item-text-gray: rgba(255, 255, 255, 0.85);
+    --notion-item-text-brown: rgb(233, 211, 201);
+    --notion-item-text-orange: rgb(247, 213, 185);
+    --notion-item-text-yellow: rgb(245, 225, 183);
+    --notion-item-text-green: rgb(196, 227, 207);
+    --notion-item-text-blue: rgb(191, 219, 240);
+    --notion-item-text-purple: rgb(223, 205, 238);
+    --notion-item-text-pink: rgb(242, 203, 221);
+    --notion-item-text-red: rgb(248, 200, 193);
 
     --notion-red: rgb(255, 115, 105);
     --notion-pink: rgb(226, 85, 161);
@@ -185,9 +215,14 @@
     background: var(--select-color-1);
   }
 
-  .notion *,
   .notion *:focus {
     outline: 0;
+  }
+
+  .notion *:focus-visible {
+    outline: 2px solid var(--select-color-0);
+    outline-offset: 2px;
+    border-radius: 2px;
   }
 
   .notion b {
