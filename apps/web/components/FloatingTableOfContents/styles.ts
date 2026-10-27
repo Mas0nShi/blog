@@ -61,9 +61,11 @@ export const panelClassNames = {
   animation: (hovered: boolean) =>
     cs(
       'tw:flex tw:w-[258px] tw:cursor-default tw:flex-row tw:ps-[16px]',
+      // closed: transparent, not invisible, so keyboard focus can reach the
+      // links (focusing one opens the panel)
       hovered
-        ? 'tw:pointer-events-auto tw:visible tw:opacity-100 tw:[transform:translateX(0)] tw:[transition:opacity_200ms_ease,transform_200ms_ease,visibility_0ms_0ms,pointer-events_0ms_0ms]'
-        : 'tw:pointer-events-none tw:invisible tw:opacity-0 tw:[transform:translateX(10px)] tw:[transition:opacity_200ms_ease,transform_200ms_ease,visibility_0ms_200ms,pointer-events_0ms_200ms]'
+        ? 'tw:pointer-events-auto tw:opacity-100 tw:[transform:translateX(0)] tw:[transition:opacity_200ms_ease,transform_200ms_ease,pointer-events_0ms_0ms]'
+        : 'tw:pointer-events-none tw:opacity-0 tw:[transform:translateX(10px)] tw:[transition:opacity_200ms_ease,transform_200ms_ease,pointer-events_0ms_200ms]'
     ),
   panel: cs(
     'tw:relative tw:me-[10px] tw:flex tw:max-h-[362px] tw:w-[242px] tw:flex-row tw:items-start tw:overflow-x-hidden tw:overflow-y-auto tw:rounded-[14px] tw:px-[12px] tw:pt-[12px] tw:pb-0',
@@ -77,6 +79,7 @@ export const panelClassNames = {
   item: (active: boolean) =>
     cs(
       'tw:block tw:w-full tw:cursor-pointer tw:fill-inherit tw:no-underline tw:select-none tw:[transition:color_0.15s]',
+      'tw:rounded-[6px] tw:focus-visible:[outline:2px_solid_rgb(35,131,226)] tw:focus-visible:outline-offset-[-2px]',
       reducedMotion,
       active
         ? 'tw:text-[rgb(35,131,226)] tw:dark:text-[rgb(82,156,202)]'

@@ -30,11 +30,17 @@ export function TocCompactView({
           const lineWidth = Math.max(12, 28 - normalizedLevel * 6)
 
           return (
-            <div
+            <a
               key={item.id}
+              href={`#${item.id}`}
+              tabIndex={-1}
+              aria-hidden='true'
               className={compactClassNames.line(isActive)}
               style={{ width: `${lineWidth}px` }}
-              onClick={() => onItemClick(item.id)}
+              onClick={(event) => {
+                event.preventDefault()
+                onItemClick(item.id)
+              }}
             />
           )
         })}

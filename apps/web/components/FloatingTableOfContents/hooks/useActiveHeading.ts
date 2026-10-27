@@ -4,45 +4,74 @@ import type { TocItem } from './useTocItems'
 
 interface UseActiveHeadingOptions {
   tocItems: TocItem[]
-  rootMargin?: string
+  /** 标题滚过这条线（距视口顶部的像素）即视为进入该章节 */
+  offset?: number
 }
 
 /**
- * 追踪当前可见的活动标题
+ * 追踪当前正在阅读的章节：已经滚过顶部偏移线的最后一个标题。
+ *
+ * 不用 IntersectionObserver：它只在标题进入某个区域时触发，屏幕下方出现
+ * 的标题会被提前点亮，向上滚动时也不会切回上一节。
  */
 export function useActiveHeading({
   tocItems,
-  rootMargin = '-80px 0px -40% 0px'
+  offset = 100
 }: UseActiveHeadingOptions) {
   const [activeId, setActiveId] = useState<string>('')
 
   useEffect(() => {
     if (tocItems.length === 0) return
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            const id =
-              (entry.target as HTMLElement).dataset.id || entry.target.id
-            if (id) {
-              setActiveId(id)
-            }
+    let frame = 0
+
+    const update = () => {
+      frame = 0
+      // 折叠块里隐藏的标题没有布局，跳过
+      const shown = tocItems.filter(
+        (item) => item.headerElement.getClientRects().length > 0
+      )
+
+      let id = ''
+      for (const item of shown) {
+        if (item.headerElement.getBoundingClientRect().top - offset <= 0) {
+          id = item.id
+        } else {
+          break
+        }
+      }
+
+      // 滚到底部时，最后几节的标题可能永远到不了顶部：取视口内最后一个
+      const atBottom =
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 2
+      if (atBottom) {
+        for (const item of shown) {
+          if (
+            item.headerElement.getBoundingClientRect().top < window.innerHeight
+          ) {
+            id = item.id
           }
         }
-      },
-      {
-        rootMargin,
-        threshold: [0, 0.25, 0.5, 0.75, 1]
       }
-    )
 
-    for (const item of tocItems) {
-      observer.observe(item.headerElement)
+      setActiveId(id)
     }
 
-    return () => observer.disconnect()
-  }, [tocItems, rootMargin])
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update)
+    }
+
+    update()
+    window.addEventListener('scroll', schedule, { passive: true })
+    window.addEventListener('resize', schedule)
+
+    return () => {
+      cancelAnimationFrame(frame)
+      window.removeEventListener('scroll', schedule)
+      window.removeEventListener('resize', schedule)
+    }
+  }, [tocItems, offset])
 
   return activeId
 }
