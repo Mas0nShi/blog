@@ -87,3 +87,43 @@
     background-color: transparent;
   }
 }
+
+/*
+ * The form. Form controls keep browser defaults (reset-opt-out.css), so give
+ * them the site's font; the stock sizes (10px inputs, 2px textarea padding)
+ * and grey focus fill don't fit the page.
+ */
+[data-waline] :is(input, textarea, button, select) {
+  font-family: inherit;
+}
+
+[data-waline] .wl-header label {
+  font-size: 13px;
+}
+
+[data-waline] .wl-header input {
+  font-size: 14px;
+}
+
+[data-waline] .wl-editor {
+  padding: 10px 12px;
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+[data-waline] :is(.wl-editor, .wl-input):focus {
+  background: transparent;
+}
+
+/* focus shows on the whole panel instead */
+[data-waline] .wl-panel {
+  transition: border-color 0.2s;
+}
+
+[data-waline] .wl-panel:focus-within {
+  border-color: var(--waline-theme-color);
+}
+
+[data-waline] .wl-btn {
+  font-size: 13px;
+}
