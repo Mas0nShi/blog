@@ -10,8 +10,6 @@ const reducedMotion = 'tw:motion-reduce:transition-none'
 export function floatingTocClassName(visible: boolean) {
   return cs(
     'tw:fixed tw:right-[12px] tw:z-100 tw:will-change-[transform,opacity] tw:[@media(max-width:1200px)]:hidden',
-    // wide screens show the sidebar instead
-    'tw:min-[1280px]:hidden',
     'tw:[transition:opacity_200ms_ease,transform_200ms_ease]',
     reducedMotion,
     visible
@@ -91,25 +89,4 @@ export const panelClassNames = {
   itemText:
     'tw:flex tw:items-center tw:p-[4px] tw:text-[13px] tw:leading-[1.3]',
   itemTextSpan: 'tw:line-clamp-2'
-}
-
-// wide screens: a column next to the article (article: 712px, centered)
-export const sidebarClassNames = {
-  root: cs(
-    'tw:fixed tw:left-[calc(50%+396px)] tw:z-100 tw:hidden tw:w-[220px] tw:min-[1280px]:block',
-    'tw:max-h-[calc(100vh-140px)] tw:overflow-y-auto tw:transition-opacity tw:duration-200',
-    reducedMotion
-  ),
-  title:
-    'tw:mb-[10px] tw:ps-[12px] tw:text-[12px] tw:font-semibold tw:tracking-[0.08em] tw:text-fg-muted',
-  list: 'tw:m-0 tw:list-none tw:p-0 tw:[border-inline-start:1px_solid_var(--fg-color-0)]',
-  item: (active: boolean) =>
-    cs(
-      'tw:-ms-px tw:block tw:py-[5px] tw:pe-[8px] tw:text-[13px] tw:leading-[1.45] tw:no-underline',
-      'tw:[border-inline-start:2px_solid_transparent] tw:transition-colors tw:duration-150',
-      reducedMotion,
-      active
-        ? 'tw:[border-inline-start-color:var(--select-color-0)] tw:font-medium tw:text-(--select-color-0)'
-        : 'tw:text-fg-muted tw:[&:hover]:text-fg'
-    )
 }

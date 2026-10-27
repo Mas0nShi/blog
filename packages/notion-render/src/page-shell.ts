@@ -24,7 +24,7 @@ import { cs } from './utils'
 /** Base typography for the root of a rendered Notion tree. */
 export const notionRootClassName = cs(
   'notion',
-  'tw:font-sans tw:text-[17px] tw:leading-normal tw:text-fg tw:caret-fg'
+  'tw:font-sans tw:text-[16px] tw:leading-normal tw:text-fg tw:caret-fg'
 )
 
 /**
@@ -102,7 +102,7 @@ export function pageClassName({
   return cs(
     'notion-page',
     'tw:relative tw:mx-auto tw:flex tw:shrink-0 tw:grow tw:flex-col tw:items-start',
-    'tw:w-(--notion-max-width) tw:max-w-full tw:leading-[1.85]',
+    'tw:w-(--notion-max-width) tw:max-w-full tw:leading-[1.65]',
     'tw:pb-[max(5vh,32px)]',
     fullWidth
       ? 'tw:px-[min(96px,8vw)] tw:[--notion-max-width:min(1920px,98vw)]'
